@@ -59,11 +59,7 @@ class _AudioVisualizerState extends State<AudioVisualizer> {
       final sliderValue =
           elapsedDuration.inMilliseconds / maxDuration.inMilliseconds;
 
-      // if (sliderValue == widget.samples.length - 1) {
-      //   xAudio = widget.samples.length + 1;
-      // } else {
       xAudio = (data.length * sliderValue).toInt();
-      // }
     });
 
     super.didUpdateWidget(oldWidget);
