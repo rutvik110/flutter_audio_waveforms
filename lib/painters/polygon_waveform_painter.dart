@@ -17,8 +17,7 @@ class PolygonWaveformPainter extends CustomPainter {
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
-      ..style = PaintingStyle.fill
-      ..strokeWidth = 1.0
+      ..style = PaintingStyle.stroke
       ..color = color
       ..shader = shader;
 
@@ -33,11 +32,29 @@ class PolygonWaveformPainter extends CustomPainter {
     }
 
     canvas.drawPoints(PointMode.polygon, offsets, paint);
+
+    //Active track
+    //  painter for continuous path
+    final continousActivePaint = Paint()
+      ..style = PaintingStyle.stroke
+      ..color = Colors.red
+      ..shader = shader;
+    List<double> movingPointsList =
+        List.generate(sliderValue, (index) => samples[index]);
+    List<Offset> activeOffsets = [];
+
+    for (var i = 0; i < movingPointsList.length; i++) {
+      final double x = i == samples.length - 1 ? size.width : width * i;
+      final double y = i == samples.length - 1 ? 0 : samples[i] * size.height;
+
+      activeOffsets.add(Offset(x, y));
+    }
+    canvas.drawPoints(PointMode.polygon, activeOffsets, continousActivePaint);
   }
 
   @override
   bool shouldRepaint(covariant PolygonWaveformPainter oldDelegate) {
     // TODO: implement shouldRepaint
-    return samples != oldDelegate.samples;
+    return true;
   }
 }
