@@ -39,10 +39,10 @@ class _HomeState extends State<Home> {
   double sliderValue = 0;
 
   Future<void> parseData() async {
-    final jsonString = await rootBundle.loadString('assets/dm.json');
+    final jsonString = await rootBundle.loadString('assets/soy.json');
     final dataPoints = await compute(loadparseJson, jsonString);
-    await audioPlayer.load('/dance_monkey.mp3');
-    await audioPlayer.play('/dance_monkey.mp3');
+    await audioPlayer.load('/shape_of_you.mp3');
+    await audioPlayer.play('/shape_of_you.mp3');
     maxDuration = await audioPlayer.fixedPlayer!.getDuration();
     setState(() {
       samples = dataPoints;
@@ -87,13 +87,16 @@ class _HomeState extends State<Home> {
             children: [
               Padding(
                 padding: const EdgeInsets.all(20.0),
-                child: AudioVisualizer(
-                  maxDuration: Duration(milliseconds: maxDuration),
-                  elapsedDuration: elapsedDuration,
-                  samples: samples,
-                  height: 50,
-                  width: MediaQuery.of(context).size.width,
-                  waveFormType: WaveFormType.polygon,
+                child: Container(
+                  // color: Colors.white,
+                  child: AudioVisualizer(
+                    maxDuration: Duration(milliseconds: maxDuration),
+                    elapsedDuration: elapsedDuration,
+                    samples: samples,
+                    height: 100,
+                    width: MediaQuery.of(context).size.width,
+                    waveFormType: WaveFormType.rounded,
+                  ),
                 ),
               ),
               Slider(
@@ -101,6 +104,9 @@ class _HomeState extends State<Home> {
                 min: 0,
                 activeColor: Colors.red,
                 max: 1,
+                onChangeEnd: (double value) async {
+                  //    await audioPlayer.fixedPlayer!.resume();
+                },
                 onChanged: (val) {
                   setState(() {
                     sliderValue = val;
