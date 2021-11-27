@@ -93,7 +93,7 @@ class _HomeState extends State<Home> {
                   samples: samples,
                   height: 50,
                   width: MediaQuery.of(context).size.width,
-                  waveFormType: WaveFormType.rounded,
+                  waveFormType: WaveFormType.polygon,
                 ),
               ),
               Slider(
