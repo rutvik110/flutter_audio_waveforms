@@ -6,7 +6,7 @@ List<double> loadparseJson(String jsonBody) {
   final data = jsonDecode(jsonBody);
   final List<int> points = List.castFrom<dynamic, int>(data['data']);
   List<int> filteredData = [];
-  const int samples = 10000;
+  const int samples = 256;
   final double blockSize = points.length / samples;
 
   for (int i = 0; i < samples; i++) {
@@ -29,6 +29,7 @@ List<double> loadparseJson(String jsonBody) {
   final maxNum = filteredData.reduce(math.max);
 
   final double multiplier = math.pow(maxNum, -1).toDouble();
-
+  print("M+" + multiplier.toString());
+  filteredData.add(0);
   return filteredData.map<double>((e) => (e * multiplier)).toList();
 }
