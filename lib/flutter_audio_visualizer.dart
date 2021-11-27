@@ -37,6 +37,7 @@ class _AudioVisualizerState extends State<AudioVisualizer> {
   late Duration maxDuration;
   late Duration elapsedDuration;
   late int xAudio;
+  late double sliderValue;
 
   @override
   void initState() {
@@ -47,6 +48,7 @@ class _AudioVisualizerState extends State<AudioVisualizer> {
     maxDuration = widget.maxDuration;
     elapsedDuration = widget.elapsedDuration;
     xAudio = 0;
+    sliderValue = 0;
   }
 
   @override
@@ -56,8 +58,7 @@ class _AudioVisualizerState extends State<AudioVisualizer> {
       data = widget.samples;
       maxDuration = widget.maxDuration;
       elapsedDuration = widget.elapsedDuration;
-      final sliderValue =
-          elapsedDuration.inMilliseconds / maxDuration.inMilliseconds;
+      sliderValue = elapsedDuration.inMilliseconds / maxDuration.inMilliseconds;
 
       xAudio = (data.length * sliderValue).toInt();
     });
@@ -84,7 +85,8 @@ class _AudioVisualizerState extends State<AudioVisualizer> {
           size: Size(widget.width, widget.height),
           painter: RoundedWaveformPainter(
             samples: data,
-            sliderValue: xAudio,
+            xAudioPosition: xAudio,
+            sliderValue: sliderValue,
             color: widget.color ?? Theme.of(context).primaryColor,
           ),
         );
