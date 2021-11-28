@@ -77,6 +77,6 @@ class SquigglyWaveformPainter extends CustomPainter {
   @override
   bool shouldRepaint(covariant SquigglyWaveformPainter oldDelegate) {
     // TODO: implement shouldRepaint
-    return true;
+    return xAudioPosition != oldDelegate.xAudioPosition;
   }
 }
