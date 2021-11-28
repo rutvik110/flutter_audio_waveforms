@@ -21,6 +21,7 @@ class SquigglyWaveformPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
+    canvas.translate(0, size.height / 2);
     List<double> processedSamples =
         samples.map((e) => e.abs() * size.height).toList();
     final maxNum = processedSamples.reduce(math.max);
@@ -51,13 +52,11 @@ class SquigglyWaveformPainter extends CustomPainter {
 
     final waveFormPath = Path();
 
-    waveFormPath.moveTo(0, size.height / 2);
     for (var i = 0; i < processedSamples2.length; i++) {
       final value = processedSamples2[i];
       final double x = pointWidth * i;
       final double x2 = pointWidth * (i + 1);
-      final double y2 =
-          i.isEven ? -value + size.height / 2 : value + size.height / 2;
+      final double y2 = i.isEven ? -value : value;
       final double diameter = x2 - x;
       final double radius = diameter / 2;
       waveFormPath.lineTo(x, y2);
