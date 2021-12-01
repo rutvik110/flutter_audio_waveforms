@@ -44,24 +44,23 @@ class PolygonWaveformPainter extends CustomPainter {
 
     canvas.drawPoints(PointMode.polygon, offsets, paint);
 
-    // //Active track
-    // //  painter for continuous path
-    // final continousActivePaint = Paint()
-    //   ..style = PaintingStyle.stroke
-    //   ..color = Colors.red
-    //   ..shader = shader;
-    // List<double> movingPointsList =
-    //     List.generate(sliderValue, (index) => processedSamples2[index]);
-    // List<Offset> activeOffsets = [];
+    //Active track
+    //  painter for continuous path
+    final continousActivePaint = Paint()
+      ..style = PaintingStyle.stroke
+      ..color = Colors.red
+      ..shader = shader;
+    List<double> movingPointsList =
+        List.generate(sliderValue, (index) => processedSamples2[index]);
+    List<Offset> activeOffsets = [];
 
-    // for (var i = 0; i < movingPointsList.length; i++) {
-    //   final double x =
-    //       i == processedSamples2.length - 1 ? size.width : width * i;
-    //   final double y = movingPointsList[i];
+    for (var i = 0; i < movingPointsList.length; i++) {
+      final double x = width * i;
+      final double y = movingPointsList[i];
 
-    //   activeOffsets.add(Offset(x, y));
-    // }
-    // canvas.drawPoints(PointMode.polygon, activeOffsets, continousActivePaint);
+      activeOffsets.add(Offset(x, y));
+    }
+    canvas.drawPoints(PointMode.polygon, activeOffsets, continousActivePaint);
   }
 
   @override
