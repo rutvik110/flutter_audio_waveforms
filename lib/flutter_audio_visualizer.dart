@@ -4,7 +4,7 @@ import 'dart:developer';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_visualizer/painters/polygon_waveform_painter.dart';
-import 'package:flutter_audio_visualizer/painters/rounded_waveform_painter.dart';
+import 'package:flutter_audio_visualizer/painters/squiggly_waveform_painter.dart';
 
 class AudioVisualizer extends StatefulWidget {
   const AudioVisualizer({
@@ -80,10 +80,10 @@ class _AudioVisualizerState extends State<AudioVisualizer> {
           ),
         );
 
-      case WaveFormType.rounded:
+      case WaveFormType.squiggly:
         return CustomPaint(
           size: Size(widget.width, widget.height),
-          painter: RoundedWaveformPainter(
+          painter: SquigglyWaveformPainter(
             samples: data,
             xAudioPosition: xAudio,
             sliderValue: sliderValue,
@@ -105,6 +105,6 @@ class _AudioVisualizerState extends State<AudioVisualizer> {
 
 enum WaveFormType {
   polygon,
-  rounded,
+  squiggly,
   rectangle,
 }
