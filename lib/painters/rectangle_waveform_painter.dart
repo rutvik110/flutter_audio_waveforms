@@ -25,19 +25,7 @@ class RectangleWaveformPainter extends CustomPainter {
     final paint = Paint()
       ..style = PaintingStyle.fill
       ..strokeWidth = 1.0
-      ..shader = const LinearGradient(
-          begin: Alignment.topCenter,
-          end: Alignment.bottomCenter,
-          colors: [
-            Colors.white,
-            Colors.white
-          ],
-          stops: [
-            0,
-            1,
-          ]).createShader(
-        Rect.fromLTWH(0, 0, size.width, size.height),
-      );
+      ..color = Colors.white;
     final strokePaint = Paint()
       ..style = PaintingStyle.stroke
       ..color = Color(0xFFb1cad5)
@@ -50,14 +38,17 @@ class RectangleWaveformPainter extends CustomPainter {
       final double y = processedSamples2[i];
 
       canvas.drawRect(
-        Rect.fromLTWH(x, 0, rectangelWidth, y == 0 ? 1 : y),
+        Rect.fromLTWH(x, 0, rectangelWidth, y),
         paint,
       );
       canvas.drawRect(
-        Rect.fromLTWH(x, 0, rectangelWidth, y == 0 ? 1 : y),
+        Rect.fromLTWH(x, 0, rectangelWidth, y),
         strokePaint,
       );
     }
+    //BaseLine
+    canvas.drawPoints(
+        PointMode.lines, [Offset(0, 0), Offset(size.width, 0)], paint);
     // final activeTrackPaint = Paint()
     //   ..style = PaintingStyle.fill
     //   ..strokeWidth = 1
@@ -86,6 +77,8 @@ class RectangleWaveformPainter extends CustomPainter {
     //   canvas.drawRect(Rect.fromLTWH(x, 0, rectangelWidth, y == 0 ? 1 : y),
     //       activeTrackPaint);
     // }
+    // canvas.drawPoints(
+    //     PointMode.lines, [Offset(0, 0), Offset(size.width, 0)], activeTrackPaint);
   }
 
   @override
