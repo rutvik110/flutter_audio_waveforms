@@ -24,7 +24,8 @@ class SquigglyWaveformPainter extends CustomPainter {
     canvas.translate(0, size.height / 2);
     List<double> processedSamples =
         samples.map((e) => e.abs() * size.height).toList();
-    final maxNum = processedSamples.reduce(math.max);
+    final maxNum =
+        processedSamples.reduce((a, b) => math.max(a.abs(), b.abs()));
     final double multiplier = math.pow(maxNum, -1).toDouble();
 
     List<double> processedSamples2 =

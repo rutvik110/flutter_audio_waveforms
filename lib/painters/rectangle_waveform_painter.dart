@@ -16,7 +16,8 @@ class RectangleWaveformPainter extends CustomPainter {
     canvas.translate(0, size.height / 2);
     List<double> processedSamples =
         samples.map((e) => e * size.height).toList();
-    final maxNum = processedSamples.reduce(math.max);
+    final maxNum =
+        processedSamples.reduce((a, b) => math.max(a.abs(), b.abs()));
     final double multiplier = math.pow(maxNum, -1).toDouble();
 
     List<double> processedSamples2 =
@@ -47,38 +48,38 @@ class RectangleWaveformPainter extends CustomPainter {
       );
     }
     //BaseLine
-    canvas.drawPoints(
-        PointMode.lines, [Offset(0, 0), Offset(size.width, 0)], paint);
-    // final activeTrackPaint = Paint()
-    //   ..style = PaintingStyle.fill
-    //   ..strokeWidth = 1
-    //   ..shader = const LinearGradient(
-    //       begin: Alignment.topCenter,
-    //       end: Alignment.bottomCenter,
-    //       colors: [
-    //         Color(0xFFff3400),
-    //         Color(0xFFff6d00),
-    //       ],
-    //       stops: [
-    //         0,
-    //         1,
-    //       ]).createShader(
-    //     Rect.fromLTWH(0, 0, size.width, size.height),
-    //   );
+    canvas.drawPoints(PointMode.lines, [Offset(0, 0), Offset(size.width, 0)],
+        paint..color = Colors.white54);
+    final activeTrackPaint = Paint()
+      ..style = PaintingStyle.fill
+      ..strokeWidth = 1
+      ..shader = const LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [
+            Color(0xFFff3400),
+            Color(0xFFff6d00),
+          ],
+          stops: [
+            0,
+            1,
+          ]).createShader(
+        Rect.fromLTWH(0, 0, size.width, size.height),
+      );
 
-    // List<double> movingPointsList =
-    //     List.generate(sliderValue, (index) => processedSamples2[index]);
+    List<double> movingPointsList =
+        List.generate(sliderValue, (index) => processedSamples2[index]);
 
-    // for (var i = 0; i < movingPointsList.length; i++) {
-    //   final double x = rectangelWidth * i;
-    //   //make y abs to have one sided waveform
-    //   final double y = processedSamples2[i];
+    for (var i = 0; i < movingPointsList.length; i++) {
+      final double x = rectangelWidth * i;
+      //make y abs to have one sided waveform
+      final double y = processedSamples2[i];
 
-    //   canvas.drawRect(Rect.fromLTWH(x, 0, rectangelWidth, y == 0 ? 1 : y),
-    //       activeTrackPaint);
-    // }
-    // canvas.drawPoints(
-    //     PointMode.lines, [Offset(0, 0), Offset(size.width, 0)], activeTrackPaint);
+      canvas.drawRect(
+        Rect.fromLTWH(x, 0, rectangelWidth, y),
+        activeTrackPaint,
+      );
+    }
   }
 
   @override

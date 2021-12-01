@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'dart:math' as math;
 
 class PolygonWaveformPainter extends CustomPainter {
   PolygonWaveformPainter({
@@ -16,6 +17,16 @@ class PolygonWaveformPainter extends CustomPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
+    canvas.translate(0, size.height / 2);
+    List<double> processedSamples =
+        samples.map((e) => e * size.height).toList();
+
+    final maxNum =
+        processedSamples.reduce((a, b) => math.max(a.abs(), b.abs()));
+    final double multiplier = math.pow(maxNum, -1).toDouble();
+
+    List<double> processedSamples2 =
+        processedSamples.map((e) => e * multiplier * size.height / 2).toList();
     final paint = Paint()
       ..style = PaintingStyle.stroke
       ..color = color
@@ -24,9 +35,9 @@ class PolygonWaveformPainter extends CustomPainter {
     List<Offset> offsets = [];
     final double width = size.width / samples.length;
 
-    for (var i = 0; i < samples.length; i++) {
-      final double x = i == samples.length - 1 ? size.width : width * i;
-      final double y = i == samples.length - 1 ? 0 : samples[i] * size.height;
+    for (var i = 0; i < processedSamples2.length; i++) {
+      final double x = width * i;
+      final double y = processedSamples2[i];
 
       offsets.add(Offset(x, y));
     }
@@ -40,12 +51,12 @@ class PolygonWaveformPainter extends CustomPainter {
       ..color = Colors.red
       ..shader = shader;
     List<double> movingPointsList =
-        List.generate(sliderValue, (index) => samples[index]);
+        List.generate(sliderValue, (index) => processedSamples2[index]);
     List<Offset> activeOffsets = [];
 
     for (var i = 0; i < movingPointsList.length; i++) {
-      final double x = i == samples.length - 1 ? size.width : width * i;
-      final double y = i == samples.length - 1 ? 0 : samples[i] * size.height;
+      final double x = width * i;
+      final double y = movingPointsList[i];
 
       activeOffsets.add(Offset(x, y));
     }
