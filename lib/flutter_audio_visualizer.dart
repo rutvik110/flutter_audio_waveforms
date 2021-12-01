@@ -4,6 +4,7 @@ import 'dart:developer';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_visualizer/painters/polygon_waveform_painter.dart';
+import 'package:flutter_audio_visualizer/painters/rectangle_waveform_painter.dart';
 import 'package:flutter_audio_visualizer/painters/squiggly_waveform_painter.dart';
 
 class AudioVisualizer extends StatefulWidget {
@@ -93,10 +94,9 @@ class _AudioVisualizerState extends State<AudioVisualizer> {
       case WaveFormType.rectangle:
         return CustomPaint(
           size: Size(widget.width, widget.height),
-          painter: PolygonWaveformPainter(
+          painter: RectangleWaveformPainter(
             samples: data,
             sliderValue: xAudio,
-            color: widget.color ?? Theme.of(context).primaryColor,
           ),
         );
     }

@@ -95,7 +95,7 @@ class _HomeState extends State<Home> {
                     samples: samples,
                     height: 100,
                     width: MediaQuery.of(context).size.width,
-                    waveFormType: WaveFormType.squiggly,
+                    waveFormType: WaveFormType.rectangle,
                   ),
                 ),
               ),
