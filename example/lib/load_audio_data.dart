@@ -29,8 +29,7 @@ List<double> loadparseJson(String jsonBody) {
   final maxNum = filteredData.reduce(math.max);
 
   final double multiplier = math.pow(maxNum, -1).toDouble();
-  print("M+" + multiplier.toString());
   //Needed for having a waveform that ends at the 0 y level
-  filteredData.add(0);
+  // filteredData.add(0);
   return filteredData.map<double>((e) => (e * multiplier)).toList();
 }

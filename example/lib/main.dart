@@ -69,7 +69,6 @@ class _HomeState extends State<Home> {
     audioPlayer.fixedPlayer!.onAudioPositionChanged.listen((Duration p) {
       setState(() {
         elapsedDuration = p;
-        print(elapsedDuration.inMilliseconds);
       });
     });
   }
@@ -88,14 +87,14 @@ class _HomeState extends State<Home> {
               Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: Container(
-                  //   color: Colors.green,
+                  color: Colors.white,
                   child: AudioVisualizer(
                     maxDuration: Duration(milliseconds: maxDuration),
                     elapsedDuration: elapsedDuration,
                     samples: samples,
                     height: 100,
                     width: MediaQuery.of(context).size.width,
-                    waveFormType: WaveFormType.rectangle,
+                    waveFormType: WaveFormType.squiggly,
                   ),
                 ),
               ),
