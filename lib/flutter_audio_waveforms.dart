@@ -1,14 +1,14 @@
-library flutter_audio_visualizer;
+library flutter_audio_waveforms;
 
 import 'dart:developer';
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:flutter_audio_visualizer/painters/polygon_waveform_painter.dart';
-import 'package:flutter_audio_visualizer/painters/rectangle_waveform_painter.dart';
-import 'package:flutter_audio_visualizer/painters/squiggly_waveform_painter.dart';
+import 'package:flutter_audio_waveforms/painters/polygon_waveform_painter.dart';
+import 'package:flutter_audio_waveforms/painters/rectangle_waveform_painter.dart';
+import 'package:flutter_audio_waveforms/painters/squiggly_waveform_painter.dart';
 
-class AudioVisualizer extends StatefulWidget {
-  const AudioVisualizer({
+class AudioWaveforms extends StatefulWidget {
+  const AudioWaveforms({
     Key? key,
     required this.maxDuration,
     required this.elapsedDuration,
@@ -30,10 +30,10 @@ class AudioVisualizer extends StatefulWidget {
   final WaveFormType waveFormType;
 
   @override
-  State<AudioVisualizer> createState() => _AudioVisualizerState();
+  State<AudioWaveforms> createState() => _AudioWaveformsState();
 }
 
-class _AudioVisualizerState extends State<AudioVisualizer> {
+class _AudioWaveformsState extends State<AudioWaveforms> {
   late List<double> data;
   late Duration maxDuration;
   late Duration elapsedDuration;
@@ -53,7 +53,7 @@ class _AudioVisualizerState extends State<AudioVisualizer> {
   }
 
   @override
-  void didUpdateWidget(covariant AudioVisualizer oldWidget) {
+  void didUpdateWidget(covariant AudioWaveforms oldWidget) {
     // TODO: implement didUpdateWidget
     setState(() {
       data = widget.samples;
