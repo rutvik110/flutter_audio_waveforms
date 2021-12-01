@@ -87,7 +87,24 @@ class _HomeState extends State<Home> {
               Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: Container(
-                  color: Colors.white,
+                  //     color: Colors.white,
+                  child: AudioVisualizer(
+                    maxDuration: Duration(milliseconds: maxDuration),
+                    elapsedDuration: elapsedDuration,
+                    samples: samples,
+                    height: 100,
+                    width: MediaQuery.of(context).size.width,
+                    waveFormType: WaveFormType.polygon,
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Container(
+                  //      color: Colors.white,
                   child: AudioVisualizer(
                     maxDuration: Duration(milliseconds: maxDuration),
                     elapsedDuration: elapsedDuration,
@@ -95,6 +112,23 @@ class _HomeState extends State<Home> {
                     height: 100,
                     width: MediaQuery.of(context).size.width,
                     waveFormType: WaveFormType.squiggly,
+                  ),
+                ),
+              ),
+              SizedBox(
+                height: 20,
+              ),
+              Padding(
+                padding: const EdgeInsets.all(20.0),
+                child: Container(
+                  //  color: Colors.white,
+                  child: AudioVisualizer(
+                    maxDuration: Duration(milliseconds: maxDuration),
+                    elapsedDuration: elapsedDuration,
+                    samples: samples,
+                    height: 100,
+                    width: MediaQuery.of(context).size.width,
+                    waveFormType: WaveFormType.rectangle,
                   ),
                 ),
               ),
