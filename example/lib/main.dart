@@ -39,10 +39,10 @@ class _HomeState extends State<Home> {
   double sliderValue = 0;
 
   Future<void> parseData() async {
-    final jsonString = await rootBundle.loadString('assets/sp.json');
+    final jsonString = await rootBundle.loadString('assets/soy.json');
     final dataPoints = await compute(loadparseJson, jsonString);
-    await audioPlayer.load('/surface_pressure.mp3');
-    await audioPlayer.play('/surface_pressure.mp3');
+    await audioPlayer.load('/shape_of_you.mp3');
+    await audioPlayer.play('/shape_of_you.mp3');
     maxDuration = await audioPlayer.fixedPlayer!.getDuration();
     setState(() {
       samples = dataPoints;
@@ -88,7 +88,7 @@ class _HomeState extends State<Home> {
               Padding(
                 padding: const EdgeInsets.all(20.0),
                 child: Container(
-                  color: Colors.white,
+                  //   color: Colors.green,
                   child: AudioVisualizer(
                     maxDuration: Duration(milliseconds: maxDuration),
                     elapsedDuration: elapsedDuration,
