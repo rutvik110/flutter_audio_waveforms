@@ -5,7 +5,7 @@ import 'package:example/load_audio_data.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_audio_visualizer/flutter_audio_visualizer.dart';
+import 'package:flutter_audio_waveforms/flutter_audio_waveforms.dart';
 
 void main() {
   runApp(const MyApp());
@@ -88,7 +88,7 @@ class _HomeState extends State<Home> {
                 padding: const EdgeInsets.all(20.0),
                 child: Container(
                   //     color: Colors.white,
-                  child: AudioVisualizer(
+                  child: AudioWaveforms(
                     maxDuration: Duration(milliseconds: maxDuration),
                     elapsedDuration: elapsedDuration,
                     samples: samples,
@@ -105,7 +105,7 @@ class _HomeState extends State<Home> {
                 padding: const EdgeInsets.all(20.0),
                 child: Container(
                   //      color: Colors.white,
-                  child: AudioVisualizer(
+                  child: AudioWaveforms(
                     maxDuration: Duration(milliseconds: maxDuration),
                     elapsedDuration: elapsedDuration,
                     samples: samples,
@@ -122,7 +122,7 @@ class _HomeState extends State<Home> {
                 padding: const EdgeInsets.all(20.0),
                 child: Container(
                   //  color: Colors.white,
-                  child: AudioVisualizer(
+                  child: AudioWaveforms(
                     maxDuration: Duration(milliseconds: maxDuration),
                     elapsedDuration: elapsedDuration,
                     samples: samples,

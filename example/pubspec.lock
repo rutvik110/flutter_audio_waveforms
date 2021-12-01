@@ -90,7 +90,7 @@ packages:
     description: flutter
     source: sdk
     version: "0.0.0"
-  flutter_audio_visualizer:
+  flutter_audio_waveforms:
     dependency: "direct main"
     description:
       path: "/Users/rutviktak/flutter_projects/flutter_plugins/flutter_audio_visualizer/"
