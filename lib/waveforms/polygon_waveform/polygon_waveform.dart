@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_waveforms/audio_waveform.dart';
-import 'package:flutter_audio_waveforms/waveforms/polygon_waveform/polygon_waveform_painter.dart';
+import 'package:flutter_audio_waveforms/waveforms/polygon_waveform/active_waveform_painter.dart';
+import 'package:flutter_audio_waveforms/waveforms/polygon_waveform/inactive_waveform_painter.dart';
 
 class PolygonWaveform extends AudioWaveform {
   const PolygonWaveform({
@@ -10,6 +11,10 @@ class PolygonWaveform extends AudioWaveform {
     required double width,
     required Duration maxDuration,
     required Duration elapsedDuration,
+    this.activeColor,
+    this.inactiveColor,
+    this.activeGradient,
+    this.inactiveGradient,
   }) : super(
           key: key,
           samples: samples,
@@ -18,6 +23,10 @@ class PolygonWaveform extends AudioWaveform {
           maxDuration: maxDuration,
           elapsedDuration: elapsedDuration,
         );
+  final Color? activeColor;
+  final Color? inactiveColor;
+  final Gradient? activeGradient;
+  final Gradient? inactiveGradient;
 
   @override
   AudioWaveformState<PolygonWaveform> createState() => _PolygonWaveformState();
@@ -26,15 +35,29 @@ class PolygonWaveform extends AudioWaveform {
 class _PolygonWaveformState extends AudioWaveformState<PolygonWaveform> {
   @override
   Widget build(BuildContext context) {
-    final samples = super.processedSamples;
-    final xAudioIndex = super.xAudio;
-    return CustomPaint(
-      size: Size(widget.width, widget.height),
-      painter: PolygonWaveformPainter(
-        samples: samples,
-        sliderValue: xAudioIndex,
-        color: Colors.blue,
-      ),
+    final processedSamples = this.processedSamples;
+    final activeIndex = this.activeIndex;
+    return Stack(
+      children: [
+        CustomPaint(
+          size: Size(widget.width, widget.height),
+          painter: PolygonInActiveWaveformPainter(
+            samples: processedSamples,
+            color: widget.inactiveColor ?? Colors.blue,
+            gradient: widget.inactiveGradient,
+          ),
+        ),
+        CustomPaint(
+          size: Size(widget.width, widget.height),
+          painter: PolygonActiveWaveformPainter(
+            samples: processedSamples,
+            activeIndex: activeIndex,
+            color: widget.activeColor ?? Colors.red,
+            activeSamples: [],
+            gradient: widget.activeGradient,
+          ),
+        ),
+      ],
     );
   }
 }

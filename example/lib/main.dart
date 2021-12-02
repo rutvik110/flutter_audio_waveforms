@@ -5,6 +5,7 @@ import 'package:example/load_audio_data.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_audio_waveforms/waveforms/polygon_waveform/active_waveform_painter.dart';
 import 'package:flutter_audio_waveforms/waveforms/polygon_waveform/polygon_waveform.dart';
 
 void main() {
@@ -84,26 +85,23 @@ class _HomeState extends State<Home> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              PolygonWaveform(
-                samples: samples,
-                height: 100,
-                width: MediaQuery.of(context).size.width,
-                maxDuration: Duration(milliseconds: maxDuration),
-                elapsedDuration: elapsedDuration,
+              Padding(
+                padding: const EdgeInsets.all(0.0),
+                child: Container(
+                  color: Colors.white,
+                  child: PolygonWaveform(
+                    maxDuration: Duration(milliseconds: maxDuration),
+                    elapsedDuration: elapsedDuration,
+                    samples: samples,
+                    height: 100,
+                    width: MediaQuery.of(context).size.width,
+                  ),
+                ),
               ),
-              // Padding(
-              //   padding: const EdgeInsets.all(20.0),
-              //   child: Container(
-              //     //     color: Colors.white,
-              //     child: AudioWaveforms(
-              //       maxDuration: Duration(milliseconds: maxDuration),
-              //       elapsedDuration: elapsedDuration,
-              //       samples: samples,
-              //       height: 100,
-              //       width: MediaQuery.of(context).size.width,
-              //       waveFormType: WaveFormType.polygon,
-              //     ),
-              //   ),
+              // Container(
+              //   height: 100,
+              //   width: MediaQuery.of(context).size.width,
+              //   color: Colors.red,
               // ),
               Slider(
                 value: sliderValue.clamp(0, 1),
