@@ -5,12 +5,12 @@ import 'package:flutter/material.dart';
 class PolygonWaveformPainter extends CustomPainter {
   PolygonWaveformPainter({
     required this.samples,
-    required this.sliderValue,
+    required this.activeIndex,
     required this.color,
     this.shader,
   });
   final List<double> samples;
-  final int sliderValue;
+  final int activeIndex;
   final Color color;
   final Shader? shader;
 
@@ -41,7 +41,7 @@ class PolygonWaveformPainter extends CustomPainter {
       ..color = Colors.red
       ..shader = shader;
     List<double> movingPointsList =
-        List.generate(sliderValue, (index) => samples[index]);
+        List.generate(activeIndex, (index) => samples[index]);
     List<Offset> activeOffsets = [];
 
     for (var i = 0; i < movingPointsList.length; i++) {

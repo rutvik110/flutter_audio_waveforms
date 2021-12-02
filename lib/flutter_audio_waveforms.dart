@@ -76,7 +76,7 @@ class _AudioWaveformsState extends State<AudioWaveforms> {
           size: Size(widget.width, widget.height),
           painter: PolygonWaveformPainter(
             samples: data,
-            sliderValue: xAudio,
+            activeIndex: xAudio,
             color: widget.color ?? Theme.of(context).primaryColor,
           ),
         );
