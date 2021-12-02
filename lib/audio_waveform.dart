@@ -24,20 +24,22 @@ abstract class AudioWaveform extends StatefulWidget {
 }
 
 abstract class AudioWaveformState<T extends AudioWaveform> extends State<T> {
+  List<double> get processedSamples => _processedSamples;
   @protected
-  late List<double> processedSamples;
+  late List<double> _processedSamples;
 
+  int get activeIndex => _activeIndex;
   @protected
-  late int activeIndex;
+  late int _activeIndex;
 
   @protected
   void _processSamples(List<double> samples) {
-    processedSamples = samples.map((e) => e * widget.height).toList();
+    _processedSamples = samples.map((e) => e * widget.height).toList();
 
     final maxNum =
-        processedSamples.reduce((a, b) => math.max(a.abs(), b.abs()));
+        _processedSamples.reduce((a, b) => math.max(a.abs(), b.abs()));
     final double multiplier = math.pow(maxNum, -1).toDouble();
-    processedSamples = processedSamples
+    _processedSamples = _processedSamples
         .map((e) => e * multiplier * widget.height / 2)
         .toList();
     setState(() {});
@@ -50,7 +52,7 @@ abstract class AudioWaveformState<T extends AudioWaveform> extends State<T> {
     double elapsedTimeRatio =
         elapsedDuration.inMilliseconds / maxDuration.inMilliseconds;
 
-    activeIndex = (processedSamples.length * elapsedTimeRatio).round();
+    _activeIndex = (_processedSamples.length * elapsedTimeRatio).round();
 
     setState(() {});
   }
@@ -58,11 +60,11 @@ abstract class AudioWaveformState<T extends AudioWaveform> extends State<T> {
   @override
   void initState() {
     super.initState();
-    processedSamples = widget.samples;
-    activeIndex = 0;
+    _processedSamples = widget.samples;
+    _activeIndex = 0;
 
-    if (processedSamples.isNotEmpty) {
-      _processSamples(processedSamples);
+    if (_processedSamples.isNotEmpty) {
+      _processSamples(_processedSamples);
     }
   }
 
