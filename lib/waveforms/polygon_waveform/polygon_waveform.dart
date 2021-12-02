@@ -26,12 +26,12 @@ class PolygonWaveform extends AudioWaveform {
 class _PolygonWaveformState extends AudioWaveformState<PolygonWaveform> {
   @override
   Widget build(BuildContext context) {
-    final samples = super.processedSamples;
-    final activeIndex = super.activeIndex;
+    final processedSamples = this.processedSamples;
+    final activeIndex = this.activeIndex;
     return CustomPaint(
       size: Size(widget.width, widget.height),
       painter: PolygonWaveformPainter(
-        samples: samples,
+        samples: processedSamples,
         activeIndex: activeIndex,
         color: Colors.blue,
       ),
