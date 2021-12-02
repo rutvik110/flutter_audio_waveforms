@@ -39,12 +39,14 @@ class _PolygonWaveformState extends AudioWaveformState<PolygonWaveform> {
     final activeIndex = this.activeIndex;
     return Stack(
       children: [
-        CustomPaint(
-          size: Size(widget.width, widget.height),
-          painter: PolygonInActiveWaveformPainter(
-            samples: processedSamples,
-            color: widget.inactiveColor ?? Colors.blue,
-            gradient: widget.inactiveGradient,
+        RepaintBoundary(
+          child: CustomPaint(
+            size: Size(widget.width, widget.height),
+            painter: PolygonInActiveWaveformPainter(
+              samples: processedSamples,
+              color: widget.inactiveColor ?? Colors.blue,
+              gradient: widget.inactiveGradient,
+            ),
           ),
         ),
         CustomPaint(
