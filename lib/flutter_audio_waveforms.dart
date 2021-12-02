@@ -3,7 +3,7 @@ library flutter_audio_waveforms;
 import 'dart:developer';
 import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:flutter_audio_waveforms/painters/polygon_waveform_painter.dart';
+import 'package:flutter_audio_waveforms/waveforms/polygon_waveform/polygon_waveform_painter.dart';
 import 'package:flutter_audio_waveforms/painters/rectangle_waveform_painter.dart';
 import 'package:flutter_audio_waveforms/painters/squiggly_waveform_painter.dart';
 
@@ -80,7 +80,6 @@ class _AudioWaveformsState extends State<AudioWaveforms> {
             color: widget.color ?? Theme.of(context).primaryColor,
           ),
         );
-
       case WaveFormType.squiggly:
         return CustomPaint(
           size: Size(widget.width, widget.height),
