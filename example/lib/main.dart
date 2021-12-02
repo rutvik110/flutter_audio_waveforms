@@ -5,7 +5,7 @@ import 'package:example/load_audio_data.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_audio_waveforms/flutter_audio_waveforms.dart';
+import 'package:flutter_audio_waveforms/waveforms/polygon_waveform/polygon_waveform.dart';
 
 void main() {
   runApp(const MyApp());
@@ -84,54 +84,27 @@ class _HomeState extends State<Home> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Container(
-                  //     color: Colors.white,
-                  child: AudioWaveforms(
-                    maxDuration: Duration(milliseconds: maxDuration),
-                    elapsedDuration: elapsedDuration,
-                    samples: samples,
-                    height: 100,
-                    width: MediaQuery.of(context).size.width,
-                    waveFormType: WaveFormType.polygon,
-                  ),
-                ),
+              PolygonWaveform(
+                samples: samples,
+                height: 100,
+                width: MediaQuery.of(context).size.width,
+                maxDuration: Duration(milliseconds: maxDuration),
+                elapsedDuration: elapsedDuration,
               ),
-              SizedBox(
-                height: 20,
-              ),
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Container(
-                  //      color: Colors.white,
-                  child: AudioWaveforms(
-                    maxDuration: Duration(milliseconds: maxDuration),
-                    elapsedDuration: elapsedDuration,
-                    samples: samples,
-                    height: 100,
-                    width: MediaQuery.of(context).size.width,
-                    waveFormType: WaveFormType.squiggly,
-                  ),
-                ),
-              ),
-              SizedBox(
-                height: 20,
-              ),
-              Padding(
-                padding: const EdgeInsets.all(20.0),
-                child: Container(
-                  //  color: Colors.white,
-                  child: AudioWaveforms(
-                    maxDuration: Duration(milliseconds: maxDuration),
-                    elapsedDuration: elapsedDuration,
-                    samples: samples,
-                    height: 100,
-                    width: MediaQuery.of(context).size.width,
-                    waveFormType: WaveFormType.rectangle,
-                  ),
-                ),
-              ),
+              // Padding(
+              //   padding: const EdgeInsets.all(20.0),
+              //   child: Container(
+              //     //     color: Colors.white,
+              //     child: AudioWaveforms(
+              //       maxDuration: Duration(milliseconds: maxDuration),
+              //       elapsedDuration: elapsedDuration,
+              //       samples: samples,
+              //       height: 100,
+              //       width: MediaQuery.of(context).size.width,
+              //       waveFormType: WaveFormType.polygon,
+              //     ),
+              //   ),
+              // ),
               Slider(
                 value: sliderValue.clamp(0, 1),
                 min: 0,

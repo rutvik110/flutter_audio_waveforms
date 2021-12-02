@@ -6,7 +6,7 @@ List<double> loadparseJson(String jsonBody) {
   final data = jsonDecode(jsonBody);
   final List<int> points = List.castFrom<dynamic, int>(data['data']);
   List<int> filteredData = [];
-  const int samples = 256;
+  const int samples = 100;
   final double blockSize = points.length / samples;
 
   for (int i = 0; i < samples; i++) {
