@@ -91,6 +91,7 @@ class _HomeState extends State<Home> {
                 maxDuration: Duration(milliseconds: maxDuration),
                 elapsedDuration: elapsedDuration,
               ),
+
               // Padding(
               //   padding: const EdgeInsets.all(20.0),
               //   child: Container(
