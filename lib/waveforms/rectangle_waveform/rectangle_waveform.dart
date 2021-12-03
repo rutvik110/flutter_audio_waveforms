@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_audio_waveforms/audio_waveform.dart';
 import 'package:flutter_audio_waveforms/waveforms/polygon_waveform/active_waveform_painter.dart';
 import 'package:flutter_audio_waveforms/waveforms/polygon_waveform/inactive_waveform_painter.dart';
+import 'package:flutter_audio_waveforms/waveforms/rectangle_waveform/active_waveform_painter.dart';
 import 'package:flutter_audio_waveforms/waveforms/rectangle_waveform/inactive_waveform_painter.dart';
 
 class RectangleWaveform extends AudioWaveform {
@@ -38,6 +39,7 @@ class _RectangleWaveformState extends AudioWaveformState<RectangleWaveform> {
   @override
   Widget build(BuildContext context) {
     final processedSamples = this.processedSamples;
+    final activeSamples = this.activeSamples;
     final activeIndex = this.activeIndex;
     return Stack(
       children: [
@@ -51,16 +53,16 @@ class _RectangleWaveformState extends AudioWaveformState<RectangleWaveform> {
             ),
           ),
         ),
-        // CustomPaint(
-        //   size: Size(widget.width, widget.height),
-        //   painter: PolygonActiveWaveformPainter(
-        //     samples: processedSamples,
-        //     activeIndex: activeIndex,
-        //     color: widget.activeColor ?? Colors.red,
-        //     activeSamples: [],
-        //     gradient: widget.activeGradient,
-        //   ),
-        // ),
+        CustomPaint(
+          size: Size(widget.width, widget.height),
+          painter: RectangleActiveWaveformPainter(
+            samples: processedSamples,
+            activeIndex: activeIndex,
+            color: widget.activeColor ?? Colors.red,
+            activeSamples: activeSamples,
+            gradient: widget.activeGradient,
+          ),
+        ),
       ],
     );
   }

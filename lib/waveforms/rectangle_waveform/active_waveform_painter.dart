@@ -21,24 +21,36 @@ class RectangleActiveWaveformPainter extends ActiveWaveformPainter {
   void paint(Canvas canvas, Size size) {
     canvas.translate(0, size.height / 2);
 
-    final continousActivePaint = Paint()
-      ..style = PaintingStyle.stroke
-      ..color = color
-      ..shader = gradient?.createShader(
+    final activeTrackPaint = Paint()
+      ..style = PaintingStyle.fill
+      ..strokeWidth = 1
+      ..shader = const LinearGradient(
+          begin: Alignment.topCenter,
+          end: Alignment.bottomCenter,
+          colors: [
+            Color(0xFFff3400),
+            Color(0xFFff6d00),
+          ],
+          stops: [
+            0,
+            1,
+          ]).createShader(
         Rect.fromLTWH(0, 0, size.width, size.height),
       );
-    final double width = size.width / samples.length;
+    final double rectangelWidth = size.width / samples.length;
 
     List<double> movingPointsList =
-        List.generate(activeIndex, (index) => samples[index]);
-    List<Offset> activeOffsets = [];
+        List.generate(activeIndex, (index) => activeSamples[index]);
 
     for (var i = 0; i < movingPointsList.length; i++) {
-      final double x = width * i;
-      final double y = movingPointsList[i];
+      final double x = rectangelWidth * i;
+      //make y abs to have one sided waveform
+      final double y = activeSamples[i];
 
-      activeOffsets.add(Offset(x, y));
+      canvas.drawRect(
+        Rect.fromLTWH(x, 0, rectangelWidth, y),
+        activeTrackPaint,
+      );
     }
-    canvas.drawPoints(PointMode.polygon, activeOffsets, continousActivePaint);
   }
 }
