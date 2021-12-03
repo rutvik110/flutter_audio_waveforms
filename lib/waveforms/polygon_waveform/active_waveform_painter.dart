@@ -29,13 +29,11 @@ class PolygonActiveWaveformPainter extends ActiveWaveformPainter {
       );
     final double width = size.width / samples.length;
 
-    List<double> movingPointsList =
-        List.generate(activeIndex, (index) => samples[index]);
     List<Offset> activeOffsets = [];
 
-    for (var i = 0; i < movingPointsList.length; i++) {
+    for (var i = 0; i < activeSamples.length; i++) {
       final double x = width * i;
-      final double y = movingPointsList[i];
+      final double y = activeSamples[i];
 
       activeOffsets.add(Offset(x, y));
     }

@@ -36,6 +36,8 @@ class _PolygonWaveformState extends AudioWaveformState<PolygonWaveform> {
   @override
   Widget build(BuildContext context) {
     final processedSamples = this.processedSamples;
+    final activeSamples = this.activeSamples;
+
     final activeIndex = this.activeIndex;
     return Stack(
       children: [
@@ -55,7 +57,7 @@ class _PolygonWaveformState extends AudioWaveformState<PolygonWaveform> {
             samples: processedSamples,
             activeIndex: activeIndex,
             color: widget.activeColor ?? Colors.red,
-            activeSamples: [],
+            activeSamples: activeSamples,
             gradient: widget.activeGradient,
           ),
         ),
