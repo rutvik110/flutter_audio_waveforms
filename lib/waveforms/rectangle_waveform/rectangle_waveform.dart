@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_waveforms/audio_waveform.dart';
-import 'package:flutter_audio_waveforms/waveforms/polygon_waveform/active_waveform_painter.dart';
-import 'package:flutter_audio_waveforms/waveforms/polygon_waveform/inactive_waveform_painter.dart';
 import 'package:flutter_audio_waveforms/waveforms/rectangle_waveform/active_waveform_painter.dart';
 import 'package:flutter_audio_waveforms/waveforms/rectangle_waveform/inactive_waveform_painter.dart';
 
