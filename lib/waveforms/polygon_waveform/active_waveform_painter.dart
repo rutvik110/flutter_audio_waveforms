@@ -41,10 +41,4 @@ class PolygonActiveWaveformPainter extends ActiveWaveformPainter {
     }
     canvas.drawPoints(PointMode.polygon, activeOffsets, continousActivePaint);
   }
-
-  @override
-  bool shouldRepaint(covariant PolygonActiveWaveformPainter oldDelegate) {
-    // TODO: implement shouldRepaint
-    return activeSamples.length != oldDelegate.samples.length;
-  }
 }

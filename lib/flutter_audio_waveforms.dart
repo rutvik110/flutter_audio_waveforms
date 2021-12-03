@@ -4,7 +4,6 @@ import 'dart:developer';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_waveforms/waveforms/polygon_waveform/polygon_waveform.dart';
-import 'package:flutter_audio_waveforms/waveforms/polygon_waveform/polygon_waveform_painter.dart';
 import 'package:flutter_audio_waveforms/painters/rectangle_waveform_painter.dart';
 import 'package:flutter_audio_waveforms/painters/squiggly_waveform_painter.dart';
 
