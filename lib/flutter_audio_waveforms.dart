@@ -80,12 +80,12 @@ class _AudioWaveformsState extends State<AudioWaveforms> {
           samples: data,
         );
       case WaveFormType.squiggly:
-        return SquigglyeWaveform(
+        return SquigglyWaveform(
           maxDuration: widget.maxDuration,
           elapsedDuration: elapsedDuration,
           samples: data,
-          height: 100,
-          width: MediaQuery.of(context).size.width,
+          width: widget.width,
+          height: widget.height,
         );
       case WaveFormType.rectangle:
         return RectangleWaveform(
