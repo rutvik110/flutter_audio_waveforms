@@ -16,8 +16,6 @@ class RectangleInActiveWaveformPainter extends InActiveWaveformPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    canvas.translate(0, size.height / 2);
-
     final paint = Paint()
       ..style = PaintingStyle.fill
       ..strokeWidth = 1.0
@@ -37,11 +35,11 @@ class RectangleInActiveWaveformPainter extends InActiveWaveformPainter {
       final double y = samples[i];
 
       canvas.drawRect(
-        Rect.fromLTWH(x, 0, rectangelWidth, y),
+        Rect.fromLTWH(x, size.height / 2, rectangelWidth, y),
         paint,
       );
       canvas.drawRect(
-        Rect.fromLTWH(x, 0, rectangelWidth, y),
+        Rect.fromLTWH(x, size.height / 2, rectangelWidth, y),
         strokePaint,
       );
     }

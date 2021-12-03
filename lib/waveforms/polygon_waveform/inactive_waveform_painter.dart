@@ -16,8 +16,6 @@ class PolygonInActiveWaveformPainter extends InActiveWaveformPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    canvas.translate(0, size.height / 2);
-
     final paint = Paint()
       ..style = PaintingStyle.stroke
       ..color = color
@@ -25,15 +23,15 @@ class PolygonInActiveWaveformPainter extends InActiveWaveformPainter {
         Rect.fromLTWH(0, 0, size.width, size.height),
       );
 
-    List<Offset> offsets = [];
     final double width = size.width / samples.length;
+    final path = Path();
 
     for (var i = 0; i < samples.length; i++) {
       final double x = width * i;
       final double y = samples[i];
-      offsets.add(Offset(x, y));
+      path.lineTo(x, y);
     }
-
-    canvas.drawPoints(PointMode.polygon, offsets, paint);
+    final centeredPath = path.shift(Offset(0, size.height / 2));
+    canvas.drawPath(centeredPath, paint);
   }
 }

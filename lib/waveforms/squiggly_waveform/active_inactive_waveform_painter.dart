@@ -19,8 +19,6 @@ class SquigglyWaveformPainter extends ActiveInActiveWaveformPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    canvas.translate(0, size.height / 2);
-
     final double pointWidth = size.width / samples.length;
 
     final paint = Paint()
@@ -63,6 +61,8 @@ class SquigglyWaveformPainter extends ActiveInActiveWaveformPainter {
       );
       waveFormPath.lineTo(x2, y2);
     }
-    canvas.drawPath(waveFormPath, paint);
+
+    final centeredPath = waveFormPath.shift(Offset(0, size.height / 2));
+    canvas.drawPath(centeredPath, paint);
   }
 }

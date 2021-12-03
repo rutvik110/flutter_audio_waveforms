@@ -19,8 +19,6 @@ class PolygonActiveWaveformPainter extends ActiveWaveformPainter {
 
   @override
   void paint(Canvas canvas, Size size) {
-    canvas.translate(0, size.height / 2);
-
     final continousActivePaint = Paint()
       ..style = PaintingStyle.stroke
       ..color = color
@@ -29,14 +27,15 @@ class PolygonActiveWaveformPainter extends ActiveWaveformPainter {
       );
     final double width = size.width / samples.length;
 
-    List<Offset> activeOffsets = [];
+    final path = Path();
 
     for (var i = 0; i < activeSamples.length; i++) {
       final double x = width * i;
       final double y = activeSamples[i];
 
-      activeOffsets.add(Offset(x, y));
+      path.lineTo(x, y);
     }
-    canvas.drawPoints(PointMode.polygon, activeOffsets, continousActivePaint);
+    final centeredPath = path.shift(Offset(0, size.height / 2));
+    canvas.drawPath(centeredPath, continousActivePaint);
   }
 }
