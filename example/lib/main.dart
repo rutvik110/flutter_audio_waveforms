@@ -91,25 +91,25 @@ class _HomeState extends State<Home> {
               Padding(
                 padding: const EdgeInsets.all(0.0),
                 child: Container(
-                  //   color: Colors.white,
-                  child: SquigglyWaveform(
+                  color: Colors.white24,
+                  child: PolygonWaveform(
                     maxDuration: Duration(milliseconds: maxDuration),
                     elapsedDuration: elapsedDuration,
                     samples: samples,
                     height: 100,
-                    showActiveWaveform: false,
+                    showActiveWaveform: true,
                     width: MediaQuery.of(context).size.width,
-                    // activeGradient: const LinearGradient(
-                    //     begin: Alignment.topCenter,
-                    //     end: Alignment.bottomCenter,
-                    //     colors: [
-                    //       Color(0xFFff3400),
-                    //       Color(0xFFff6d00),
-                    //     ],
-                    //     stops: [
-                    //       0,
-                    //       1,
-                    //     ]),
+                    activeGradient: const LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          Color(0xFFff3400),
+                          Color(0xFFff6d00),
+                        ],
+                        stops: [
+                          0,
+                          1,
+                        ]),
                   ),
                 ),
               ),
