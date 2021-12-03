@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_audio_waveforms/audio_waveform.dart';
+import 'package:flutter_audio_waveforms/audio_waveform_stateful_ab.dart';
 import 'package:flutter_audio_waveforms/waveforms/squiggly_waveform/active_inactive_waveform_painter.dart';
 
 class SquigglyeWaveform extends AudioWaveform {
@@ -32,9 +32,14 @@ class SquigglyeWaveform extends AudioWaveform {
 class _SquigglyeWaveformState extends AudioWaveformState<SquigglyeWaveform> {
   @override
   Widget build(BuildContext context) {
+    if (widget.samples.isEmpty) {
+      return const SizedBox.shrink();
+    }
+
     final processedSamples = this.processedSamples;
     final activeRatio =
         elapsedDuration.inMilliseconds / maxDuration.inMilliseconds;
+
     return CustomPaint(
       size: Size(widget.width, widget.height),
       willChange: true,

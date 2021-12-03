@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_audio_waveforms/audio_waveform.dart';
+import 'package:flutter_audio_waveforms/audio_waveform_stateful_ab.dart';
 import 'package:flutter_audio_waveforms/waveforms/polygon_waveform/active_waveform_painter.dart';
 import 'package:flutter_audio_waveforms/waveforms/polygon_waveform/inactive_waveform_painter.dart';
 
@@ -35,6 +35,9 @@ class PolygonWaveform extends AudioWaveform {
 class _PolygonWaveformState extends AudioWaveformState<PolygonWaveform> {
   @override
   Widget build(BuildContext context) {
+    if (widget.samples.isEmpty) {
+      return const SizedBox.shrink();
+    }
     final processedSamples = this.processedSamples;
     final activeSamples = this.activeSamples;
 

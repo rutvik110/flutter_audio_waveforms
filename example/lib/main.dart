@@ -8,7 +8,6 @@ import 'package:flutter/services.dart';
 import 'package:flutter_audio_waveforms/waveforms/polygon_waveform/active_waveform_painter.dart';
 import 'package:flutter_audio_waveforms/waveforms/polygon_waveform/polygon_waveform.dart';
 import 'package:flutter_audio_waveforms/waveforms/rectangle_waveform/rectangle_waveform.dart';
-import 'package:flutter_audio_waveforms/waveforms/squiggly_waveform/squiggly_waveform.dart';
 
 void main() {
   runApp(const MyApp());
@@ -42,10 +41,10 @@ class _HomeState extends State<Home> {
   double sliderValue = 0;
 
   Future<void> parseData() async {
-    final jsonString = await rootBundle.loadString('assets/soy.json');
+    final jsonString = await rootBundle.loadString('assets/sp.json');
     final dataPoints = await compute(loadparseJson, jsonString);
-    await audioPlayer.load('/shape_of_you.mp3');
-    await audioPlayer.play('/shape_of_you.mp3');
+    await audioPlayer.load('/surface_pressure.mp3');
+    await audioPlayer.play('/surface_pressure.mp3');
     maxDuration = await audioPlayer.fixedPlayer!.getDuration();
     setState(() {
       samples = dataPoints;
@@ -91,12 +90,23 @@ class _HomeState extends State<Home> {
                 padding: const EdgeInsets.all(0.0),
                 child: Container(
                   //   color: Colors.white,
-                  child: SquigglyeWaveform(
+                  child: PolygonWaveform(
                     maxDuration: Duration(milliseconds: maxDuration),
                     elapsedDuration: elapsedDuration,
                     samples: samples,
                     height: 100,
                     width: MediaQuery.of(context).size.width,
+                    activeGradient: const LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          Color(0xFFff3400),
+                          Color(0xFFff6d00),
+                        ],
+                        stops: [
+                          0,
+                          1,
+                        ]),
                   ),
                 ),
               ),
