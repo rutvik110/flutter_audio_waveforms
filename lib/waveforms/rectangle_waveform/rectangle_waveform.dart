@@ -16,6 +16,7 @@ class RectangleWaveform extends AudioWaveform {
     this.activeGradient,
     this.inactiveGradient,
     bool showActiveWaveform = true,
+    bool absolute = false,
   }) : super(
           key: key,
           samples: samples,
@@ -24,6 +25,7 @@ class RectangleWaveform extends AudioWaveform {
           maxDuration: maxDuration,
           elapsedDuration: elapsedDuration,
           showActiveWaveform: showActiveWaveform,
+          absolute: absolute,
         );
   final Color? activeColor;
   final Color? inactiveColor;
