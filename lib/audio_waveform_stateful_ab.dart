@@ -66,8 +66,6 @@ abstract class AudioWaveformState<T extends AudioWaveform> extends State<T> {
 
     _activeIndex = (_processedSamples.length * elapsedTimeRatio).round();
 
-    _updateActiveSamples();
-
     setState(() {});
   }
 
@@ -95,10 +93,20 @@ abstract class AudioWaveformState<T extends AudioWaveform> extends State<T> {
     super.didUpdateWidget(oldWidget);
     if (widget.samples.length != oldWidget.samples.length) {
       _processSamples(widget.samples);
+      _updateActiveSamples();
+    }
+    if (widget.height != oldWidget.height || widget.width != oldWidget.width) {
+      _processSamples(widget.samples);
+      _updateActiveSamples();
+    }
+    if (widget.absolute != oldWidget.absolute) {
+      _processSamples(widget.samples);
+      _updateActiveSamples();
     }
     if (widget.showActiveWaveform) {
       if (widget.elapsedDuration != oldWidget.elapsedDuration) {
         _updateXAudio();
+        _updateActiveSamples();
       }
     }
   }
