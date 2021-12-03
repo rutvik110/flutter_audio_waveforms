@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_waveforms/audio_waveform.dart';
-import 'package:flutter_audio_waveforms/waveforms/polygon_waveform/active_waveform_painter.dart';
-import 'package:flutter_audio_waveforms/waveforms/polygon_waveform/inactive_waveform_painter.dart';
+import 'package:flutter_audio_waveforms/waveforms/rectangle_waveform/active_waveform_painter.dart';
+import 'package:flutter_audio_waveforms/waveforms/rectangle_waveform/inactive_waveform_painter.dart';
 
-class PolygonWaveform extends AudioWaveform {
-  const PolygonWaveform({
+class RectangleWaveform extends AudioWaveform {
+  const RectangleWaveform({
     Key? key,
     required List<double> samples,
     required double height,
@@ -29,22 +29,22 @@ class PolygonWaveform extends AudioWaveform {
   final Gradient? inactiveGradient;
 
   @override
-  AudioWaveformState<PolygonWaveform> createState() => _PolygonWaveformState();
+  AudioWaveformState<RectangleWaveform> createState() =>
+      _RectangleWaveformState();
 }
 
-class _PolygonWaveformState extends AudioWaveformState<PolygonWaveform> {
+class _RectangleWaveformState extends AudioWaveformState<RectangleWaveform> {
   @override
   Widget build(BuildContext context) {
     final processedSamples = this.processedSamples;
     final activeSamples = this.activeSamples;
-
     final activeIndex = this.activeIndex;
     return Stack(
       children: [
         RepaintBoundary(
           child: CustomPaint(
             size: Size(widget.width, widget.height),
-            painter: PolygonInActiveWaveformPainter(
+            painter: RectangleInActiveWaveformPainter(
               samples: processedSamples,
               color: widget.inactiveColor ?? Colors.blue,
               gradient: widget.inactiveGradient,
@@ -53,7 +53,7 @@ class _PolygonWaveformState extends AudioWaveformState<PolygonWaveform> {
         ),
         CustomPaint(
           size: Size(widget.width, widget.height),
-          painter: PolygonActiveWaveformPainter(
+          painter: RectangleActiveWaveformPainter(
             samples: processedSamples,
             activeIndex: activeIndex,
             color: widget.activeColor ?? Colors.red,

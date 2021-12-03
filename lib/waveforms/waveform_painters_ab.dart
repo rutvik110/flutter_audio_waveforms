@@ -27,9 +27,10 @@ abstract class ActiveWaveformPainter extends WaveformPainter {
   final List<double> activeSamples;
 
   @override
-  bool shouldRepaint(covariant ActiveInActiveWaveformPainter oldDelegate) {
+  bool shouldRepaint(covariant ActiveWaveformPainter oldDelegate) {
     // TODO: implement shouldRepaint
-    return activeSamples.length != oldDelegate.samples.length;
+
+    return activeSamples.length != oldDelegate.activeSamples.length;
   }
 }
 

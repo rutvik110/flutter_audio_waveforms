@@ -7,6 +7,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_audio_waveforms/waveforms/polygon_waveform/active_waveform_painter.dart';
 import 'package:flutter_audio_waveforms/waveforms/polygon_waveform/polygon_waveform.dart';
+import 'package:flutter_audio_waveforms/waveforms/rectangle_waveform/rectangle_waveform.dart';
 
 void main() {
   runApp(const MyApp());
@@ -88,13 +89,24 @@ class _HomeState extends State<Home> {
               Padding(
                 padding: const EdgeInsets.all(0.0),
                 child: Container(
-                  color: Colors.white,
-                  child: PolygonWaveform(
+                  //   color: Colors.white,
+                  child: RectangleWaveform(
                     maxDuration: Duration(milliseconds: maxDuration),
                     elapsedDuration: elapsedDuration,
                     samples: samples,
                     height: 100,
                     width: MediaQuery.of(context).size.width,
+                    activeGradient: const LinearGradient(
+                        begin: Alignment.topCenter,
+                        end: Alignment.bottomCenter,
+                        colors: [
+                          Color(0xFFff3400),
+                          Color(0xFFff6d00),
+                        ],
+                        stops: [
+                          0,
+                          1,
+                        ]),
                   ),
                 ),
               ),
