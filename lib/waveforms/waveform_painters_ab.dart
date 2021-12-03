@@ -50,17 +50,19 @@ abstract class InActiveWaveformPainter extends WaveformPainter {
 
 abstract class ActiveInActiveWaveformPainter extends WaveformPainter {
   ActiveInActiveWaveformPainter({
-    required Color color,
-    required Gradient? gradient,
+    required this.activeColor,
     required List<double> samples,
-    required this.activeIndex,
-    required this.activeSamples,
     required this.inactiveColor,
-    this.inactiveGradient,
-  }) : super(samples: samples, color: color, gradient: gradient);
+    required this.activeRatio,
+  }) : super(samples: samples, color: activeColor, gradient: null);
 
-  final int activeIndex;
   final Color inactiveColor;
-  final Gradient? inactiveGradient;
-  final List<double> activeSamples;
+  final Color activeColor;
+  final double activeRatio;
+
+  @override
+  bool shouldRepaint(covariant ActiveInActiveWaveformPainter oldDelegate) {
+    // TODO: implement shouldRepaint
+    return activeRatio != oldDelegate.activeRatio;
+  }
 }

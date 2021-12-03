@@ -11,6 +11,7 @@ abstract class AudioWaveform extends StatefulWidget {
     required this.width,
     required this.maxDuration,
     required this.elapsedDuration,
+    this.absolute = false,
   }) : super(key: key);
 
   final List<double> samples;
@@ -18,6 +19,7 @@ abstract class AudioWaveform extends StatefulWidget {
   final double width;
   final Duration maxDuration;
   final Duration elapsedDuration;
+  final bool absolute;
 
   @override
   AudioWaveformState<AudioWaveform> createState();
@@ -33,12 +35,17 @@ abstract class AudioWaveformState<T extends AudioWaveform> extends State<T> {
   late int _activeIndex;
 
   List<double> get activeSamples => _activeSamples;
-
   late List<double> _activeSamples;
+
+  Duration get maxDuration => widget.maxDuration;
+  Duration get elapsedDuration => widget.elapsedDuration;
 
   @protected
   void _processSamples(List<double> samples) {
-    _processedSamples = samples.map((e) => e * widget.height).toList();
+    _processedSamples = samples
+        .map((e) =>
+            widget.absolute ? e.abs() * widget.height : e * widget.height)
+        .toList();
 
     final maxNum =
         _processedSamples.reduce((a, b) => math.max(a.abs(), b.abs()));
@@ -51,8 +58,6 @@ abstract class AudioWaveformState<T extends AudioWaveform> extends State<T> {
 
   @protected
   void _updateXAudio() {
-    Duration maxDuration = widget.maxDuration;
-    Duration elapsedDuration = widget.elapsedDuration;
     double elapsedTimeRatio =
         elapsedDuration.inMilliseconds / maxDuration.inMilliseconds;
 

@@ -4,8 +4,8 @@ import 'dart:developer';
 import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_waveforms/waveforms/polygon_waveform/polygon_waveform.dart';
-import 'package:flutter_audio_waveforms/painters/squiggly_waveform_painter.dart';
 import 'package:flutter_audio_waveforms/waveforms/rectangle_waveform/rectangle_waveform.dart';
+import 'package:flutter_audio_waveforms/waveforms/squiggly_waveform/squiggly_waveform.dart';
 
 class AudioWaveforms extends StatefulWidget {
   const AudioWaveforms({
@@ -80,14 +80,12 @@ class _AudioWaveformsState extends State<AudioWaveforms> {
           samples: data,
         );
       case WaveFormType.squiggly:
-        return CustomPaint(
-          size: Size(widget.width, widget.height),
-          painter: SquigglyWaveformPainter(
-            samples: data,
-            xAudioPosition: xAudio,
-            sliderValue: sliderValue,
-            color: widget.color ?? Theme.of(context).primaryColor,
-          ),
+        return SquigglyeWaveform(
+          maxDuration: widget.maxDuration,
+          elapsedDuration: elapsedDuration,
+          samples: data,
+          height: 100,
+          width: MediaQuery.of(context).size.width,
         );
       case WaveFormType.rectangle:
         return RectangleWaveform(
