@@ -25,6 +25,12 @@ abstract class ActiveWaveformPainter extends WaveformPainter {
 
   final int activeIndex;
   final List<double> activeSamples;
+
+  @override
+  bool shouldRepaint(covariant ActiveInActiveWaveformPainter oldDelegate) {
+    // TODO: implement shouldRepaint
+    return activeSamples.length != oldDelegate.samples.length;
+  }
 }
 
 abstract class InActiveWaveformPainter extends WaveformPainter {
@@ -33,6 +39,12 @@ abstract class InActiveWaveformPainter extends WaveformPainter {
     required Gradient? gradient,
     required List<double> samples,
   }) : super(samples: samples, color: color, gradient: gradient);
+
+  @override
+  bool shouldRepaint(covariant InActiveWaveformPainter oldDelegate) {
+    // TODO: implement shouldRepaint
+    return samples.length != oldDelegate.samples.length;
+  }
 }
 
 abstract class ActiveInActiveWaveformPainter extends WaveformPainter {

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'dart:ui';
 
-import 'package:flutter_audio_waveforms/waveforms/polygon_waveform/waveform_painters_ab.dart';
+import 'package:flutter_audio_waveforms/waveforms/waveform_painters_ab.dart';
 
 class PolygonInActiveWaveformPainter extends InActiveWaveformPainter {
   PolygonInActiveWaveformPainter({
@@ -35,11 +35,5 @@ class PolygonInActiveWaveformPainter extends InActiveWaveformPainter {
     }
 
     canvas.drawPoints(PointMode.polygon, offsets, paint);
-  }
-
-  @override
-  bool shouldRepaint(covariant PolygonInActiveWaveformPainter oldDelegate) {
-    // TODO: implement shouldRepaint
-    return samples.length != oldDelegate.samples.length;
   }
 }
