@@ -12,8 +12,6 @@ class SquigglyeWaveform extends AudioWaveform {
     required Duration elapsedDuration,
     this.activeColor,
     this.inactiveColor,
-    this.activeGradient,
-    this.inactiveGradient,
   }) : super(
           key: key,
           samples: samples,
@@ -25,8 +23,6 @@ class SquigglyeWaveform extends AudioWaveform {
         );
   final Color? activeColor;
   final Color? inactiveColor;
-  final Gradient? activeGradient;
-  final Gradient? inactiveGradient;
 
   @override
   AudioWaveformState<SquigglyeWaveform> createState() =>
