@@ -32,6 +32,10 @@ abstract class AudioWaveformState<T extends AudioWaveform> extends State<T> {
   @protected
   late int _activeIndex;
 
+  List<double> get activeSamples => _activeSamples;
+
+  late List<double> _activeSamples;
+
   @protected
   void _processSamples(List<double> samples) {
     _processedSamples = samples.map((e) => e * widget.height).toList();
@@ -54,14 +58,23 @@ abstract class AudioWaveformState<T extends AudioWaveform> extends State<T> {
 
     _activeIndex = (_processedSamples.length * elapsedTimeRatio).round();
 
+    _updateActiveSamples();
+
     setState(() {});
+  }
+
+  @protected
+  void _updateActiveSamples() {
+    _activeSamples = _processedSamples.sublist(0, _activeIndex);
   }
 
   @override
   void initState() {
     super.initState();
+
     _processedSamples = widget.samples;
     _activeIndex = 0;
+    _activeSamples = [];
 
     if (_processedSamples.isNotEmpty) {
       _processSamples(_processedSamples);
