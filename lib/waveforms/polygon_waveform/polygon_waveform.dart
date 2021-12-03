@@ -15,6 +15,7 @@ class PolygonWaveform extends AudioWaveform {
     this.inactiveColor,
     this.activeGradient,
     this.inactiveGradient,
+    bool showActiveWaveform = true,
   }) : super(
           key: key,
           samples: samples,
@@ -22,6 +23,7 @@ class PolygonWaveform extends AudioWaveform {
           width: width,
           maxDuration: maxDuration,
           elapsedDuration: elapsedDuration,
+          showActiveWaveform: showActiveWaveform,
         );
   final Color? activeColor;
   final Color? inactiveColor;
@@ -42,6 +44,8 @@ class _PolygonWaveformState extends AudioWaveformState<PolygonWaveform> {
     final activeSamples = this.activeSamples;
 
     final activeIndex = this.activeIndex;
+    final showActiveWaveform = this.showActiveWaveform;
+
     return Stack(
       children: [
         RepaintBoundary(
@@ -54,16 +58,17 @@ class _PolygonWaveformState extends AudioWaveformState<PolygonWaveform> {
             ),
           ),
         ),
-        CustomPaint(
-          size: Size(widget.width, widget.height),
-          painter: PolygonActiveWaveformPainter(
-            samples: processedSamples,
-            activeIndex: activeIndex,
-            color: widget.activeColor ?? Colors.red,
-            activeSamples: activeSamples,
-            gradient: widget.activeGradient,
+        if (showActiveWaveform)
+          CustomPaint(
+            size: Size(widget.width, widget.height),
+            painter: PolygonActiveWaveformPainter(
+              samples: processedSamples,
+              activeIndex: activeIndex,
+              color: widget.activeColor ?? Colors.red,
+              activeSamples: activeSamples,
+              gradient: widget.activeGradient,
+            ),
           ),
-        ),
       ],
     );
   }

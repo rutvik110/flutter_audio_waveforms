@@ -15,6 +15,7 @@ class RectangleWaveform extends AudioWaveform {
     this.inactiveColor,
     this.activeGradient,
     this.inactiveGradient,
+    bool showActiveWaveform = true,
   }) : super(
           key: key,
           samples: samples,
@@ -22,6 +23,7 @@ class RectangleWaveform extends AudioWaveform {
           width: width,
           maxDuration: maxDuration,
           elapsedDuration: elapsedDuration,
+          showActiveWaveform: showActiveWaveform,
         );
   final Color? activeColor;
   final Color? inactiveColor;
@@ -42,6 +44,7 @@ class _RectangleWaveformState extends AudioWaveformState<RectangleWaveform> {
     final processedSamples = this.processedSamples;
     final activeSamples = this.activeSamples;
     final activeIndex = this.activeIndex;
+    final showActiveWaveform = this.showActiveWaveform;
     return Stack(
       children: [
         RepaintBoundary(
@@ -54,16 +57,17 @@ class _RectangleWaveformState extends AudioWaveformState<RectangleWaveform> {
             ),
           ),
         ),
-        CustomPaint(
-          size: Size(widget.width, widget.height),
-          painter: RectangleActiveWaveformPainter(
-            samples: processedSamples,
-            activeIndex: activeIndex,
-            color: widget.activeColor ?? Colors.red,
-            activeSamples: activeSamples,
-            gradient: widget.activeGradient,
+        if (showActiveWaveform)
+          CustomPaint(
+            size: Size(widget.width, widget.height),
+            painter: RectangleActiveWaveformPainter(
+              samples: processedSamples,
+              activeIndex: activeIndex,
+              color: widget.activeColor ?? Colors.red,
+              activeSamples: activeSamples,
+              gradient: widget.activeGradient,
+            ),
           ),
-        ),
       ],
     );
   }
