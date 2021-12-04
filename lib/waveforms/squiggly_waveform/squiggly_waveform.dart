@@ -62,10 +62,8 @@ class _SquigglyWaveformState extends AudioWaveformState<SquigglyWaveform> {
     final double activeRatio = showActiveWaveform
         ? elapsedDuration.inMilliseconds / maxDuration.inMilliseconds
         : 0;
-
     return CustomPaint(
       size: Size(widget.width, widget.height),
-      isComplex: true,
       willChange: true,
       painter: SquigglyWaveformPainter(
         samples: processedSamples,

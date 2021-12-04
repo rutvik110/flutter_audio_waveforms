@@ -62,6 +62,48 @@ class SquigglyWaveformPainter extends ActiveInActiveWaveformPainter {
       waveFormPath.lineTo(x2, y2);
     }
 
+    //For onesided downward
+    // for (var i = 0; i < samples.length; i++) {
+    //   final value = samples[i];
+    //   final double x = pointWidth * i;
+    //   final double x2 = pointWidth * (i + 1);
+    //   final double y2 = value;
+    //   final double diameter = x2 - x;
+    //   final double radius = diameter / 2;
+    //   waveFormPath.lineTo(x, y2);
+    //   waveFormPath.lineTo(x, y2 + diameter);
+    //   waveFormPath.addArc(
+    //     Rect.fromCircle(
+    //       center: Offset(x2 - radius, y2 + diameter),
+    //       radius: radius,
+    //     ),
+    //     -math.pi,
+    //     -math.pi,
+    //   );
+    //   waveFormPath.lineTo(x2, 0);
+    // }
+
+    //For onesided upward
+    // for (var i = 0; i < samples.length; i++) {
+    //   final value = samples[i];
+    //   final double x = pointWidth * i;
+    //   final double x2 = pointWidth * (i + 1);
+    //   final double y2 = -value;
+    //   final double diameter = x2 - x;
+    //   final double radius = diameter / 2;
+    //   waveFormPath.lineTo(x, y2);
+    //   waveFormPath.lineTo(x, y2 - diameter);
+    //   waveFormPath.addArc(
+    //     Rect.fromCircle(
+    //       center: Offset(x2 - radius, y2 - diameter),
+    //       radius: radius,
+    //     ),
+    //     math.pi,
+    //     math.pi,
+    //   );
+    //   waveFormPath.lineTo(x2, 0);
+    // }
+
     final centeredPath = waveFormPath.shift(Offset(0, size.height / 2));
     canvas.drawPath(centeredPath, paint);
   }
