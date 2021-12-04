@@ -1,7 +1,7 @@
-import 'dart:developer';
+import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
-import 'dart:math' as math;
+import 'package:flutter_audio_waveforms/helpers/waveform_align.dart';
 
 abstract class AudioWaveform extends StatefulWidget {
   const AudioWaveform({
@@ -14,7 +14,12 @@ abstract class AudioWaveform extends StatefulWidget {
     this.absolute = false,
     this.invert = false,
     required this.showActiveWaveform,
-  }) : super(key: key);
+  })  : waveformAlign = absolute
+            ? invert
+                ? WaveformAlign.top
+                : WaveformAlign.bottom
+            : WaveformAlign.center,
+        super(key: key);
 
   final List<double> samples;
   final double height;
@@ -24,6 +29,7 @@ abstract class AudioWaveform extends StatefulWidget {
   final bool absolute;
   final bool invert;
   final bool showActiveWaveform;
+  final WaveformAlign waveformAlign;
 
   @override
   AudioWaveformState<AudioWaveform> createState();
@@ -39,26 +45,30 @@ abstract class AudioWaveformState<T extends AudioWaveform> extends State<T> {
   late int _activeIndex;
 
   List<double> get activeSamples => _activeSamples;
+
+  @protected
   late List<double> _activeSamples;
 
   Duration get maxDuration => widget.maxDuration;
   Duration get elapsedDuration => widget.elapsedDuration;
   bool get showActiveWaveform => widget.showActiveWaveform;
+  bool get invert => widget.absolute ? !widget.invert : widget.invert;
+  bool get absolute => widget.absolute;
+  WaveformAlign get waveformAlign => widget.waveformAlign;
 
   @protected
   void _processSamples(List<double> samples) {
     _processedSamples = samples
-        .map((e) =>
-            widget.absolute ? e.abs() * widget.height : e * widget.height)
+        .map((e) => absolute ? e.abs() * widget.height : e * widget.height)
         .toList();
 
     final maxNum =
         _processedSamples.reduce((a, b) => math.max(a.abs(), b.abs()));
     final double multiplier = math.pow(maxNum, -1).toDouble();
-    final finaHeight = widget.absolute ? widget.height : widget.height / 2;
+    final finaHeight = absolute ? widget.height : widget.height / 2;
     _processedSamples = _processedSamples
         .map(
-          (e) => widget.invert
+          (e) => invert
               ? -e * multiplier * finaHeight
               : e * multiplier * finaHeight,
         )
