@@ -36,17 +36,22 @@ abstract class AudioWaveform extends StatefulWidget {
 }
 
 abstract class AudioWaveformState<T extends AudioWaveform> extends State<T> {
-  List<double> get processedSamples => _processedSamples;
-  @protected
   late List<double> _processedSamples;
 
-  int get activeIndex => _activeIndex;
+  List<double> get processedSamples => _processedSamples;
+
   @protected
+  void updateProcessedSamples(List<double> value) {
+    _processedSamples = value;
+    setState(() {});
+  }
+
+  int get activeIndex => _activeIndex;
+
   late int _activeIndex;
 
   List<double> get activeSamples => _activeSamples;
 
-  @protected
   late List<double> _activeSamples;
 
   Duration get maxDuration => widget.maxDuration;
@@ -57,7 +62,7 @@ abstract class AudioWaveformState<T extends AudioWaveform> extends State<T> {
   WaveformAlign get waveformAlign => widget.waveformAlign;
 
   @protected
-  void _processSamples(List<double> samples) {
+  void processSamples(List<double> samples) {
     _processedSamples = samples
         .map((e) => absolute ? e.abs() * widget.height : e * widget.height)
         .toList();
@@ -100,7 +105,7 @@ abstract class AudioWaveformState<T extends AudioWaveform> extends State<T> {
     _activeSamples = [];
 
     if (_processedSamples.isNotEmpty) {
-      _processSamples(_processedSamples);
+      processSamples(_processedSamples);
     }
   }
 
@@ -109,19 +114,19 @@ abstract class AudioWaveformState<T extends AudioWaveform> extends State<T> {
     // TODO: implement didUpdateWidget
     super.didUpdateWidget(oldWidget);
     if (widget.samples.length != oldWidget.samples.length) {
-      _processSamples(widget.samples);
+      processSamples(widget.samples);
       _updateActiveSamples();
     }
     if (widget.height != oldWidget.height || widget.width != oldWidget.width) {
-      _processSamples(widget.samples);
+      processSamples(widget.samples);
       _updateActiveSamples();
     }
     if (widget.absolute != oldWidget.absolute) {
-      _processSamples(widget.samples);
+      processSamples(widget.samples);
       _updateActiveSamples();
     }
     if (widget.invert != oldWidget.invert) {
-      _processSamples(widget.samples);
+      processSamples(widget.samples);
       _updateActiveSamples();
     }
     if (widget.showActiveWaveform) {
