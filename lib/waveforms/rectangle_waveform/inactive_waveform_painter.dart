@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_audio_waveforms/helpers/waveform_align.dart';
 import 'dart:ui';
 import 'dart:math' as math;
 import 'package:flutter_audio_waveforms/waveforms/waveform_painters_ab.dart';
@@ -8,10 +9,12 @@ class RectangleInActiveWaveformPainter extends InActiveWaveformPainter {
     Color color = Colors.white,
     Gradient? gradient,
     required List<double> samples,
+    required WaveformAlign waveformAlign,
   }) : super(
           samples: samples,
           color: color,
           gradient: gradient,
+          waveformAlign: waveformAlign,
         );
 
   @override
@@ -28,7 +31,6 @@ class RectangleInActiveWaveformPainter extends InActiveWaveformPainter {
       ..strokeWidth = 0;
 
     final double rectangelWidth = size.width / samples.length;
-
     for (var i = 0; i < samples.length; i++) {
       final double x = rectangelWidth * i;
       final double y = samples[i];

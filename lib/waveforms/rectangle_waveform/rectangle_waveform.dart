@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_waveforms/audio_waveform_stateful_ab.dart';
+import 'package:flutter_audio_waveforms/helpers/waveform_align.dart';
 import 'package:flutter_audio_waveforms/waveforms/rectangle_waveform/active_waveform_painter.dart';
 import 'package:flutter_audio_waveforms/waveforms/rectangle_waveform/inactive_waveform_painter.dart';
 
@@ -18,6 +19,7 @@ class RectangleWaveform extends AudioWaveform {
     bool showActiveWaveform = true,
     bool absolute = false,
     bool invert = false,
+    this.waveformAlign = WaveformAlign.center,
   }) : super(
           key: key,
           samples: samples,
@@ -33,6 +35,7 @@ class RectangleWaveform extends AudioWaveform {
   final Color? inactiveColor;
   final Gradient? activeGradient;
   final Gradient? inactiveGradient;
+  final WaveformAlign waveformAlign;
 
   @override
   AudioWaveformState<RectangleWaveform> createState() =>
@@ -58,6 +61,7 @@ class _RectangleWaveformState extends AudioWaveformState<RectangleWaveform> {
               samples: processedSamples,
               color: widget.inactiveColor ?? Colors.blue,
               gradient: widget.inactiveGradient,
+              waveformAlign: widget.waveformAlign,
             ),
           ),
         ),
@@ -70,6 +74,7 @@ class _RectangleWaveformState extends AudioWaveformState<RectangleWaveform> {
               color: widget.activeColor ?? Colors.red,
               activeSamples: activeSamples,
               gradient: widget.activeGradient,
+              waveformAlign: widget.waveformAlign,
             ),
           ),
       ],
