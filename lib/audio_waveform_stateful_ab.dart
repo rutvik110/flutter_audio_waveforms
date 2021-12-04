@@ -11,9 +11,9 @@ abstract class AudioWaveform extends StatefulWidget {
     required this.width,
     required this.maxDuration,
     required this.elapsedDuration,
+    required this.showActiveWaveform,
     this.absolute = false,
     this.invert = false,
-    required this.showActiveWaveform,
   })  : waveformAlign = absolute
             ? invert
                 ? WaveformAlign.top
