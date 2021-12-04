@@ -1,5 +1,4 @@
 import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_waveforms/helpers/waveform_align.dart';
 import 'dart:math' as math;
@@ -34,16 +33,11 @@ class SquigglyWaveformPainter extends ActiveInActiveWaveformPainter {
       ..strokeCap = StrokeCap.round
       ..strokeJoin = StrokeJoin.round
       ..shader = LinearGradient(
-          begin: const Alignment(-1.001, 0.0),
-          end: const Alignment(1.001, 0.0),
-          colors: [
-            activeColor,
-            inactiveColor
-          ],
-          stops: [
-            activeRatio,
-            0,
-          ]).createShader(
+        begin: const Alignment(-1.001, 0.0),
+        end: const Alignment(1.001, 0.0),
+        colors: [activeColor, inactiveColor],
+        stops: [activeRatio, 0],
+      ).createShader(
         Rect.fromLTWH(0, 0, size.width, size.height),
       );
 
@@ -58,8 +52,8 @@ class SquigglyWaveformPainter extends ActiveInActiveWaveformPainter {
 
     final alignPosition = waveformAlign.getAlignPosition(size.height);
 
-    final centeredPath = waveformPath.shift(Offset(0, alignPosition));
-    canvas.drawPath(centeredPath, paint);
+    final shiftedPath = waveformPath.shift(Offset(0, alignPosition));
+    canvas.drawPath(shiftedPath, paint);
   }
 
   void paintNormalWaveform(Path waveformPath, double pointWidth, bool invert) {

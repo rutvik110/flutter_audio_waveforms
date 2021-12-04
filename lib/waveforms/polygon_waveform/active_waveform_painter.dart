@@ -39,7 +39,7 @@ class PolygonActiveWaveformPainter extends ActiveWaveformPainter {
 
       path.lineTo(x, y);
     }
-    final centeredPath = path.shift(Offset(0, size.height / 2));
-    canvas.drawPath(centeredPath, continousActivePaint);
+    final shiftedPath = path.shift(Offset(0, size.height / 2));
+    canvas.drawPath(shiftedPath, continousActivePaint);
   }
 }

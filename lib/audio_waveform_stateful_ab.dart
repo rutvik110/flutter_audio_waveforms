@@ -1,5 +1,5 @@
+import 'dart:developer';
 import 'dart:math' as math;
-
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_waveforms/helpers/waveform_align.dart';
 

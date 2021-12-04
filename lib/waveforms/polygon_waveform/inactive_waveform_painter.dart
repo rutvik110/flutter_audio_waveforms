@@ -34,7 +34,7 @@ class PolygonInActiveWaveformPainter extends InActiveWaveformPainter {
       final double y = samples[i];
       path.lineTo(x, y);
     }
-    final centeredPath = path.shift(Offset(0, size.height / 2));
-    canvas.drawPath(centeredPath, paint);
+    final shiftedPath = path.shift(Offset(0, size.height / 2));
+    canvas.drawPath(shiftedPath, paint);
   }
 }

@@ -50,6 +50,7 @@ class _RectangleWaveformState extends AudioWaveformState<RectangleWaveform> {
     final activeIndex = this.activeIndex;
     final showActiveWaveform = this.showActiveWaveform;
     final waveformAlign = this.waveformAlign;
+
     return Stack(
       children: [
         RepaintBoundary(

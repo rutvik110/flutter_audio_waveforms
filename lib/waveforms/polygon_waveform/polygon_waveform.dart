@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_waveforms/audio_waveform_stateful_ab.dart';
-import 'package:flutter_audio_waveforms/helpers/waveform_align.dart';
 import 'package:flutter_audio_waveforms/waveforms/polygon_waveform/active_waveform_painter.dart';
 import 'package:flutter_audio_waveforms/waveforms/polygon_waveform/inactive_waveform_painter.dart';
 
@@ -17,7 +16,6 @@ class PolygonWaveform extends AudioWaveform {
     this.activeGradient,
     this.inactiveGradient,
     bool showActiveWaveform = true,
-    this.waveformAlign = WaveformAlign.center,
   }) : super(
           key: key,
           samples: samples,
@@ -31,7 +29,6 @@ class PolygonWaveform extends AudioWaveform {
   final Color? inactiveColor;
   final Gradient? activeGradient;
   final Gradient? inactiveGradient;
-  final WaveformAlign waveformAlign;
 
   @override
   AudioWaveformState<PolygonWaveform> createState() => _PolygonWaveformState();
