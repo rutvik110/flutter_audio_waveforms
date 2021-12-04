@@ -49,7 +49,7 @@ class SquigglyWaveformPainter extends ActiveInActiveWaveformPainter {
 
     final waveformPath = Path();
     if (!absolute) {
-      paintNormalSquiggle(waveformPath, pointWidth, invert);
+      paintNormalWaveform(waveformPath, pointWidth, invert);
     } else if (absolute && !invert) {
       upwardFacingAbsoluteWaveform(waveformPath, pointWidth);
     } else {
@@ -62,7 +62,7 @@ class SquigglyWaveformPainter extends ActiveInActiveWaveformPainter {
     canvas.drawPath(centeredPath, paint);
   }
 
-  void paintNormalSquiggle(Path waveformPath, double pointWidth, bool invert) {
+  void paintNormalWaveform(Path waveformPath, double pointWidth, bool invert) {
     for (var i = 0; i < samples.length; i++) {
       final value = samples[i];
       final bool upOrDown = invert ? i.isOdd : i.isEven;
