@@ -2,3 +2,32 @@ include: package:flutter_lints/flutter.yaml
 
 # Additional information about this file can be found at
 # https://dart.dev/guides/language/analysis-options
+
+analyzer:
+  exclude:
+    - test/
+  plugins:
+    - dart_code_metrics
+  strong-mode:
+    implicit-casts: false
+    implicit-dynamic: false
+
+dart_code_metrics:
+  metrics:
+    cyclomatic-complexity: 20
+    number-of-arguments: 1
+    maximum-nesting-level: 5
+  metrics-exclude:
+    - test/**
+  rules:
+    - newline-before-return
+    - no-boolean-literal-compare
+    - prefer-trailing-comma
+    - prefer-conditional-expressions
+    - no-equal-then-else
+  anti-patterns:
+    - long-method
+    - long-parameter-list
+
+
+  
