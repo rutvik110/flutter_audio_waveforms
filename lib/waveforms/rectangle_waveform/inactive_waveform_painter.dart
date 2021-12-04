@@ -18,7 +18,6 @@ class RectangleInActiveWaveformPainter extends InActiveWaveformPainter {
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
       ..style = PaintingStyle.fill
-      ..strokeWidth = 1.0
       ..color = color
       ..shader = gradient?.createShader(
         Rect.fromLTWH(0, 0, size.width, size.height),
@@ -26,7 +25,7 @@ class RectangleInActiveWaveformPainter extends InActiveWaveformPainter {
     final strokePaint = Paint()
       ..style = PaintingStyle.stroke
       ..color = Color(0xFFb1cad5)
-      ..strokeWidth = 0.2;
+      ..strokeWidth = 0;
 
     final double rectangelWidth = size.width / samples.length;
 
