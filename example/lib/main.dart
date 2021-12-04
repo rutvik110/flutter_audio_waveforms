@@ -89,37 +89,31 @@ class _HomeState extends State<Home> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              Container(
-                color: Colors.white24,
-                child: RectangleWaveform(
-                  maxDuration: Duration(milliseconds: maxDuration),
-                  elapsedDuration: elapsedDuration,
-                  samples: samples,
-                  height: 50,
-                  showActiveWaveform: true,
-                  absolute: true,
-                  invert: false,
-                  width: MediaQuery.of(context).size.width,
-                  activeColor: Colors.yellow,
-                  inactiveColor: Colors.white,
-                ),
-              ),
+              // Padding(
+              //     padding: const EdgeInsets.all(0.0),
+              //     child: Container(
+              //         color: Colors.white24,
+              //         child: SquigglyWaveform(
+              //           maxDuration: Duration(milliseconds: maxDuration),
+              //           elapsedDuration: elapsedDuration,
+              //           samples: samples,
+              //           height: 500,
+              //           width: MediaQuery.of(context).size.width,
+              //           absolute: true,
+              //           invert: false,
+              //         ))),
               Padding(
                 padding: const EdgeInsets.all(0.0),
                 child: Container(
                   color: Colors.white24,
-                  child: RectangleWaveform(
+                  child: SquigglyWaveform(
                     maxDuration: Duration(milliseconds: maxDuration),
                     elapsedDuration: elapsedDuration,
                     samples: samples,
-                    height: 50,
-                    showActiveWaveform: true,
-                    // absolute: true,
-                    invert: true,
+                    height: 100,
                     width: MediaQuery.of(context).size.width,
-                    activeColor: Colors.yellow,
-                    inactiveColor: Colors.white,
-
+                    absolute: false,
+                    invert: false,
                     // activeGradient: LinearGradient(
                     //     begin: Alignment.centerLeft,
                     //     end: Alignment.centerRight,
