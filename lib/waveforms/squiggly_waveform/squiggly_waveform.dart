@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_waveforms/audio_waveform_stateful_ab.dart';
 import 'package:flutter_audio_waveforms/waveforms/squiggly_waveform/active_inactive_waveform_painter.dart';
@@ -33,13 +35,31 @@ class SquigglyWaveform extends AudioWaveform {
 
 class _SquigglyWaveformState extends AudioWaveformState<SquigglyWaveform> {
   @override
+  void processSamples(List<double> samples) {
+    List<double> processedSamples = samples
+        .map((e) => absolute ? e.abs() * widget.height : e * widget.height)
+        .toList();
+
+    final maxNum =
+        processedSamples.reduce((a, b) => math.max(a.abs(), b.abs()));
+    final double multiplier = math.pow(maxNum, -1).toDouble();
+    final finaHeight = widget.height / 2;
+    processedSamples = processedSamples
+        .map(
+          (e) => e * multiplier * finaHeight,
+        )
+        .toList();
+    setState(() {});
+    updateProcessedSamples(processedSamples);
+  }
+
+  @override
   Widget build(BuildContext context) {
     if (widget.samples.isEmpty) {
       return const SizedBox.shrink();
     }
-
     final List<double> processedSamples = this.processedSamples;
-    final double activeRatio = this.showActiveWaveform
+    final double activeRatio = showActiveWaveform
         ? elapsedDuration.inMilliseconds / maxDuration.inMilliseconds
         : 0;
 
