@@ -55,8 +55,7 @@ abstract class AudioWaveformState<T extends AudioWaveform> extends State<T> {
     final maxNum =
         _processedSamples.reduce((a, b) => math.max(a.abs(), b.abs()));
     final double multiplier = math.pow(maxNum, -1).toDouble();
-    final finaHeight =
-        widget.invert && widget.absolute ? widget.height : widget.height / 2;
+    final finaHeight = widget.absolute ? widget.height : widget.height / 2;
     _processedSamples = _processedSamples
         .map(
           (e) => widget.invert
@@ -108,6 +107,10 @@ abstract class AudioWaveformState<T extends AudioWaveform> extends State<T> {
       _updateActiveSamples();
     }
     if (widget.absolute != oldWidget.absolute) {
+      _processSamples(widget.samples);
+      _updateActiveSamples();
+    }
+    if (widget.invert != oldWidget.invert) {
       _processSamples(widget.samples);
       _updateActiveSamples();
     }
