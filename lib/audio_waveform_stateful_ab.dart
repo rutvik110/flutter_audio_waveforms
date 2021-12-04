@@ -12,6 +12,7 @@ abstract class AudioWaveform extends StatefulWidget {
     required this.maxDuration,
     required this.elapsedDuration,
     this.absolute = false,
+    this.invert = false,
     required this.showActiveWaveform,
   }) : super(key: key);
 
@@ -21,6 +22,7 @@ abstract class AudioWaveform extends StatefulWidget {
   final Duration maxDuration;
   final Duration elapsedDuration;
   final bool absolute;
+  final bool invert;
   final bool showActiveWaveform;
 
   @override
@@ -53,8 +55,14 @@ abstract class AudioWaveformState<T extends AudioWaveform> extends State<T> {
     final maxNum =
         _processedSamples.reduce((a, b) => math.max(a.abs(), b.abs()));
     final double multiplier = math.pow(maxNum, -1).toDouble();
+    final finaHeight =
+        widget.invert && widget.absolute ? widget.height : widget.height / 2;
     _processedSamples = _processedSamples
-        .map((e) => e * multiplier * widget.height / 2)
+        .map(
+          (e) => widget.invert
+              ? -e * multiplier * finaHeight
+              : e * multiplier * finaHeight,
+        )
         .toList();
     setState(() {});
   }
