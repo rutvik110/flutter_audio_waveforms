@@ -36,6 +36,7 @@ class RectangleActiveWaveformPainter extends ActiveWaveformPainter {
       ..strokeWidth = 0;
 
     final double rectangelWidth = size.width / samples.length;
+    final alignPosition = waveformAlign.getAlignPosition(size.height);
 
     for (var i = 0; i < activeSamples.length; i++) {
       final double x = rectangelWidth * i;
@@ -43,11 +44,11 @@ class RectangleActiveWaveformPainter extends ActiveWaveformPainter {
       final double y = activeSamples[i];
 
       canvas.drawRect(
-        Rect.fromLTWH(x, size.height / 2, rectangelWidth, y),
+        Rect.fromLTWH(x, alignPosition, rectangelWidth, y),
         activeTrackPaint,
       );
       canvas.drawRect(
-        Rect.fromLTWH(x, size.height / 2, rectangelWidth, y),
+        Rect.fromLTWH(x, alignPosition, rectangelWidth, y),
         strokePaint,
       );
     }

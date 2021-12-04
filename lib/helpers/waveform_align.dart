@@ -5,7 +5,7 @@ enum WaveformAlign {
 }
 
 extension WaveformAlignExtension on WaveformAlign {
-  double getShift(double height) {
+  double getAlignPosition(double height) {
     switch (this) {
       case WaveformAlign.top:
         return 0;

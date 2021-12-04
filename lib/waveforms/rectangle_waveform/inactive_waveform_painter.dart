@@ -31,16 +31,17 @@ class RectangleInActiveWaveformPainter extends InActiveWaveformPainter {
       ..strokeWidth = 0;
 
     final double rectangelWidth = size.width / samples.length;
+    final alignPosition = waveformAlign.getAlignPosition(size.height);
     for (var i = 0; i < samples.length; i++) {
       final double x = rectangelWidth * i;
       final double y = samples[i];
 
       canvas.drawRect(
-        Rect.fromLTWH(x, size.height / 2, rectangelWidth, y),
+        Rect.fromLTWH(x, alignPosition, rectangelWidth, y),
         paint,
       );
       canvas.drawRect(
-        Rect.fromLTWH(x, size.height / 2, rectangelWidth, y),
+        Rect.fromLTWH(x, alignPosition, rectangelWidth, y),
         strokePaint,
       );
     }
