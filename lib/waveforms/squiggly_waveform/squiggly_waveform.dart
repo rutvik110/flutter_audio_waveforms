@@ -15,6 +15,8 @@ class SquigglyWaveform extends AudioWaveform {
     this.activeColor,
     this.inactiveColor,
     bool showActiveWaveform = true,
+    bool absolute = false,
+    bool invert = false,
   }) : super(
           key: key,
           samples: samples,
@@ -22,7 +24,8 @@ class SquigglyWaveform extends AudioWaveform {
           width: width,
           maxDuration: maxDuration,
           elapsedDuration: elapsedDuration,
-          absolute: true,
+          absolute: absolute,
+          invert: invert,
           showActiveWaveform: showActiveWaveform,
         );
   final Color? activeColor;
@@ -36,9 +39,8 @@ class SquigglyWaveform extends AudioWaveform {
 class _SquigglyWaveformState extends AudioWaveformState<SquigglyWaveform> {
   @override
   void processSamples(List<double> samples) {
-    List<double> processedSamples = samples
-        .map((e) => absolute ? e.abs() * widget.height : e * widget.height)
-        .toList();
+    List<double> processedSamples =
+        samples.map((e) => e.abs() * widget.height).toList();
 
     final maxNum =
         processedSamples.reduce((a, b) => math.max(a.abs(), b.abs()));
@@ -62,6 +64,8 @@ class _SquigglyWaveformState extends AudioWaveformState<SquigglyWaveform> {
     final double activeRatio = showActiveWaveform
         ? elapsedDuration.inMilliseconds / maxDuration.inMilliseconds
         : 0;
+    final waveformAlign = this.waveformAlign;
+
     return CustomPaint(
       size: Size(widget.width, widget.height),
       willChange: true,
@@ -70,6 +74,9 @@ class _SquigglyWaveformState extends AudioWaveformState<SquigglyWaveform> {
         activeColor: widget.activeColor ?? Colors.red,
         inactiveColor: widget.inactiveColor ?? Colors.blue,
         activeRatio: activeRatio,
+        waveformAlign: waveformAlign,
+        absolute: widget.absolute,
+        invert: widget.invert,
       ),
     );
   }

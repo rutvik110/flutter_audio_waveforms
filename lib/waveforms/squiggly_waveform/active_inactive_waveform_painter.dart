@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_audio_waveforms/helpers/waveform_align.dart';
 import 'dart:math' as math;
 
 import 'package:flutter_audio_waveforms/waveforms/waveform_painters_ab.dart';
@@ -11,12 +12,18 @@ class SquigglyWaveformPainter extends ActiveInActiveWaveformPainter {
     required List<double> samples,
     required Color inactiveColor,
     required double activeRatio,
+    required WaveformAlign waveformAlign,
+    required this.absolute,
+    required this.invert,
   }) : super(
-            samples: samples,
-            activeColor: activeColor,
-            inactiveColor: inactiveColor,
-            activeRatio: activeRatio);
-
+          samples: samples,
+          activeColor: activeColor,
+          inactiveColor: inactiveColor,
+          activeRatio: activeRatio,
+          waveformAlign: waveformAlign,
+        );
+  final bool absolute;
+  final bool invert;
   @override
   void paint(Canvas canvas, Size size) {
     final double pointWidth = size.width / samples.length;
@@ -40,71 +47,85 @@ class SquigglyWaveformPainter extends ActiveInActiveWaveformPainter {
         Rect.fromLTWH(0, 0, size.width, size.height),
       );
 
-    final waveFormPath = Path();
+    final waveformPath = Path();
+    if (!absolute) {
+      paintNormalSquiggle(waveformPath, pointWidth, invert);
+    } else if (absolute && !invert) {
+      upwardFacingAbsoluteWaveform(waveformPath, pointWidth);
+    } else {
+      downwardFacingAbsoluteWaveform(waveformPath, pointWidth);
+    }
 
+    final alignPosition = waveformAlign.getAlignPosition(size.height);
+
+    final centeredPath = waveformPath.shift(Offset(0, alignPosition));
+    canvas.drawPath(centeredPath, paint);
+  }
+
+  void paintNormalSquiggle(Path waveformPath, double pointWidth, bool invert) {
+    for (var i = 0; i < samples.length; i++) {
+      final value = samples[i];
+      final bool upOrDown = invert ? i.isOdd : i.isEven;
+      final double x = pointWidth * i;
+      final double x2 = pointWidth * (i + 1);
+      final double y2 = upOrDown ? -value : value;
+      final double diameter = x2 - x;
+      final double radius = diameter / 2;
+      waveformPath.lineTo(x, y2);
+      waveformPath.lineTo(x, upOrDown ? y2 - diameter : y2 + diameter);
+      waveformPath.addArc(
+        Rect.fromCircle(
+          center: Offset(x2 - radius, upOrDown ? y2 - diameter : y2 + diameter),
+          radius: radius,
+        ),
+        -math.pi,
+        upOrDown ? math.pi : -math.pi,
+      );
+      waveformPath.lineTo(x2, y2);
+    }
+  }
+
+  void downwardFacingAbsoluteWaveform(Path waveformPath, double pointWidth) {
     for (var i = 0; i < samples.length; i++) {
       final value = samples[i];
       final double x = pointWidth * i;
       final double x2 = pointWidth * (i + 1);
-      final double y2 = i.isEven ? -value : value;
+      final double y2 = value;
       final double diameter = x2 - x;
       final double radius = diameter / 2;
-      waveFormPath.lineTo(x, y2);
-      waveFormPath.lineTo(x, i.isEven ? y2 - diameter : y2 + diameter);
-      waveFormPath.addArc(
+      waveformPath.lineTo(x, y2);
+      waveformPath.lineTo(x, y2 + diameter);
+      waveformPath.addArc(
         Rect.fromCircle(
-          center: Offset(x2 - radius, i.isEven ? y2 - diameter : y2 + diameter),
+          center: Offset(x2 - radius, y2 + diameter),
           radius: radius,
         ),
         -math.pi,
-        i.isEven ? math.pi : -math.pi,
+        -math.pi,
       );
-      waveFormPath.lineTo(x2, y2);
+      waveformPath.lineTo(x2, 0);
     }
+  }
 
-    //For onesided downward
-    // for (var i = 0; i < samples.length; i++) {
-    //   final value = samples[i];
-    //   final double x = pointWidth * i;
-    //   final double x2 = pointWidth * (i + 1);
-    //   final double y2 = value;
-    //   final double diameter = x2 - x;
-    //   final double radius = diameter / 2;
-    //   waveFormPath.lineTo(x, y2);
-    //   waveFormPath.lineTo(x, y2 + diameter);
-    //   waveFormPath.addArc(
-    //     Rect.fromCircle(
-    //       center: Offset(x2 - radius, y2 + diameter),
-    //       radius: radius,
-    //     ),
-    //     -math.pi,
-    //     -math.pi,
-    //   );
-    //   waveFormPath.lineTo(x2, 0);
-    // }
-
-    //For onesided upward
-    // for (var i = 0; i < samples.length; i++) {
-    //   final value = samples[i];
-    //   final double x = pointWidth * i;
-    //   final double x2 = pointWidth * (i + 1);
-    //   final double y2 = -value;
-    //   final double diameter = x2 - x;
-    //   final double radius = diameter / 2;
-    //   waveFormPath.lineTo(x, y2);
-    //   waveFormPath.lineTo(x, y2 - diameter);
-    //   waveFormPath.addArc(
-    //     Rect.fromCircle(
-    //       center: Offset(x2 - radius, y2 - diameter),
-    //       radius: radius,
-    //     ),
-    //     math.pi,
-    //     math.pi,
-    //   );
-    //   waveFormPath.lineTo(x2, 0);
-    // }
-
-    final centeredPath = waveFormPath.shift(Offset(0, size.height / 2));
-    canvas.drawPath(centeredPath, paint);
+  void upwardFacingAbsoluteWaveform(Path waveformPath, double pointWidth) {
+    for (var i = 0; i < samples.length; i++) {
+      final value = samples[i];
+      final double x = pointWidth * i;
+      final double x2 = pointWidth * (i + 1);
+      final double y2 = -value;
+      final double diameter = x2 - x;
+      final double radius = diameter / 2;
+      waveformPath.lineTo(x, y2);
+      waveformPath.lineTo(x, y2 - diameter);
+      waveformPath.addArc(
+        Rect.fromCircle(
+          center: Offset(x2 - radius, y2 - diameter),
+          radius: radius,
+        ),
+        math.pi,
+        math.pi,
+      );
+      waveformPath.lineTo(x2, 0);
+    }
   }
 }
