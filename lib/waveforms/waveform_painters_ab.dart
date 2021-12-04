@@ -1,17 +1,20 @@
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
+import 'package:flutter_audio_waveforms/helpers/waveform_align.dart';
 
 abstract class WaveformPainter extends CustomPainter {
   WaveformPainter({
     required this.samples,
     required this.color,
     required this.gradient,
+    required this.waveformAlign,
   });
 
   final List<double> samples;
   final Color color;
   final Gradient? gradient;
+  final WaveformAlign waveformAlign;
 }
 
 abstract class ActiveWaveformPainter extends WaveformPainter {
@@ -21,7 +24,13 @@ abstract class ActiveWaveformPainter extends WaveformPainter {
     required List<double> samples,
     required this.activeIndex,
     required this.activeSamples,
-  }) : super(samples: samples, color: color, gradient: gradient);
+    required WaveformAlign waveformAlign,
+  }) : super(
+          samples: samples,
+          color: color,
+          gradient: gradient,
+          waveformAlign: waveformAlign,
+        );
 
   final int activeIndex;
   final List<double> activeSamples;
@@ -37,7 +46,13 @@ abstract class InActiveWaveformPainter extends WaveformPainter {
     required Color color,
     required Gradient? gradient,
     required List<double> samples,
-  }) : super(samples: samples, color: color, gradient: gradient);
+    required WaveformAlign waveformAlign,
+  }) : super(
+          samples: samples,
+          color: color,
+          gradient: gradient,
+          waveformAlign: waveformAlign,
+        );
 
   @override
   bool shouldRepaint(covariant InActiveWaveformPainter oldDelegate) {
@@ -51,7 +66,13 @@ abstract class ActiveInActiveWaveformPainter extends WaveformPainter {
     required List<double> samples,
     required this.inactiveColor,
     required this.activeRatio,
-  }) : super(samples: samples, color: activeColor, gradient: null);
+    WaveformAlign waveformAlign = WaveformAlign.center,
+  }) : super(
+          samples: samples,
+          color: activeColor,
+          gradient: null,
+          waveformAlign: waveformAlign,
+        );
 
   final Color inactiveColor;
   final Color activeColor;
