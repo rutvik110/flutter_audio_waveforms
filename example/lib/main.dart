@@ -5,6 +5,8 @@ import 'package:example/load_audio_data.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_audio_waveforms/audio_waveform_stateful_ab.dart';
+import 'package:flutter_audio_waveforms/helpers/waveform_align.dart';
 import 'package:flutter_audio_waveforms/waveforms/polygon_waveform/active_waveform_painter.dart';
 import 'package:flutter_audio_waveforms/waveforms/polygon_waveform/polygon_waveform.dart';
 import 'package:flutter_audio_waveforms/waveforms/rectangle_waveform/rectangle_waveform.dart';
@@ -43,15 +45,14 @@ class _HomeState extends State<Home> {
   double sliderValue = 0;
 
   Future<void> parseData() async {
-    final jsonString = await rootBundle.loadString('assets/sp.json');
+    final jsonString = await rootBundle.loadString('assets/dm.json');
     final dataPoints = await compute(loadparseJson, jsonString);
-    await audioPlayer.load('/surface_pressure.mp3');
-    await audioPlayer.play('/surface_pressure.mp3');
+    await audioPlayer.load('/dance_monkey.mp3');
+    await audioPlayer.play('/dance_monkey.mp3');
     maxDuration = await audioPlayer.fixedPlayer!.getDuration();
     setState(() {
       samples = dataPoints;
     });
-    log('samples: $samples');
   }
 
   @override
@@ -88,28 +89,63 @@ class _HomeState extends State<Home> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
+              Container(
+                color: Colors.white24,
+                child: RectangleWaveform(
+                  maxDuration: Duration(milliseconds: maxDuration),
+                  elapsedDuration: elapsedDuration,
+                  samples: samples,
+                  height: 50,
+                  showActiveWaveform: true,
+                  absolute: true,
+                  invert: false,
+                  width: MediaQuery.of(context).size.width,
+                  activeColor: Colors.yellow,
+                  inactiveColor: Colors.white,
+                ),
+              ),
               Padding(
                 padding: const EdgeInsets.all(0.0),
                 child: Container(
                   color: Colors.white24,
-                  child: PolygonWaveform(
+                  child: RectangleWaveform(
                     maxDuration: Duration(milliseconds: maxDuration),
                     elapsedDuration: elapsedDuration,
                     samples: samples,
-                    height: 100,
+                    height: 50,
                     showActiveWaveform: true,
+                    // absolute: true,
+                    invert: true,
                     width: MediaQuery.of(context).size.width,
-                    activeGradient: const LinearGradient(
-                        begin: Alignment.topCenter,
-                        end: Alignment.bottomCenter,
-                        colors: [
-                          Color(0xFFff3400),
-                          Color(0xFFff6d00),
-                        ],
-                        stops: [
-                          0,
-                          1,
-                        ]),
+                    activeColor: Colors.yellow,
+                    inactiveColor: Colors.white,
+
+                    // activeGradient: LinearGradient(
+                    //     begin: Alignment.centerLeft,
+                    //     end: Alignment.centerRight,
+                    //     colors: [
+                    //       Colors.blue,
+                    //       Colors.yellow,
+                    //       Colors.blue,
+                    //     ],
+                    //     stops: [
+                    //       0.3,
+                    //       0.5,
+                    //       0.7,
+                    //     ]),
+                    // inactiveGradient: LinearGradient(
+                    //     begin: Alignment.centerLeft,
+                    //     end: Alignment.centerRight,
+                    //     colors: [
+                    //       Colors.yellow,
+                    //       Colors.red,
+                    //       Colors.green,
+                    //     ],
+                    //     stops: [
+                    //       0.3,
+                    //       0.5,
+                    //       0.7,
+                    //     ]),
                   ),
                 ),
               ),
