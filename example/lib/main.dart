@@ -85,13 +85,13 @@ class _HomeState extends State<Home> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              PolygonWaveform(
+              SquigglyWaveform(
                 maxDuration: Duration(milliseconds: maxDuration),
                 elapsedDuration: elapsedDuration,
                 samples: samples,
-                height: 300,
+                height: 100,
                 width: MediaQuery.of(context).size.width,
-                absolute: true,
+                absolute: false,
                 invert: true,
                 // style: PaintingStyle.fill,
                 // activeGradient: LinearGradient(

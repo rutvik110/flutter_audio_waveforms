@@ -1,6 +1,6 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
-import 'package:flutter_audio_waveforms/audio_waveform_stateful_ab.dart';
+import 'package:flutter_audio_waveforms/flutter_audio_waveforms.dart';
 import 'package:flutter_audio_waveforms/waveforms/squiggly_waveform/active_inactive_waveform_painter.dart';
 
 class SquigglyWaveform extends AudioWaveform {
