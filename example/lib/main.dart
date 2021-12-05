@@ -39,6 +39,8 @@ class _HomeState extends State<Home> {
   late AudioCache audioPlayer;
   late List<double> samples;
   double sliderValue = 0;
+  double widthMultipier = 1;
+  ScrollController scrollController = ScrollController();
 
   Future<void> parseData() async {
     final jsonString = await rootBundle.loadString('assets/dm.json');
@@ -70,6 +72,8 @@ class _HomeState extends State<Home> {
     audioPlayer.fixedPlayer!.onAudioPositionChanged.listen((Duration p) {
       setState(() {
         elapsedDuration = p;
+        scrollController.jumpTo(scrollController.position.maxScrollExtent *
+            (elapsedDuration.inMilliseconds / maxDuration));
       });
     });
   }
@@ -85,41 +89,54 @@ class _HomeState extends State<Home> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              PolygonWaveform(
-                maxDuration: Duration(milliseconds: maxDuration),
-                elapsedDuration: elapsedDuration,
-                samples: samples,
+              SizedBox(
                 height: 100,
-                width: MediaQuery.of(context).size.width,
-                absolute: true,
-                invert: false,
-                style: PaintingStyle.fill,
-                // activeGradient: LinearGradient(
-                //     begin: Alignment.centerLeft,
-                //     end: Alignment.centerRight,
-                //     colors: [
-                //       Colors.blue,
-                //       Colors.yellow,
-                //       Colors.blue,
-                //     ],
-                //     stops: [
-                //       0.3,
-                //       0.5,
-                //       0.7,
-                // //     ]),
-                // inactiveGradient: LinearGradient(
-                //     begin: Alignment.centerLeft,
-                //     end: Alignment.centerRight,
-                //     colors: [
-                //       Colors.yellow,
-                //       Colors.red,
-                //       Colors.green,
-                //     ],
-                //     stops: [
-                //       0.3,
-                //       0.5,
-                //       0.7,
-                //     ]),
+                child: ListView(
+                  controller: scrollController,
+                  scrollDirection: Axis.horizontal,
+                  children: [
+                    RectangleWaveform(
+                      maxDuration: Duration(milliseconds: maxDuration),
+                      elapsedDuration: elapsedDuration,
+
+                      samples: samples,
+                      height: 100,
+                      width: MediaQuery.of(context).size.width * widthMultipier,
+                      absolute: true,
+                      invert: false,
+                      showActiveWaveform: false,
+                      activeBorderColor: Colors.transparent,
+                      inactiveBorderColor: Colors.transparent,
+                      // style: PaintingStyle.fill,
+                      activeGradient: LinearGradient(
+                          begin: Alignment.centerLeft,
+                          end: Alignment.centerRight,
+                          colors: [
+                            Colors.yellow,
+                            Colors.red,
+                            Colors.green,
+                          ],
+                          stops: [
+                            0.3,
+                            0.5,
+                            0.7,
+                          ]),
+                      // inactiveGradient: LinearGradient(
+                      //     begin: Alignment.centerLeft,
+                      //     end: Alignment.centerRight,
+                      //     colors: [
+                      //       Colors.yellow,
+                      //       Colors.red,
+                      //       Colors.green,
+                      //     ],
+                      //     stops: [
+                      //       0.3,
+                      //       0.5,
+                      //       0.7,
+                      //     ]),
+                    ),
+                  ],
+                ),
               ),
               // Container(
               //   height: 100,
@@ -132,16 +149,49 @@ class _HomeState extends State<Home> {
                 activeColor: Colors.red,
                 max: 1,
                 onChangeEnd: (double value) async {
-                  //    await audioPlayer.fixedPlayer!.resume();
+                  await audioPlayer.fixedPlayer!.resume();
+                },
+                onChangeStart: (double value) async {
+                  await audioPlayer.fixedPlayer!.pause();
                 },
                 onChanged: (val) {
+                  scrollController
+                      .jumpTo(scrollController.position.maxScrollExtent * val);
                   setState(() {
                     sliderValue = val;
+                    print(widthMultipier);
                     audioPlayer.fixedPlayer!.seek(
                         Duration(milliseconds: (maxDuration * val).toInt()));
                   });
                 },
               ),
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  ElevatedButton(
+                    onPressed: () {
+                      setState(() {
+                        widthMultipier--;
+                      });
+                    },
+                    child: Icon(
+                      Icons.remove,
+                    ),
+                  ),
+                  SizedBox(
+                    width: 20,
+                  ),
+                  ElevatedButton(
+                    onPressed: () {
+                      setState(() {
+                        widthMultipier++;
+                      });
+                    },
+                    child: Icon(Icons.add),
+                  ),
+                ],
+              )
             ],
           ),
         ));
