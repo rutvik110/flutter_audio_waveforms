@@ -11,8 +11,8 @@ class SquigglyWaveform extends AudioWaveform {
     required double width,
     required Duration maxDuration,
     required Duration elapsedDuration,
-    this.activeColor,
-    this.inactiveColor,
+    this.activeColor = Colors.red,
+    this.inactiveColor = Colors.blue,
     this.strokeWidth = 1.0,
     bool showActiveWaveform = true,
     bool absolute = false,
@@ -28,8 +28,8 @@ class SquigglyWaveform extends AudioWaveform {
           invert: invert,
           showActiveWaveform: showActiveWaveform,
         );
-  final Color? activeColor;
-  final Color? inactiveColor;
+  final Color activeColor;
+  final Color inactiveColor;
   final double strokeWidth;
 
   @override
@@ -73,8 +73,8 @@ class _SquigglyWaveformState extends AudioWaveformState<SquigglyWaveform> {
       isComplex: true,
       painter: SquigglyWaveformPainter(
         samples: processedSamples,
-        activeColor: widget.activeColor ?? Colors.red,
-        inactiveColor: widget.inactiveColor ?? Colors.blue,
+        activeColor: widget.activeColor,
+        inactiveColor: widget.inactiveColor,
         activeRatio: activeRatio,
         waveformAlign: waveformAlign,
         absolute: widget.absolute,
