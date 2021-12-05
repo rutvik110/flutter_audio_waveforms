@@ -1,8 +1,5 @@
 include: package:flutter_lints/flutter.yaml
 
-# Additional information about this file can be found at
-# https://dart.dev/guides/language/analysis-options
-
 analyzer:
   exclude:
     - test/
@@ -15,7 +12,7 @@ analyzer:
 dart_code_metrics:
   metrics:
     cyclomatic-complexity: 20
-    number-of-arguments: 1
+    number-of-arguments: 4
     maximum-nesting-level: 5
   metrics-exclude:
     - test/**
