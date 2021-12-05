@@ -1,3 +1,4 @@
+import 'dart:developer';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -12,6 +13,8 @@ class PolygonActiveWaveformPainter extends ActiveWaveformPainter {
     required int activeIndex,
     required List<double> activeSamples,
     required WaveformAlign waveformAlign,
+    required this.paintingStyle,
+    required double sampleWidth,
   }) : super(
           samples: samples,
           color: color,
@@ -19,25 +22,28 @@ class PolygonActiveWaveformPainter extends ActiveWaveformPainter {
           activeIndex: activeIndex,
           activeSamples: activeSamples,
           waveformAlign: waveformAlign,
+          sampleWidth: sampleWidth,
         );
-
+  final PaintingStyle paintingStyle;
   @override
   void paint(Canvas canvas, Size size) {
     final continousActivePaint = Paint()
-      ..style = PaintingStyle.stroke
+      ..style = paintingStyle
       ..color = color
       ..shader = gradient?.createShader(
         Rect.fromLTWH(0, 0, size.width, size.height),
       );
-    final double width = size.width / samples.length;
 
     final path = Path();
 
     for (var i = 0; i < activeSamples.length; i++) {
-      final double x = width * i;
+      final double x = sampleWidth * i;
       final double y = activeSamples[i];
-
-      path.lineTo(x, y);
+      if (i == activeSamples.length - 1) {
+        path.lineTo(x, 0);
+      } else {
+        path.lineTo(x, y);
+      }
     }
 
     final alignPosition = waveformAlign.getAlignPosition(size.height);

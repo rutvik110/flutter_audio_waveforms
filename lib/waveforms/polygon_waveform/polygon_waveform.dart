@@ -15,6 +15,7 @@ class PolygonWaveform extends AudioWaveform {
     this.inactiveColor,
     this.activeGradient,
     this.inactiveGradient,
+    this.paintingStyle = PaintingStyle.stroke,
     bool showActiveWaveform = true,
     bool absolute = false,
     bool invert = false,
@@ -33,6 +34,7 @@ class PolygonWaveform extends AudioWaveform {
   final Color? inactiveColor;
   final Gradient? activeGradient;
   final Gradient? inactiveGradient;
+  final PaintingStyle paintingStyle;
 
   @override
   AudioWaveformState<PolygonWaveform> createState() => _PolygonWaveformState();
@@ -49,30 +51,37 @@ class _PolygonWaveformState extends AudioWaveformState<PolygonWaveform> {
 
     final activeIndex = this.activeIndex;
     final showActiveWaveform = this.showActiveWaveform;
+    final sampleWidth = this.sampleWidth;
 
     return Stack(
       children: [
         RepaintBoundary(
           child: CustomPaint(
             size: Size(widget.width, widget.height),
+            isComplex: true,
             painter: PolygonInActiveWaveformPainter(
               samples: processedSamples,
+              paintingStyle: widget.paintingStyle,
               color: widget.inactiveColor ?? Colors.blue,
               gradient: widget.inactiveGradient,
               waveformAlign: widget.waveformAlign,
+              sampleWidth: sampleWidth,
             ),
           ),
         ),
         if (showActiveWaveform)
           CustomPaint(
+            isComplex: true,
             size: Size(widget.width, widget.height),
             painter: PolygonActiveWaveformPainter(
               samples: processedSamples,
+              paintingStyle: widget.paintingStyle,
               activeIndex: activeIndex,
               color: widget.activeColor ?? Colors.red,
               activeSamples: activeSamples,
               gradient: widget.activeGradient,
               waveformAlign: widget.waveformAlign,
+              sampleWidth: sampleWidth,
             ),
           ),
       ],

@@ -10,27 +10,31 @@ class PolygonInActiveWaveformPainter extends InActiveWaveformPainter {
     Gradient? gradient,
     required List<double> samples,
     required WaveformAlign waveformAlign,
+    required this.paintingStyle,
+    required double sampleWidth,
   }) : super(
           samples: samples,
           color: color,
           gradient: gradient,
           waveformAlign: waveformAlign,
+          sampleWidth: sampleWidth,
         );
+
+  final PaintingStyle paintingStyle;
 
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
-      ..style = PaintingStyle.stroke
+      ..style = paintingStyle
       ..color = color
       ..shader = gradient?.createShader(
         Rect.fromLTWH(0, 0, size.width, size.height),
       );
 
-    final double width = size.width / samples.length;
     final path = Path();
 
     for (var i = 0; i < samples.length; i++) {
-      final double x = width * i;
+      final double x = sampleWidth * i;
       final double y = samples[i];
       path.lineTo(x, y);
     }
