@@ -129,7 +129,7 @@ abstract class AudioWaveformState<T extends AudioWaveform> extends State<T> {
   void didUpdateWidget(covariant T oldWidget) {
     // TODO: implement didUpdateWidget
     super.didUpdateWidget(oldWidget);
-    if (checkforSamplesEquality(widget.samples, oldWidget.samples) == false &&
+    if (!checkforSamplesEquality(widget.samples, oldWidget.samples) &&
         widget.samples.isNotEmpty) {
       processSamples();
       _calculateSampleWidth();
