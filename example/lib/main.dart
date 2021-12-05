@@ -98,17 +98,17 @@ class _HomeState extends State<Home> {
               Padding(
                 padding: const EdgeInsets.all(0.0),
                 child: Container(
-                  color: Colors.white24,
-                  child: RectangleWaveform(
+                  //   color: Colors.white24,
+                  child: SquigglyWaveform(
                     maxDuration: Duration(milliseconds: maxDuration),
                     elapsedDuration: elapsedDuration,
                     samples: samples,
                     height: 100,
                     width: MediaQuery.of(context).size.width,
-                    absolute: false,
-                    invert: false,
-                    borderWidth: 1,
-                    activeBorderColor: Colors.blue,
+                    // absolute: false,
+                    // invert: false,
+                    // borderWidth: 1,
+                    // activeBorderColor: Colors.blue,
                     // activeGradient: LinearGradient(
                     //     begin: Alignment.centerLeft,
                     //     end: Alignment.centerRight,
