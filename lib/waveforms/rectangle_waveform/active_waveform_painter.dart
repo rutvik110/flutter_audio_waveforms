@@ -14,6 +14,7 @@ class RectangleActiveWaveformPainter extends ActiveWaveformPainter {
     required WaveformAlign waveformAlign,
     required this.borderColor,
     required this.borderWidth,
+    required double sampleWidth,
   }) : super(
           samples: samples,
           color: color,
@@ -21,6 +22,7 @@ class RectangleActiveWaveformPainter extends ActiveWaveformPainter {
           activeIndex: activeIndex,
           activeSamples: activeSamples,
           waveformAlign: waveformAlign,
+          sampleWidth: sampleWidth,
         );
 
   final double borderWidth;
@@ -40,20 +42,19 @@ class RectangleActiveWaveformPainter extends ActiveWaveformPainter {
       ..color = borderColor
       ..strokeWidth = borderWidth;
 
-    final double rectangelWidth = size.width / samples.length;
     final alignPosition = waveformAlign.getAlignPosition(size.height);
 
     for (var i = 0; i < activeSamples.length; i++) {
-      final double x = rectangelWidth * i;
+      final double x = sampleWidth * i;
       //make y abs to have one sided waveform
       final double y = activeSamples[i];
 
       canvas.drawRect(
-        Rect.fromLTWH(x, alignPosition, rectangelWidth, y),
+        Rect.fromLTWH(x, alignPosition, sampleWidth, y),
         activeTrackPaint,
       );
       canvas.drawRect(
-        Rect.fromLTWH(x, alignPosition, rectangelWidth, y),
+        Rect.fromLTWH(x, alignPosition, sampleWidth, y),
         strokePaint,
       );
     }

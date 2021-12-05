@@ -69,7 +69,7 @@ class _SquigglyWaveformState extends AudioWaveformState<SquigglyWaveform> {
 
     return CustomPaint(
       size: Size(widget.width, widget.height),
-      willChange: true,
+      isComplex: true,
       painter: SquigglyWaveformPainter(
         samples: processedSamples,
         activeColor: widget.activeColor ?? Colors.red,
@@ -79,6 +79,7 @@ class _SquigglyWaveformState extends AudioWaveformState<SquigglyWaveform> {
         absolute: widget.absolute,
         invert: widget.invert,
         strokeWidth: widget.strokeWidth,
+        sampleWidth: sampleWidth,
       ),
     );
   }

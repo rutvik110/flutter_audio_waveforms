@@ -10,6 +10,7 @@ class RectangleInActiveWaveformPainter extends InActiveWaveformPainter {
     Gradient? gradient,
     required List<double> samples,
     required WaveformAlign waveformAlign,
+    required double sampleWidth,
     required this.borderColor,
     required this.borderWidth,
   }) : super(
@@ -17,6 +18,7 @@ class RectangleInActiveWaveformPainter extends InActiveWaveformPainter {
           color: color,
           gradient: gradient,
           waveformAlign: waveformAlign,
+          sampleWidth: sampleWidth,
         );
   final double borderWidth;
   final Color borderColor;
@@ -34,18 +36,17 @@ class RectangleInActiveWaveformPainter extends InActiveWaveformPainter {
       ..color = borderColor
       ..strokeWidth = borderWidth;
 
-    final double rectangelWidth = size.width / samples.length;
     final alignPosition = waveformAlign.getAlignPosition(size.height);
     for (var i = 0; i < samples.length; i++) {
-      final double x = rectangelWidth * i;
+      final double x = sampleWidth * i;
       final double y = samples[i];
 
       canvas.drawRect(
-        Rect.fromLTWH(x, alignPosition, rectangelWidth, y),
+        Rect.fromLTWH(x, alignPosition, sampleWidth, y),
         paint,
       );
       canvas.drawRect(
-        Rect.fromLTWH(x, alignPosition, rectangelWidth, y),
+        Rect.fromLTWH(x, alignPosition, sampleWidth, y),
         strokePaint,
       );
     }
