@@ -11,8 +11,8 @@ class RectangleWaveform extends AudioWaveform {
     required double width,
     required Duration maxDuration,
     required Duration elapsedDuration,
-    this.activeColor,
-    this.inactiveColor,
+    this.activeColor = Colors.red,
+    this.inactiveColor = Colors.blue,
     this.activeGradient,
     this.inactiveGradient,
     this.borderWidth = 1.0,
@@ -32,8 +32,8 @@ class RectangleWaveform extends AudioWaveform {
           absolute: absolute,
           invert: invert,
         );
-  final Color? activeColor;
-  final Color? inactiveColor;
+  final Color activeColor;
+  final Color inactiveColor;
   final Gradient? activeGradient;
   final Gradient? inactiveGradient;
   final double borderWidth;
@@ -65,7 +65,7 @@ class _RectangleWaveformState extends AudioWaveformState<RectangleWaveform> {
             isComplex: true,
             painter: RectangleInActiveWaveformPainter(
               samples: processedSamples,
-              color: widget.inactiveColor ?? Colors.blue,
+              color: widget.inactiveColor,
               gradient: widget.inactiveGradient,
               waveformAlign: waveformAlign,
               borderColor: widget.inactiveBorderColor,
@@ -81,7 +81,7 @@ class _RectangleWaveformState extends AudioWaveformState<RectangleWaveform> {
             painter: RectangleActiveWaveformPainter(
               samples: processedSamples,
               activeIndex: activeIndex,
-              color: widget.activeColor ?? Colors.red,
+              color: widget.activeColor,
               activeSamples: activeSamples,
               gradient: widget.activeGradient,
               waveformAlign: widget.waveformAlign,
