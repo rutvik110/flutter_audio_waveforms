@@ -39,9 +39,10 @@ class SquigglyWaveform extends AudioWaveform {
 
 class _SquigglyWaveformState extends AudioWaveformState<SquigglyWaveform> {
   @override
-  void processSamples(List<double> samples) {
+  void processSamples() {
+    List<double> rawSamples = widget.samples;
     List<double> processedSamples =
-        samples.map((e) => e.abs() * widget.height).toList();
+        rawSamples.map((e) => e.abs() * widget.height).toList();
 
     final maxNum =
         processedSamples.reduce((a, b) => math.max(a.abs(), b.abs()));
