@@ -12,6 +12,7 @@ class SquigglyWaveformPainter extends ActiveInActiveWaveformPainter {
     required Color inactiveColor,
     required double activeRatio,
     required WaveformAlign waveformAlign,
+    required double sampleWidth,
     required this.absolute,
     required this.invert,
     required this.strokeWidth,
@@ -21,14 +22,13 @@ class SquigglyWaveformPainter extends ActiveInActiveWaveformPainter {
           inactiveColor: inactiveColor,
           activeRatio: activeRatio,
           waveformAlign: waveformAlign,
+          sampleWidth: sampleWidth,
         );
   final bool absolute;
   final bool invert;
   final double strokeWidth;
   @override
   void paint(Canvas canvas, Size size) {
-    final double pointWidth = size.width / samples.length;
-
     final paint = Paint()
       ..style = PaintingStyle.stroke
       ..strokeWidth = strokeWidth
@@ -45,11 +45,11 @@ class SquigglyWaveformPainter extends ActiveInActiveWaveformPainter {
 
     final waveformPath = Path();
     if (!absolute) {
-      paintNormalWaveform(waveformPath, pointWidth, invert);
+      paintNormalWaveform(waveformPath, sampleWidth, invert);
     } else if (absolute && !invert) {
-      downwardFacingAbsoluteWaveform(waveformPath, pointWidth);
+      downwardFacingAbsoluteWaveform(waveformPath, sampleWidth);
     } else {
-      upwardFacingAbsoluteWaveform(waveformPath, pointWidth);
+      upwardFacingAbsoluteWaveform(waveformPath, sampleWidth);
     }
 
     final alignPosition = waveformAlign.getAlignPosition(size.height);

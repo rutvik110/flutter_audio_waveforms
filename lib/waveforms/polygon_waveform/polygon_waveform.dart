@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_audio_waveforms/audio_waveform_stateful_ab.dart';
+import 'package:flutter_audio_waveforms/flutter_audio_waveforms.dart';
 import 'package:flutter_audio_waveforms/waveforms/polygon_waveform/active_waveform_painter.dart';
 import 'package:flutter_audio_waveforms/waveforms/polygon_waveform/inactive_waveform_painter.dart';
 
@@ -15,6 +15,7 @@ class PolygonWaveform extends AudioWaveform {
     this.inactiveColor,
     this.activeGradient,
     this.inactiveGradient,
+    this.style = PaintingStyle.stroke,
     bool showActiveWaveform = true,
     bool absolute = false,
     bool invert = false,
@@ -33,6 +34,7 @@ class PolygonWaveform extends AudioWaveform {
   final Color? inactiveColor;
   final Gradient? activeGradient;
   final Gradient? inactiveGradient;
+  final PaintingStyle style;
 
   @override
   AudioWaveformState<PolygonWaveform> createState() => _PolygonWaveformState();
@@ -49,30 +51,37 @@ class _PolygonWaveformState extends AudioWaveformState<PolygonWaveform> {
 
     final activeIndex = this.activeIndex;
     final showActiveWaveform = this.showActiveWaveform;
+    final sampleWidth = this.sampleWidth;
 
     return Stack(
       children: [
         RepaintBoundary(
           child: CustomPaint(
             size: Size(widget.width, widget.height),
+            isComplex: true,
             painter: PolygonInActiveWaveformPainter(
               samples: processedSamples,
+              style: widget.style,
               color: widget.inactiveColor ?? Colors.blue,
               gradient: widget.inactiveGradient,
               waveformAlign: widget.waveformAlign,
+              sampleWidth: sampleWidth,
             ),
           ),
         ),
         if (showActiveWaveform)
           CustomPaint(
+            isComplex: true,
             size: Size(widget.width, widget.height),
             painter: PolygonActiveWaveformPainter(
               samples: processedSamples,
+              style: widget.style,
               activeIndex: activeIndex,
               color: widget.activeColor ?? Colors.red,
               activeSamples: activeSamples,
               gradient: widget.activeGradient,
               waveformAlign: widget.waveformAlign,
+              sampleWidth: sampleWidth,
             ),
           ),
       ],

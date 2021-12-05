@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_audio_waveforms/audio_waveform_stateful_ab.dart';
+import 'package:flutter_audio_waveforms/flutter_audio_waveforms.dart';
 import 'package:flutter_audio_waveforms/waveforms/rectangle_waveform/active_waveform_painter.dart';
 import 'package:flutter_audio_waveforms/waveforms/rectangle_waveform/inactive_waveform_painter.dart';
 
@@ -62,6 +62,7 @@ class _RectangleWaveformState extends AudioWaveformState<RectangleWaveform> {
         RepaintBoundary(
           child: CustomPaint(
             size: Size(widget.width, widget.height),
+            isComplex: true,
             painter: RectangleInActiveWaveformPainter(
               samples: processedSamples,
               color: widget.inactiveColor ?? Colors.blue,
@@ -69,12 +70,14 @@ class _RectangleWaveformState extends AudioWaveformState<RectangleWaveform> {
               waveformAlign: waveformAlign,
               borderColor: widget.inactiveBorderColor,
               borderWidth: widget.borderWidth,
+              sampleWidth: sampleWidth,
             ),
           ),
         ),
         if (showActiveWaveform)
           CustomPaint(
             size: Size(widget.width, widget.height),
+            isComplex: true,
             painter: RectangleActiveWaveformPainter(
               samples: processedSamples,
               activeIndex: activeIndex,
@@ -84,6 +87,7 @@ class _RectangleWaveformState extends AudioWaveformState<RectangleWaveform> {
               waveformAlign: widget.waveformAlign,
               borderColor: widget.activeBorderColor,
               borderWidth: widget.borderWidth,
+              sampleWidth: sampleWidth,
             ),
           ),
       ],

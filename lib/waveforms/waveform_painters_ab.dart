@@ -9,12 +9,14 @@ abstract class WaveformPainter extends CustomPainter {
     required this.color,
     required this.gradient,
     required this.waveformAlign,
+    required this.sampleWidth,
   });
 
   final List<double> samples;
   final Color color;
   final Gradient? gradient;
   final WaveformAlign waveformAlign;
+  final double sampleWidth;
 }
 
 abstract class ActiveWaveformPainter extends WaveformPainter {
@@ -22,6 +24,7 @@ abstract class ActiveWaveformPainter extends WaveformPainter {
     required Color color,
     required Gradient? gradient,
     required List<double> samples,
+    required double sampleWidth,
     required this.activeIndex,
     required this.activeSamples,
     required WaveformAlign waveformAlign,
@@ -30,6 +33,7 @@ abstract class ActiveWaveformPainter extends WaveformPainter {
           color: color,
           gradient: gradient,
           waveformAlign: waveformAlign,
+          sampleWidth: sampleWidth,
         );
 
   final int activeIndex;
@@ -47,11 +51,13 @@ abstract class InActiveWaveformPainter extends WaveformPainter {
     required Gradient? gradient,
     required List<double> samples,
     required WaveformAlign waveformAlign,
+    required double sampleWidth,
   }) : super(
           samples: samples,
           color: color,
           gradient: gradient,
           waveformAlign: waveformAlign,
+          sampleWidth: sampleWidth,
         );
 
   @override
@@ -64,6 +70,7 @@ abstract class ActiveInActiveWaveformPainter extends WaveformPainter {
   ActiveInActiveWaveformPainter({
     required this.activeColor,
     required List<double> samples,
+    required double sampleWidth,
     required this.inactiveColor,
     required this.activeRatio,
     WaveformAlign waveformAlign = WaveformAlign.center,
@@ -72,6 +79,7 @@ abstract class ActiveInActiveWaveformPainter extends WaveformPainter {
           color: activeColor,
           gradient: null,
           waveformAlign: waveformAlign,
+          sampleWidth: sampleWidth,
         );
 
   final Color inactiveColor;
