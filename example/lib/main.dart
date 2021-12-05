@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:audioplayers/audioplayers.dart';
 import 'package:example/load_audio_data.dart';
 import 'package:flutter/foundation.dart';
@@ -83,55 +85,15 @@ class _HomeState extends State<Home> {
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
-              // Padding(
-              //     padding: const EdgeInsets.all(0.0),
-              //     child: Container(
-              //         //   color: Colors.white24,
-              //         child: PolygonWaveform(
-              //       maxDuration: Duration(milliseconds: maxDuration),
-              //       elapsedDuration: elapsedDuration,
-              //       samples: samples,
-              //       height: 250,
-              //       width: MediaQuery.of(context).size.width,
-              //       absolute: true,
-              //       invert: false,
-              //       paintingStyle: PaintingStyle.fill,
-              //       activeGradient: LinearGradient(
-              //           begin: Alignment.centerLeft,
-              //           end: Alignment.centerRight,
-              //           colors: [
-              //             Colors.blue,
-              //             Colors.yellow,
-              //             Colors.blue,
-              //           ],
-              //           stops: [
-              //             0.3,
-              //             0.5,
-              //             0.7,
-              //           ]),
-              //       inactiveGradient: LinearGradient(
-              //           begin: Alignment.centerLeft,
-              //           end: Alignment.centerRight,
-              //           colors: [
-              //             Colors.yellow,
-              //             Colors.red,
-              //             Colors.green,
-              //           ],
-              //           stops: [
-              //             0.3,
-              //             0.5,
-              //             0.7,
-              //           ]),
-              //     ))),
               PolygonWaveform(
                 maxDuration: Duration(milliseconds: maxDuration),
                 elapsedDuration: elapsedDuration,
                 samples: samples,
-                height: 100,
+                height: 300,
                 width: MediaQuery.of(context).size.width,
-                absolute: false,
-                invert: false,
-                paintingStyle: PaintingStyle.fill,
+                absolute: true,
+                invert: true,
+                // style: PaintingStyle.fill,
                 // activeGradient: LinearGradient(
                 //     begin: Alignment.centerLeft,
                 //     end: Alignment.centerRight,
@@ -144,7 +106,7 @@ class _HomeState extends State<Home> {
                 //       0.3,
                 //       0.5,
                 //       0.7,
-                //     ]),
+                // //     ]),
                 // inactiveGradient: LinearGradient(
                 //     begin: Alignment.centerLeft,
                 //     end: Alignment.centerRight,
