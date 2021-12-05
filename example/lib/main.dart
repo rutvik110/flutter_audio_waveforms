@@ -3,6 +3,7 @@ import 'package:example/load_audio_data.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:flutter_audio_waveforms/waveforms/rectangle_waveform/rectangle_waveform.dart';
 import 'package:flutter_audio_waveforms/waveforms/squiggly_waveform/squiggly_waveform.dart';
 
 void main() {
@@ -98,7 +99,7 @@ class _HomeState extends State<Home> {
                 padding: const EdgeInsets.all(0.0),
                 child: Container(
                   color: Colors.white24,
-                  child: SquigglyWaveform(
+                  child: RectangleWaveform(
                     maxDuration: Duration(milliseconds: maxDuration),
                     elapsedDuration: elapsedDuration,
                     samples: samples,
@@ -106,7 +107,8 @@ class _HomeState extends State<Home> {
                     width: MediaQuery.of(context).size.width,
                     absolute: false,
                     invert: false,
-                    strokeWidth: 1,
+                    borderWidth: 1,
+                    activeBorderColor: Colors.blue,
                     // activeGradient: LinearGradient(
                     //     begin: Alignment.centerLeft,
                     //     end: Alignment.centerRight,
