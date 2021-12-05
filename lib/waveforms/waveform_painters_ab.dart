@@ -25,7 +25,6 @@ abstract class ActiveWaveformPainter extends WaveformPainter {
     required Gradient? gradient,
     required List<double> samples,
     required double sampleWidth,
-    required this.activeIndex,
     required this.activeSamples,
     required WaveformAlign waveformAlign,
   }) : super(
@@ -36,7 +35,6 @@ abstract class ActiveWaveformPainter extends WaveformPainter {
           sampleWidth: sampleWidth,
         );
 
-  final int activeIndex;
   final List<double> activeSamples;
 
   @override

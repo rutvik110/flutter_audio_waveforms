@@ -9,7 +9,6 @@ class PolygonActiveWaveformPainter extends ActiveWaveformPainter {
     required Color color,
     Gradient? gradient,
     required List<double> samples,
-    required int activeIndex,
     required List<double> activeSamples,
     required WaveformAlign waveformAlign,
     required this.style,
@@ -18,7 +17,6 @@ class PolygonActiveWaveformPainter extends ActiveWaveformPainter {
           samples: samples,
           color: color,
           gradient: gradient,
-          activeIndex: activeIndex,
           activeSamples: activeSamples,
           waveformAlign: waveformAlign,
           sampleWidth: sampleWidth,
@@ -34,16 +32,15 @@ class PolygonActiveWaveformPainter extends ActiveWaveformPainter {
       );
 
     final path = Path();
-    List<double> active = samples.sublist(0, activeIndex);
     bool isStroked = style == PaintingStyle.stroke;
 
-    for (var i = 0; i < active.length; i++) {
+    for (var i = 0; i < activeSamples.length; i++) {
       final double x = sampleWidth * i;
-      final double y = active[i];
+      final double y = activeSamples[i];
       if (isStroked) {
         path.lineTo(x, y);
       } else {
-        if (i == active.length - 1) {
+        if (i == activeSamples.length - 1) {
           path.lineTo(x, 0);
         } else {
           path.lineTo(x, y);

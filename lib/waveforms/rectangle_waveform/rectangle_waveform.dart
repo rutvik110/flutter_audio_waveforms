@@ -53,7 +53,6 @@ class _RectangleWaveformState extends AudioWaveformState<RectangleWaveform> {
     }
     final processedSamples = this.processedSamples;
     final activeSamples = this.activeSamples;
-    final activeIndex = this.activeIndex;
     final showActiveWaveform = this.showActiveWaveform;
     final waveformAlign = this.waveformAlign;
 
@@ -80,7 +79,6 @@ class _RectangleWaveformState extends AudioWaveformState<RectangleWaveform> {
             isComplex: true,
             painter: RectangleActiveWaveformPainter(
               samples: processedSamples,
-              activeIndex: activeIndex,
               color: widget.activeColor,
               activeSamples: activeSamples,
               gradient: widget.activeGradient,

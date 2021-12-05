@@ -48,8 +48,6 @@ class _PolygonWaveformState extends AudioWaveformState<PolygonWaveform> {
     }
     final processedSamples = this.processedSamples;
     final activeSamples = this.activeSamples;
-
-    final activeIndex = this.activeIndex;
     final showActiveWaveform = this.showActiveWaveform;
     final sampleWidth = this.sampleWidth;
 
@@ -76,7 +74,6 @@ class _PolygonWaveformState extends AudioWaveformState<PolygonWaveform> {
             painter: PolygonActiveWaveformPainter(
               samples: processedSamples,
               style: widget.style,
-              activeIndex: activeIndex,
               color: widget.activeColor,
               activeSamples: activeSamples,
               gradient: widget.activeGradient,

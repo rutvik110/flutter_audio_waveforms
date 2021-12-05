@@ -1,13 +1,9 @@
 library flutter_audio_waveforms;
 
-import 'dart:developer';
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
+import 'package:flutter_audio_waveforms/helpers/check_samples_equality.dart';
 import 'package:flutter_audio_waveforms/helpers/waveform_align.dart';
-import 'package:collection/collection.dart';
-
-bool Function(List<double> list1, List<double> list2) checkforSamplesEquality =
-    const ListEquality<double>().equals;
 
 abstract class AudioWaveform extends StatefulWidget {
   const AudioWaveform({
@@ -55,8 +51,6 @@ abstract class AudioWaveformState<T extends AudioWaveform> extends State<T> {
     _processedSamples = updatedSamples;
   }
 
-  int get activeIndex => _activeIndex;
-
   late int _activeIndex;
 
   List<double> get activeSamples => _activeSamples;
@@ -95,7 +89,7 @@ abstract class AudioWaveformState<T extends AudioWaveform> extends State<T> {
   }
 
   @protected
-  void _updateXAudio({int? activeIndex}) {
+  void _updateActiveIndex({int? activeIndex}) {
     if (activeIndex != null) {
       _activeIndex = activeIndex;
 
@@ -135,12 +129,12 @@ abstract class AudioWaveformState<T extends AudioWaveform> extends State<T> {
         widget.samples.isNotEmpty) {
       processSamples();
       _calculateSampleWidth();
-      _updateXAudio(activeIndex: 0);
+      _updateActiveIndex(activeIndex: 0);
       _updateActiveSamples();
     }
     if (widget.showActiveWaveform) {
       if (widget.elapsedDuration != oldWidget.elapsedDuration) {
-        _updateXAudio();
+        _updateActiveIndex();
         _updateActiveSamples();
       }
     }
