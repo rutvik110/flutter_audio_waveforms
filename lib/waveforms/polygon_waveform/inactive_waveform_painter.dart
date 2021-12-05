@@ -10,7 +10,7 @@ class PolygonInActiveWaveformPainter extends InActiveWaveformPainter {
     Gradient? gradient,
     required List<double> samples,
     required WaveformAlign waveformAlign,
-    required this.paintingStyle,
+    required this.style,
     required double sampleWidth,
   }) : super(
           samples: samples,
@@ -20,12 +20,12 @@ class PolygonInActiveWaveformPainter extends InActiveWaveformPainter {
           sampleWidth: sampleWidth,
         );
 
-  final PaintingStyle paintingStyle;
+  final PaintingStyle style;
 
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
-      ..style = paintingStyle
+      ..style = style
       ..color = color
       ..shader = gradient?.createShader(
         Rect.fromLTWH(0, 0, size.width, size.height),
