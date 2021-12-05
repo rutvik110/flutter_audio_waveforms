@@ -16,6 +16,8 @@ class PolygonWaveform extends AudioWaveform {
     this.activeGradient,
     this.inactiveGradient,
     bool showActiveWaveform = true,
+    bool absolute = false,
+    bool invert = false,
   }) : super(
           key: key,
           samples: samples,
@@ -24,6 +26,8 @@ class PolygonWaveform extends AudioWaveform {
           maxDuration: maxDuration,
           elapsedDuration: elapsedDuration,
           showActiveWaveform: showActiveWaveform,
+          absolute: absolute,
+          invert: invert,
         );
   final Color? activeColor;
   final Color? inactiveColor;
