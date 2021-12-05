@@ -14,6 +14,7 @@ class SquigglyWaveformPainter extends ActiveInActiveWaveformPainter {
     required WaveformAlign waveformAlign,
     required this.absolute,
     required this.invert,
+    required this.strokeWidth,
   }) : super(
           samples: samples,
           activeColor: activeColor,
@@ -23,13 +24,14 @@ class SquigglyWaveformPainter extends ActiveInActiveWaveformPainter {
         );
   final bool absolute;
   final bool invert;
+  final double strokeWidth;
   @override
   void paint(Canvas canvas, Size size) {
     final double pointWidth = size.width / samples.length;
 
     final paint = Paint()
       ..style = PaintingStyle.stroke
-      ..strokeWidth = 1
+      ..strokeWidth = strokeWidth
       ..strokeCap = StrokeCap.round
       ..strokeJoin = StrokeJoin.round
       ..shader = LinearGradient(

@@ -16,10 +16,7 @@ List<double> loadparseJson(String jsonBody) {
     for (int j = 0; j < blockSize; j++) {
       sum = sum +
           points[(blockStart + j).toInt()]
-              //TODO: way to change between using .toInt() and .abs()
               .toInt(); // find the sum of all the samples in the block
-      //.toabs(); will create waves with only positive values *for rounded waveform
-      //toInt() will convert the double to an int with positive/negative values
 
     }
     filteredData.add((sum / blockSize)
