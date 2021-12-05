@@ -2,6 +2,10 @@ import 'dart:developer';
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_waveforms/helpers/waveform_align.dart';
+import 'package:collection/collection.dart';
+
+bool Function(List<double> list1, List<double> list2) checkforSamplesEquality =
+    const ListEquality<double>().equals;
 
 abstract class AudioWaveform extends StatefulWidget {
   const AudioWaveform({
@@ -45,9 +49,8 @@ abstract class AudioWaveformState<T extends AudioWaveform> extends State<T> {
   double get sampleWidth => _sampleWidth;
 
   @protected
-  void updateProcessedSamples(List<double> samples) {
-    _processedSamples = samples;
-    setState(() {});
+  void updateProcessedSamples(List<double> updatedSamples) {
+    _processedSamples = updatedSamples;
   }
 
   int get activeIndex => _activeIndex;
@@ -66,8 +69,9 @@ abstract class AudioWaveformState<T extends AudioWaveform> extends State<T> {
   WaveformAlign get waveformAlign => widget.waveformAlign;
 
   @protected
-  void processSamples(List<double> samples) {
-    _processedSamples = samples
+  void processSamples() {
+    List<double> rawSamples = widget.samples;
+    _processedSamples = rawSamples
         .map((e) => absolute ? e.abs() * widget.height : e * widget.height)
         .toList();
 
@@ -82,23 +86,23 @@ abstract class AudioWaveformState<T extends AudioWaveform> extends State<T> {
               : e * multiplier * finaHeight,
         )
         .toList();
-    setState(() {});
   }
 
   void _calculateSampleWidth() {
-    setState(() {
-      _sampleWidth = widget.width / _processedSamples.length;
-    });
+    _sampleWidth = widget.width / (_processedSamples.length);
   }
 
   @protected
-  void _updateXAudio() {
+  void _updateXAudio({int? activeIndex}) {
+    if (activeIndex != null) {
+      _activeIndex = activeIndex;
+
+      return;
+    }
     double elapsedTimeRatio =
         elapsedDuration.inMilliseconds / maxDuration.inMilliseconds;
 
-    _activeIndex = (_processedSamples.length * elapsedTimeRatio).round();
-
-    setState(() {});
+    _activeIndex = (widget.samples.length * elapsedTimeRatio).round();
   }
 
   @protected
@@ -116,7 +120,7 @@ abstract class AudioWaveformState<T extends AudioWaveform> extends State<T> {
     _sampleWidth = 0;
 
     if (_processedSamples.isNotEmpty) {
-      processSamples(_processedSamples);
+      processSamples();
       _calculateSampleWidth();
     }
   }
@@ -125,22 +129,11 @@ abstract class AudioWaveformState<T extends AudioWaveform> extends State<T> {
   void didUpdateWidget(covariant T oldWidget) {
     // TODO: implement didUpdateWidget
     super.didUpdateWidget(oldWidget);
-    if (widget.samples.length != oldWidget.samples.length) {
-      processSamples(widget.samples);
+    if (checkforSamplesEquality(widget.samples, oldWidget.samples) == false &&
+        widget.samples.isNotEmpty) {
+      processSamples();
       _calculateSampleWidth();
-      _updateActiveSamples();
-    }
-    if (widget.height != oldWidget.height || widget.width != oldWidget.width) {
-      processSamples(widget.samples);
-      _calculateSampleWidth();
-      _updateActiveSamples();
-    }
-    if (widget.absolute != oldWidget.absolute) {
-      processSamples(widget.samples);
-      _updateActiveSamples();
-    }
-    if (widget.invert != oldWidget.invert) {
-      processSamples(widget.samples);
+      _updateXAudio(activeIndex: 0);
       _updateActiveSamples();
     }
     if (widget.showActiveWaveform) {
@@ -148,6 +141,19 @@ abstract class AudioWaveformState<T extends AudioWaveform> extends State<T> {
         _updateXAudio();
         _updateActiveSamples();
       }
+    }
+    if (widget.height != oldWidget.height || widget.width != oldWidget.width) {
+      processSamples();
+      _calculateSampleWidth();
+      _updateActiveSamples();
+    }
+    if (widget.absolute != oldWidget.absolute) {
+      processSamples();
+      _updateActiveSamples();
+    }
+    if (widget.invert != oldWidget.invert) {
+      processSamples();
+      _updateActiveSamples();
     }
   }
 }
