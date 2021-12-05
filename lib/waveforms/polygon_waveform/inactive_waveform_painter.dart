@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_waveforms/helpers/waveform_align.dart';
 import 'dart:ui';
-
 import 'package:flutter_audio_waveforms/waveforms/waveform_painters_ab.dart';
 
 class PolygonInActiveWaveformPainter extends InActiveWaveformPainter {

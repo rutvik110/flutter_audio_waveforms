@@ -37,6 +37,7 @@ class RectangleInActiveWaveformPainter extends InActiveWaveformPainter {
       ..strokeWidth = borderWidth;
 
     final alignPosition = waveformAlign.getAlignPosition(size.height);
+
     for (var i = 0; i < samples.length; i++) {
       final double x = sampleWidth * i;
       final double y = samples[i];

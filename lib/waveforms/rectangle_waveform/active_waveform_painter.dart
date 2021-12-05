@@ -46,7 +46,6 @@ class RectangleActiveWaveformPainter extends ActiveWaveformPainter {
 
     for (var i = 0; i < activeSamples.length; i++) {
       final double x = sampleWidth * i;
-      //make y abs to have one sided waveform
       final double y = activeSamples[i];
 
       canvas.drawRect(

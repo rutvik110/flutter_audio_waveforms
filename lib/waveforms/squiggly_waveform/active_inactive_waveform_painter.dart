@@ -2,7 +2,6 @@ import 'dart:ui';
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_waveforms/helpers/waveform_align.dart';
 import 'dart:math' as math;
-
 import 'package:flutter_audio_waveforms/waveforms/waveform_painters_ab.dart';
 
 class SquigglyWaveformPainter extends ActiveInActiveWaveformPainter {
@@ -45,7 +44,7 @@ class SquigglyWaveformPainter extends ActiveInActiveWaveformPainter {
 
     final waveformPath = Path();
     if (!absolute) {
-      paintNormalWaveform(waveformPath, sampleWidth, invert);
+      paintDefaultWaveform(waveformPath, sampleWidth, invert);
     } else if (absolute && !invert) {
       downwardFacingAbsoluteWaveform(waveformPath, sampleWidth);
     } else {
@@ -59,7 +58,7 @@ class SquigglyWaveformPainter extends ActiveInActiveWaveformPainter {
     canvas.drawPath(shiftedPath, paint);
   }
 
-  void paintNormalWaveform(Path waveformPath, double pointWidth, bool invert) {
+  void paintDefaultWaveform(Path waveformPath, double pointWidth, bool invert) {
     for (var i = 0; i < samples.length; i++) {
       final value = samples[i];
       final bool upOrDown = invert ? i.isOdd : i.isEven;

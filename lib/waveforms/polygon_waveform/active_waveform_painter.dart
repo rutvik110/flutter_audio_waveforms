@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'dart:ui';
 
 import 'package:flutter/material.dart';
@@ -37,6 +36,7 @@ class PolygonActiveWaveformPainter extends ActiveWaveformPainter {
     final path = Path();
     List<double> active = samples.sublist(0, activeIndex);
     bool isStroked = style == PaintingStyle.stroke;
+
     for (var i = 0; i < active.length; i++) {
       final double x = sampleWidth * i;
       final double y = active[i];
