@@ -47,14 +47,15 @@ class SquigglyWaveformPainter extends ActiveInActiveWaveformPainter {
     if (!absolute) {
       paintNormalWaveform(waveformPath, pointWidth, invert);
     } else if (absolute && !invert) {
-      upwardFacingAbsoluteWaveform(waveformPath, pointWidth);
-    } else {
       downwardFacingAbsoluteWaveform(waveformPath, pointWidth);
+    } else {
+      upwardFacingAbsoluteWaveform(waveformPath, pointWidth);
     }
 
     final alignPosition = waveformAlign.getAlignPosition(size.height);
 
     final shiftedPath = waveformPath.shift(Offset(0, alignPosition));
+
     canvas.drawPath(shiftedPath, paint);
   }
 
@@ -81,7 +82,7 @@ class SquigglyWaveformPainter extends ActiveInActiveWaveformPainter {
     }
   }
 
-  void downwardFacingAbsoluteWaveform(Path waveformPath, double pointWidth) {
+  void upwardFacingAbsoluteWaveform(Path waveformPath, double pointWidth) {
     for (var i = 0; i < samples.length; i++) {
       final value = samples[i];
       final double x = pointWidth * i;
@@ -101,9 +102,10 @@ class SquigglyWaveformPainter extends ActiveInActiveWaveformPainter {
       );
       waveformPath.lineTo(x2, 0);
     }
+    waveformPath.lineTo(0, 0);
   }
 
-  void upwardFacingAbsoluteWaveform(Path waveformPath, double pointWidth) {
+  void downwardFacingAbsoluteWaveform(Path waveformPath, double pointWidth) {
     for (var i = 0; i < samples.length; i++) {
       final value = samples[i];
       final double x = pointWidth * i;
@@ -123,5 +125,7 @@ class SquigglyWaveformPainter extends ActiveInActiveWaveformPainter {
       );
       waveformPath.lineTo(x2, 0);
     }
+
+    waveformPath.lineTo(0, 0);
   }
 }

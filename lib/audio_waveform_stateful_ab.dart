@@ -41,8 +41,8 @@ abstract class AudioWaveformState<T extends AudioWaveform> extends State<T> {
   List<double> get processedSamples => _processedSamples;
 
   @protected
-  void updateProcessedSamples(List<double> value) {
-    _processedSamples = value;
+  void updateProcessedSamples(List<double> samples) {
+    _processedSamples = samples;
     setState(() {});
   }
 
