@@ -15,6 +15,9 @@ class RectangleWaveform extends AudioWaveform {
     this.inactiveColor,
     this.activeGradient,
     this.inactiveGradient,
+    this.borderWidth = 1.0,
+    this.activeBorderColor = Colors.white,
+    this.inactiveBorderColor = Colors.white,
     bool showActiveWaveform = true,
     bool absolute = false,
     bool invert = false,
@@ -33,6 +36,9 @@ class RectangleWaveform extends AudioWaveform {
   final Color? inactiveColor;
   final Gradient? activeGradient;
   final Gradient? inactiveGradient;
+  final double borderWidth;
+  final Color activeBorderColor;
+  final Color inactiveBorderColor;
 
   @override
   AudioWaveformState<RectangleWaveform> createState() =>
@@ -61,6 +67,8 @@ class _RectangleWaveformState extends AudioWaveformState<RectangleWaveform> {
               color: widget.inactiveColor ?? Colors.blue,
               gradient: widget.inactiveGradient,
               waveformAlign: waveformAlign,
+              borderColor: widget.inactiveBorderColor,
+              borderWidth: widget.borderWidth,
             ),
           ),
         ),
@@ -74,6 +82,8 @@ class _RectangleWaveformState extends AudioWaveformState<RectangleWaveform> {
               activeSamples: activeSamples,
               gradient: widget.activeGradient,
               waveformAlign: widget.waveformAlign,
+              borderColor: widget.activeBorderColor,
+              borderWidth: widget.borderWidth,
             ),
           ),
       ],

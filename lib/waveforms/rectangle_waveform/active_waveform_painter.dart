@@ -12,6 +12,8 @@ class RectangleActiveWaveformPainter extends ActiveWaveformPainter {
     required int activeIndex,
     required List<double> activeSamples,
     required WaveformAlign waveformAlign,
+    required this.borderColor,
+    required this.borderWidth,
   }) : super(
           samples: samples,
           color: color,
@@ -20,6 +22,9 @@ class RectangleActiveWaveformPainter extends ActiveWaveformPainter {
           activeSamples: activeSamples,
           waveformAlign: waveformAlign,
         );
+
+  final double borderWidth;
+  final Color borderColor;
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -32,8 +37,8 @@ class RectangleActiveWaveformPainter extends ActiveWaveformPainter {
 
     final strokePaint = Paint()
       ..style = PaintingStyle.stroke
-      ..color = Color(0xFFb1cad5)
-      ..strokeWidth = 0;
+      ..color = borderColor
+      ..strokeWidth = borderWidth;
 
     final double rectangelWidth = size.width / samples.length;
     final alignPosition = waveformAlign.getAlignPosition(size.height);
