@@ -40,6 +40,10 @@ abstract class AudioWaveformState<T extends AudioWaveform> extends State<T> {
 
   List<double> get processedSamples => _processedSamples;
 
+  late double _sampleWidth;
+
+  double get sampleWidth => _sampleWidth;
+
   @protected
   void updateProcessedSamples(List<double> samples) {
     _processedSamples = samples;
@@ -81,6 +85,12 @@ abstract class AudioWaveformState<T extends AudioWaveform> extends State<T> {
     setState(() {});
   }
 
+  void _calculateSampleWidth() {
+    setState(() {
+      _sampleWidth = widget.width / _processedSamples.length;
+    });
+  }
+
   @protected
   void _updateXAudio() {
     double elapsedTimeRatio =
@@ -103,9 +113,11 @@ abstract class AudioWaveformState<T extends AudioWaveform> extends State<T> {
     _processedSamples = widget.samples;
     _activeIndex = 0;
     _activeSamples = [];
+    _sampleWidth = 0;
 
     if (_processedSamples.isNotEmpty) {
       processSamples(_processedSamples);
+      _calculateSampleWidth();
     }
   }
 
@@ -115,10 +127,12 @@ abstract class AudioWaveformState<T extends AudioWaveform> extends State<T> {
     super.didUpdateWidget(oldWidget);
     if (widget.samples.length != oldWidget.samples.length) {
       processSamples(widget.samples);
+      _calculateSampleWidth();
       _updateActiveSamples();
     }
     if (widget.height != oldWidget.height || widget.width != oldWidget.width) {
       processSamples(widget.samples);
+      _calculateSampleWidth();
       _updateActiveSamples();
     }
     if (widget.absolute != oldWidget.absolute) {
