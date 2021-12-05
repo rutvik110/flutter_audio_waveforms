@@ -86,56 +86,78 @@ class _HomeState extends State<Home> {
               // Padding(
               //     padding: const EdgeInsets.all(0.0),
               //     child: Container(
-              //         color: Colors.white24,
-              //         child: SquigglyWaveform(
-              //           maxDuration: Duration(milliseconds: maxDuration),
-              //           elapsedDuration: elapsedDuration,
-              //           samples: samples,
-              //           height: 500,
-              //           width: MediaQuery.of(context).size.width,
-              //           absolute: true,
-              //           invert: false,
-              //         ))),
-              Padding(
-                padding: const EdgeInsets.all(0.0),
-                child: Container(
-                  //   color: Colors.white24,
-                  child: PolygonWaveform(
-                    maxDuration: Duration(milliseconds: maxDuration),
-                    elapsedDuration: elapsedDuration,
-                    samples: samples,
-                    height: 300,
-                    width: MediaQuery.of(context).size.width,
-                    absolute: true,
-                    invert: false,
-                    activeGradient: LinearGradient(
-                        begin: Alignment.centerLeft,
-                        end: Alignment.centerRight,
-                        colors: [
-                          Colors.blue,
-                          Colors.yellow,
-                          Colors.blue,
-                        ],
-                        stops: [
-                          0.3,
-                          0.5,
-                          0.7,
-                        ]),
-                    inactiveGradient: LinearGradient(
-                        begin: Alignment.centerLeft,
-                        end: Alignment.centerRight,
-                        colors: [
-                          Colors.yellow,
-                          Colors.red,
-                          Colors.green,
-                        ],
-                        stops: [
-                          0.3,
-                          0.5,
-                          0.7,
-                        ]),
-                  ),
-                ),
+              //         //   color: Colors.white24,
+              //         child: PolygonWaveform(
+              //       maxDuration: Duration(milliseconds: maxDuration),
+              //       elapsedDuration: elapsedDuration,
+              //       samples: samples,
+              //       height: 250,
+              //       width: MediaQuery.of(context).size.width,
+              //       absolute: true,
+              //       invert: false,
+              //       paintingStyle: PaintingStyle.fill,
+              //       activeGradient: LinearGradient(
+              //           begin: Alignment.centerLeft,
+              //           end: Alignment.centerRight,
+              //           colors: [
+              //             Colors.blue,
+              //             Colors.yellow,
+              //             Colors.blue,
+              //           ],
+              //           stops: [
+              //             0.3,
+              //             0.5,
+              //             0.7,
+              //           ]),
+              //       inactiveGradient: LinearGradient(
+              //           begin: Alignment.centerLeft,
+              //           end: Alignment.centerRight,
+              //           colors: [
+              //             Colors.yellow,
+              //             Colors.red,
+              //             Colors.green,
+              //           ],
+              //           stops: [
+              //             0.3,
+              //             0.5,
+              //             0.7,
+              //           ]),
+              //     ))),
+              PolygonWaveform(
+                maxDuration: Duration(milliseconds: maxDuration),
+                elapsedDuration: elapsedDuration,
+                samples: samples,
+                height: 100,
+                width: MediaQuery.of(context).size.width,
+                absolute: false,
+                invert: false,
+                paintingStyle: PaintingStyle.fill,
+                // activeGradient: LinearGradient(
+                //     begin: Alignment.centerLeft,
+                //     end: Alignment.centerRight,
+                //     colors: [
+                //       Colors.blue,
+                //       Colors.yellow,
+                //       Colors.blue,
+                //     ],
+                //     stops: [
+                //       0.3,
+                //       0.5,
+                //       0.7,
+                //     ]),
+                // inactiveGradient: LinearGradient(
+                //     begin: Alignment.centerLeft,
+                //     end: Alignment.centerRight,
+                //     colors: [
+                //       Colors.yellow,
+                //       Colors.red,
+                //       Colors.green,
+                //     ],
+                //     stops: [
+                //       0.3,
+                //       0.5,
+                //       0.7,
+                //     ]),
               ),
               // Container(
               //   height: 100,
