@@ -1,10 +1,10 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_waveforms/helpers/waveform_align.dart';
 import 'package:flutter_audio_waveforms/waveforms/waveform_painters_ab.dart';
 
+///Polygon Active Waveform painter
 class PolygonActiveWaveformPainter extends ActiveWaveformPainter {
+  // ignore: public_member_api_docs
   PolygonActiveWaveformPainter({
     required Color color,
     Gradient? gradient,
@@ -21,6 +21,8 @@ class PolygonActiveWaveformPainter extends ActiveWaveformPainter {
           waveformAlign: waveformAlign,
           sampleWidth: sampleWidth,
         );
+
+  ///Style of the waveform
   final PaintingStyle style;
   @override
   void paint(Canvas canvas, Size size) {
@@ -32,11 +34,11 @@ class PolygonActiveWaveformPainter extends ActiveWaveformPainter {
       );
 
     final path = Path();
-    bool isStroked = style == PaintingStyle.stroke;
+    final isStroked = style == PaintingStyle.stroke;
 
     for (var i = 0; i < activeSamples.length; i++) {
-      final double x = sampleWidth * i;
-      final double y = activeSamples[i];
+      final x = sampleWidth * i;
+      final y = activeSamples[i];
       if (isStroked) {
         path.lineTo(x, y);
       } else {

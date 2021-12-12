@@ -5,7 +5,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_audio_waveforms/helpers/check_samples_equality.dart';
 import 'package:flutter_audio_waveforms/helpers/waveform_align.dart';
 
+/// A Standard Stateful widget to build skeleton for waveforms with core
+/// functionality.
 abstract class AudioWaveform extends StatefulWidget {
+  /// Constructor for [AudioWaveform]
   const AudioWaveform({
     Key? key,
     required this.samples,
@@ -23,57 +26,94 @@ abstract class AudioWaveform extends StatefulWidget {
             : WaveformAlign.center,
         super(key: key);
 
+  /// Input from the user
   final List<double> samples;
+
+  /// Height of the waveform
   final double height;
+
+  /// Width of the waveform
   final double width;
+
+  /// Maximum duration of the audio
   final Duration maxDuration;
+
+  /// Elapsed duration of the audio
   final Duration elapsedDuration;
+
+  /// Whether to show the absolute(*single direction waveform) waveform or not
   final bool absolute;
+
+  /// Whether to invert the waveform or not
   final bool invert;
+
+  /// Whether to show the active waveform(*represents elapsed duration) or not
   final bool showActiveWaveform;
+
+  /// Alignment of the waveform
   final WaveformAlign waveformAlign;
 
   @override
   AudioWaveformState<AudioWaveform> createState();
 }
 
+/// State of the [AudioWaveform]
 abstract class AudioWaveformState<T extends AudioWaveform> extends State<T> {
   late List<double> _processedSamples;
 
+  ///getter for processed samples
   List<double> get processedSamples => _processedSamples;
 
   late double _sampleWidth;
 
+  ///getter for sample width
   double get sampleWidth => _sampleWidth;
 
+  ///Method for subsclass to update the processed samples
   @protected
+  // ignore: use_setters_to_change_properties
   void updateProcessedSamples(List<double> updatedSamples) {
     _processedSamples = updatedSamples;
   }
 
   late int _activeIndex;
 
+  ///getter for active samples
   List<double> get activeSamples => _activeSamples;
 
   late List<double> _activeSamples;
 
+  ///getter for max Duration
   Duration get maxDuration => widget.maxDuration;
+
+  ///getter for elapsed Duration
   Duration get elapsedDuration => widget.elapsedDuration;
+
+  ///whether to show active waveform or not
   bool get showActiveWaveform => widget.showActiveWaveform;
+
+  ///whether to show invert/flip waveform or not
   bool get invert => widget.absolute ? !widget.invert : widget.invert;
+
+  ///whether to show absolute waveform or not
   bool get absolute => widget.absolute;
+
+  ///getter for waveform align
   WaveformAlign get waveformAlign => widget.waveformAlign;
 
+  ///Samples input from the user is processed before used following some
+  ///standards. This is to have consistent samples that can be used to draw the
+  ///waveform.
   @protected
   void processSamples() {
-    List<double> rawSamples = widget.samples;
+    final rawSamples = widget.samples;
     _processedSamples = rawSamples
         .map((e) => absolute ? e.abs() * widget.height : e * widget.height)
         .toList();
 
     final maxNum =
         _processedSamples.reduce((a, b) => math.max(a.abs(), b.abs()));
-    final double multiplier = math.pow(maxNum, -1).toDouble();
+    final multiplier = math.pow(maxNum, -1).toDouble();
     final finaHeight = absolute ? widget.height : widget.height / 2;
     _processedSamples = _processedSamples
         .map(
@@ -95,7 +135,7 @@ abstract class AudioWaveformState<T extends AudioWaveform> extends State<T> {
 
       return;
     }
-    double elapsedTimeRatio =
+    final elapsedTimeRatio =
         elapsedDuration.inMilliseconds / maxDuration.inMilliseconds;
 
     _activeIndex = (widget.samples.length * elapsedTimeRatio).round();
@@ -123,7 +163,6 @@ abstract class AudioWaveformState<T extends AudioWaveform> extends State<T> {
 
   @override
   void didUpdateWidget(covariant T oldWidget) {
-    // TODO: implement didUpdateWidget
     super.didUpdateWidget(oldWidget);
     if (!checkforSamplesEquality(widget.samples, oldWidget.samples) &&
         widget.samples.isNotEmpty) {

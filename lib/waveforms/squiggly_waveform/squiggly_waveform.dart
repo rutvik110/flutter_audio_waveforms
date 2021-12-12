@@ -3,7 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:flutter_audio_waveforms/flutter_audio_waveforms.dart';
 import 'package:flutter_audio_waveforms/waveforms/squiggly_waveform/active_inactive_waveform_painter.dart';
 
+/// A WaveformType for drawing waveforms that are squiggly.
 class SquigglyWaveform extends AudioWaveform {
+  // ignore: public_member_api_docs
   const SquigglyWaveform({
     Key? key,
     required List<double> samples,
@@ -28,8 +30,14 @@ class SquigglyWaveform extends AudioWaveform {
           invert: invert,
           showActiveWaveform: showActiveWaveform,
         );
+
+  /// The color of the active portion of the waveform.
   final Color activeColor;
+
+  /// The color of the inactive portion of the waveform.
   final Color inactiveColor;
+
+  /// The stroke width of the waveform.
   final double strokeWidth;
 
   @override
@@ -40,13 +48,14 @@ class SquigglyWaveform extends AudioWaveform {
 class _SquigglyWaveformState extends AudioWaveformState<SquigglyWaveform> {
   @override
   void processSamples() {
-    List<double> rawSamples = widget.samples;
+    final rawSamples = widget.samples;
+    // ignore: omit_local_variable_types
     List<double> processedSamples =
         rawSamples.map((e) => e.abs() * widget.height).toList();
 
     final maxNum =
         processedSamples.reduce((a, b) => math.max(a.abs(), b.abs()));
-    final double multiplier = math.pow(maxNum, -1).toDouble();
+    final multiplier = math.pow(maxNum, -1).toDouble();
     final finaHeight = absolute ? widget.height : widget.height / 2;
     processedSamples = processedSamples
         .map(
@@ -62,8 +71,8 @@ class _SquigglyWaveformState extends AudioWaveformState<SquigglyWaveform> {
     if (widget.samples.isEmpty) {
       return const SizedBox.shrink();
     }
-    final List<double> processedSamples = this.processedSamples;
-    final double activeRatio = showActiveWaveform
+    final processedSamples = this.processedSamples;
+    final activeRatio = showActiveWaveform
         ? elapsedDuration.inMilliseconds / maxDuration.inMilliseconds
         : 0;
     final waveformAlign = this.waveformAlign;
@@ -75,7 +84,7 @@ class _SquigglyWaveformState extends AudioWaveformState<SquigglyWaveform> {
         samples: processedSamples,
         activeColor: widget.activeColor,
         inactiveColor: widget.inactiveColor,
-        activeRatio: activeRatio,
+        activeRatio: activeRatio as double,
         waveformAlign: waveformAlign,
         absolute: widget.absolute,
         invert: widget.invert,

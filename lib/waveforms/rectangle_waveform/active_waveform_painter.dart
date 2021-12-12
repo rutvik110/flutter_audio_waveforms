@@ -1,10 +1,10 @@
-import 'dart:ui';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_waveforms/helpers/waveform_align.dart';
 import 'package:flutter_audio_waveforms/waveforms/waveform_painters_ab.dart';
 
+/// Rectangle Active Waveform Painter
 class RectangleActiveWaveformPainter extends ActiveWaveformPainter {
+  // ignore: public_member_api_docs
   RectangleActiveWaveformPainter({
     required Color color,
     Gradient? gradient,
@@ -23,7 +23,10 @@ class RectangleActiveWaveformPainter extends ActiveWaveformPainter {
           sampleWidth: sampleWidth,
         );
 
+  /// width of the border
   final double borderWidth;
+
+  /// color of the border
   final Color borderColor;
 
   @override
@@ -43,17 +46,18 @@ class RectangleActiveWaveformPainter extends ActiveWaveformPainter {
     final alignPosition = waveformAlign.getAlignPosition(size.height);
 
     for (var i = 0; i < activeSamples.length; i++) {
-      final double x = sampleWidth * i;
-      final double y = activeSamples[i];
+      final x = sampleWidth * i;
+      final y = activeSamples[i];
 
-      canvas.drawRect(
-        Rect.fromLTWH(x, alignPosition, sampleWidth, y),
-        activeTrackPaint,
-      );
-      canvas.drawRect(
-        Rect.fromLTWH(x, alignPosition, sampleWidth, y),
-        strokePaint,
-      );
+      canvas
+        ..drawRect(
+          Rect.fromLTWH(x, alignPosition, sampleWidth, y),
+          activeTrackPaint,
+        )
+        ..drawRect(
+          Rect.fromLTWH(x, alignPosition, sampleWidth, y),
+          strokePaint,
+        );
     }
   }
 }

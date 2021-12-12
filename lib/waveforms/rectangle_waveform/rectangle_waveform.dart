@@ -3,7 +3,9 @@ import 'package:flutter_audio_waveforms/flutter_audio_waveforms.dart';
 import 'package:flutter_audio_waveforms/waveforms/rectangle_waveform/active_waveform_painter.dart';
 import 'package:flutter_audio_waveforms/waveforms/rectangle_waveform/inactive_waveform_painter.dart';
 
+/// A Waveform of Type Rectangle.
 class RectangleWaveform extends AudioWaveform {
+  // ignore: public_member_api_docs
   const RectangleWaveform({
     Key? key,
     required List<double> samples,
@@ -32,12 +34,26 @@ class RectangleWaveform extends AudioWaveform {
           absolute: absolute,
           invert: invert,
         );
+
+  /// The color of the active waveform.
   final Color activeColor;
+
+  /// The color of the inactive waveform.
   final Color inactiveColor;
+
+  /// The gradient of the active waveform.
   final Gradient? activeGradient;
+
+  /// The gradient of the inactive waveform.
   final Gradient? inactiveGradient;
+
+  /// The width of the border of the waveform.
   final double borderWidth;
+
+  /// The color of the active waveform border.
   final Color activeBorderColor;
+
+  /// The color of the inactive waveform border.
   final Color inactiveBorderColor;
 
   @override

@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_waveforms/helpers/waveform_align.dart';
-import 'dart:ui';
-import 'dart:math' as math;
 import 'package:flutter_audio_waveforms/waveforms/waveform_painters_ab.dart';
 
+/// A Rectangle Waveform painter.
 class RectangleInActiveWaveformPainter extends InActiveWaveformPainter {
+  // ignore: public_member_api_docs
   RectangleInActiveWaveformPainter({
     Color color = Colors.white,
     Gradient? gradient,
@@ -20,7 +20,11 @@ class RectangleInActiveWaveformPainter extends InActiveWaveformPainter {
           waveformAlign: waveformAlign,
           sampleWidth: sampleWidth,
         );
+
+  /// The width of the border.
   final double borderWidth;
+
+  /// The color of the border.
   final Color borderColor;
 
   @override
@@ -39,17 +43,18 @@ class RectangleInActiveWaveformPainter extends InActiveWaveformPainter {
     final alignPosition = waveformAlign.getAlignPosition(size.height);
 
     for (var i = 0; i < samples.length; i++) {
-      final double x = sampleWidth * i;
-      final double y = samples[i];
+      final x = sampleWidth * i;
+      final y = samples[i];
 
-      canvas.drawRect(
-        Rect.fromLTWH(x, alignPosition, sampleWidth, y),
-        paint,
-      );
-      canvas.drawRect(
-        Rect.fromLTWH(x, alignPosition, sampleWidth, y),
-        strokePaint,
-      );
+      canvas
+        ..drawRect(
+          Rect.fromLTWH(x, alignPosition, sampleWidth, y),
+          paint,
+        )
+        ..drawRect(
+          Rect.fromLTWH(x, alignPosition, sampleWidth, y),
+          strokePaint,
+        );
     }
   }
 }

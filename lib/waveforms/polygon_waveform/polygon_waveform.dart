@@ -3,7 +3,9 @@ import 'package:flutter_audio_waveforms/flutter_audio_waveforms.dart';
 import 'package:flutter_audio_waveforms/waveforms/polygon_waveform/active_waveform_painter.dart';
 import 'package:flutter_audio_waveforms/waveforms/polygon_waveform/inactive_waveform_painter.dart';
 
+/// PolyGon Waveform Builder
 class PolygonWaveform extends AudioWaveform {
+  // ignore: public_member_api_docs
   const PolygonWaveform({
     Key? key,
     required List<double> samples,
@@ -30,10 +32,20 @@ class PolygonWaveform extends AudioWaveform {
           absolute: absolute,
           invert: invert,
         );
+
+  /// active waveform color
   final Color activeColor;
+
+  /// inactive waveform color
   final Color inactiveColor;
+
+  /// active waveform gradient
   final Gradient? activeGradient;
+
+  /// inactive waveform gradient
   final Gradient? inactiveGradient;
+
+  /// waveform style
   final PaintingStyle style;
 
   @override

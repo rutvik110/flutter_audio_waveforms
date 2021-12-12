@@ -3,7 +3,9 @@ import 'package:flutter_audio_waveforms/helpers/waveform_align.dart';
 import 'dart:ui';
 import 'package:flutter_audio_waveforms/waveforms/waveform_painters_ab.dart';
 
+///InActive Waveform Painter
 class PolygonInActiveWaveformPainter extends InActiveWaveformPainter {
+  // ignore: public_member_api_docs
   PolygonInActiveWaveformPainter({
     Color color = Colors.white,
     Gradient? gradient,
@@ -19,6 +21,7 @@ class PolygonInActiveWaveformPainter extends InActiveWaveformPainter {
           sampleWidth: sampleWidth,
         );
 
+  ///Style of the waveform
   final PaintingStyle style;
 
   @override
@@ -33,8 +36,8 @@ class PolygonInActiveWaveformPainter extends InActiveWaveformPainter {
     final path = Path();
 
     for (var i = 0; i < samples.length; i++) {
-      final double x = sampleWidth * i;
-      final double y = samples[i];
+      final x = sampleWidth * i;
+      final y = samples[i];
       path.lineTo(x, y);
     }
 
