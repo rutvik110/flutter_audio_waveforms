@@ -6,13 +6,18 @@ import 'package:flutter_audio_waveforms/waveforms/polygon_waveform/inactive_wave
 /// [PolygonWaveform] paints the standard waveform that is used for audio
 /// waveforms, a sharp continuous line joining the points of a waveform.
 ///
+/// {@tool snippet}
 /// Example :
-///
-///
-///
-///
-///
-///
+/// ```dart
+/// PolygonWaveform(
+///   maxDuration: maxDuration,
+///   elapsedDuration: elapsedDuration,
+///   samples: samples,
+///   height: 300,
+///   width: MediaQuery.of(context).size.width,
+/// )
+///```
+/// {@end-tool}
 class PolygonWaveform extends AudioWaveform {
   // ignore: public_member_api_docs
   const PolygonWaveform({

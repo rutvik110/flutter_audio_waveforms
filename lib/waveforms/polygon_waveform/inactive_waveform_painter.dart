@@ -34,7 +34,7 @@ class PolygonInActiveWaveformPainter extends InActiveWaveformPainter {
       );
 
     final path = Path();
-    //TODO: Update according to active waveform for-loop techinque
+
     for (var i = 0; i < samples.length; i++) {
       final x = sampleWidth * i;
       final y = samples[i];

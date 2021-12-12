@@ -6,13 +6,18 @@ import 'package:flutter_audio_waveforms/waveforms/rectangle_waveform/inactive_wa
 /// [RectangleWaveform] paints a waveform where each sample is represented as
 /// rectangle block. It's inspired by the @soundcloud audio track on web.
 ///
+/// {@tool snippet}
 /// Example :
-///
-///
-///
-///
-///
-///
+/// ```dart
+/// RectangleWaveform(
+///   maxDuration: maxDuration,
+///   elapsedDuration: elapsedDuration,
+///   samples: samples,
+///   height: 300,
+///   width: MediaQuery.of(context).size.width,
+/// )
+///```
+/// {@end-tool}
 class RectangleWaveform extends AudioWaveform {
   // ignore: public_member_api_docs
   const RectangleWaveform({

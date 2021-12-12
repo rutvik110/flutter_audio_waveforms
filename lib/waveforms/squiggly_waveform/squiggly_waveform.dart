@@ -6,6 +6,19 @@ import 'package:flutter_audio_waveforms/waveforms/waveform_painters_ab.dart';
 
 /// [SquigglyWaveform] paints a squiggly waveform.
 /// The painter for this waveform is of the type [ActiveInActiveWaveformPainter]
+///
+/// {@tool snippet}
+/// Example :
+/// ```dart
+/// SquigglyWaveform(
+///   maxDuration: maxDuration,
+///   elapsedDuration: elapsedDuration,
+///   samples: samples,
+///   height: 300,
+///   width: MediaQuery.of(context).size.width,
+/// )
+///```
+/// {@end-tool}
 class SquigglyWaveform extends AudioWaveform {
   // ignore: public_member_api_docs
   const SquigglyWaveform({
