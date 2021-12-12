@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:flutter_audio_waveforms/helpers/waveform_alignment.dart';
 
 /// A Painter class that all the types of Waveform Painters extend to.
-///
 /// The memebers of this class are essential to paint any type of waveform.
 abstract class WaveformPainter extends CustomPainter {
   /// Constructor for the WaveformPainter.
@@ -32,6 +31,9 @@ abstract class WaveformPainter extends CustomPainter {
 
 /// A Painter class that all other ActiveWaveform Painters extend to.
 /// The members declared in this class are essential to draw ActiveWaveforms.
+/// This types of waveform painters draws the active part of the waveform of
+/// the audio being played.
+
 abstract class ActiveWaveformPainter extends WaveformPainter {
   // ignore: public_member_api_docs
   ActiveWaveformPainter({
@@ -60,6 +62,8 @@ abstract class ActiveWaveformPainter extends WaveformPainter {
 }
 
 /// A Painter class that all other InActiveWaveform Painters extend to.
+/// This types of waveform painters draws the whole waveform of the audio
+/// being played.
 abstract class InActiveWaveformPainter extends WaveformPainter {
   // ignore: public_member_api_docs
   InActiveWaveformPainter({
@@ -85,7 +89,7 @@ abstract class InActiveWaveformPainter extends WaveformPainter {
 
 /// A Painter class that all other ActiveInActiveWaveform Painters extend to.
 /// The members of this class are essential to draw any waveform that manages
-/// the painting of both Active and InActive waveform within itself.
+/// the painting of both active and inActive waveform within itself.
 abstract class ActiveInActiveWaveformPainter extends WaveformPainter {
   // ignore: public_member_api_docs
   ActiveInActiveWaveformPainter({

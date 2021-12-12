@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_waveforms/helpers/waveform_alignment.dart';
-import 'dart:ui';
+import 'package:flutter_audio_waveforms/waveforms/polygon_waveform/polygon_waveform.dart';
 import 'package:flutter_audio_waveforms/waveforms/waveform_painters_ab.dart';
 
-///InActive Waveform Painter
+///InActiveWaveformPainter for the [PolygonWaveform]
 class PolygonInActiveWaveformPainter extends InActiveWaveformPainter {
   // ignore: public_member_api_docs
   PolygonInActiveWaveformPainter({
@@ -21,7 +21,7 @@ class PolygonInActiveWaveformPainter extends InActiveWaveformPainter {
           sampleWidth: sampleWidth,
         );
 
-  ///Style of the waveform
+  /// Style of the waveform
   final PaintingStyle style;
 
   @override
@@ -34,15 +34,17 @@ class PolygonInActiveWaveformPainter extends InActiveWaveformPainter {
       );
 
     final path = Path();
-
+    //TODO: Update according to active waveform for-loop techinque
     for (var i = 0; i < samples.length; i++) {
       final x = sampleWidth * i;
       final y = samples[i];
       path.lineTo(x, y);
     }
 
+    //Gets the [alignPosition] depending on [waveformAlignment]
     final alignPosition = waveformAlignment.getAlignPosition(size.height);
 
+    //Shifts the path along y-axis by amount of [alignPosition]
     final shiftedPath = path.shift(Offset(0, alignPosition));
 
     canvas.drawPath(shiftedPath, paint);

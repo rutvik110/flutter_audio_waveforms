@@ -1,9 +1,10 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_waveforms/helpers/waveform_alignment.dart';
+import 'package:flutter_audio_waveforms/waveforms/squiggly_waveform/squiggly_waveform.dart';
 import 'package:flutter_audio_waveforms/waveforms/waveform_painters_ab.dart';
 
-///Painter for the Squiggly Waveform
+///Painter for the [SquigglyWaveform]
 class SquigglyWaveformPainter extends ActiveInActiveWaveformPainter {
   // ignore: public_member_api_docs
   SquigglyWaveformPainter({
@@ -25,13 +26,13 @@ class SquigglyWaveformPainter extends ActiveInActiveWaveformPainter {
           sampleWidth: sampleWidth,
         );
 
-  ///Whether to draw the waveform as an absolute value or not
+  ///Whether to draw the absolute waveform or not
   final bool absolute;
 
   ///Whether to invert the waveform or not
   final bool invert;
 
-  ///The width of the stroke
+  ///Width of the stroke
   final double strokeWidth;
   @override
   void paint(Canvas canvas, Size size) {
@@ -118,7 +119,6 @@ class SquigglyWaveformPainter extends ActiveInActiveWaveformPainter {
   }
 
   /// Draws the upward facing absolute waveform
-
   void downwardFacingAbsoluteWaveform(Path waveformPath, double pointWidth) {
     for (var i = 0; i < samples.length; i++) {
       final value = samples[i];

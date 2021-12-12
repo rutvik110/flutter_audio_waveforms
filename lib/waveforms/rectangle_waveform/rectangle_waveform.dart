@@ -3,7 +3,16 @@ import 'package:flutter_audio_waveforms/flutter_audio_waveforms.dart';
 import 'package:flutter_audio_waveforms/waveforms/rectangle_waveform/active_waveform_painter.dart';
 import 'package:flutter_audio_waveforms/waveforms/rectangle_waveform/inactive_waveform_painter.dart';
 
-/// A Waveform of Type Rectangle.
+/// [RectangleWaveform] paints a waveform where each sample is represented as
+/// rectangle block. It's inspired by the @soundcloud audio track on web.
+///
+/// Example :
+///
+///
+///
+///
+///
+///
 class RectangleWaveform extends AudioWaveform {
   // ignore: public_member_api_docs
   const RectangleWaveform({

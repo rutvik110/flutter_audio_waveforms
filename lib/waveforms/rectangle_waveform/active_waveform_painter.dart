@@ -1,8 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_waveforms/helpers/waveform_alignment.dart';
+import 'package:flutter_audio_waveforms/waveforms/rectangle_waveform/rectangle_waveform.dart';
 import 'package:flutter_audio_waveforms/waveforms/waveform_painters_ab.dart';
 
-/// Rectangle Active Waveform Painter
+///ActiveWaveformPainter for the [RectangleWaveform]
 class RectangleActiveWaveformPainter extends ActiveWaveformPainter {
   // ignore: public_member_api_docs
   RectangleActiveWaveformPainter({
@@ -23,10 +24,10 @@ class RectangleActiveWaveformPainter extends ActiveWaveformPainter {
           sampleWidth: sampleWidth,
         );
 
-  /// width of the border
+  /// Width of the border
   final double borderWidth;
 
-  /// color of the border
+  /// Color of the border
   final Color borderColor;
 
   @override
@@ -43,17 +44,20 @@ class RectangleActiveWaveformPainter extends ActiveWaveformPainter {
       ..color = borderColor
       ..strokeWidth = borderWidth;
 
+    //Gets the [alignPosition] depending on [waveformAlignment]
     final alignPosition = waveformAlignment.getAlignPosition(size.height);
 
     for (var i = 0; i < activeSamples.length; i++) {
       final x = sampleWidth * i;
       final y = activeSamples[i];
 
+      //Draws the filled rectangles of the waveform.
       canvas
         ..drawRect(
           Rect.fromLTWH(x, alignPosition, sampleWidth, y),
           activeTrackPaint,
         )
+        //Draws the border for the rectangles of the waveform.
         ..drawRect(
           Rect.fromLTWH(x, alignPosition, sampleWidth, y),
           strokePaint,
