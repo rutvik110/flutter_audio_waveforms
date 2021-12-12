@@ -13,7 +13,7 @@ enum WaveformAlignment {
 }
 
 ///Extension to get Offset height based on waveform align
-extension WaveformAlignExtension on WaveformAlignment {
+extension WaveformAlignmentExtension on WaveformAlignment {
   ///Gets offset height based on waveform align
   double getAlignPosition(double height) {
     switch (this) {
