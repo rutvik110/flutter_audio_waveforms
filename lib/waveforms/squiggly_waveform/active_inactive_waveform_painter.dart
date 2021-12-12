@@ -11,7 +11,7 @@ class SquigglyWaveformPainter extends ActiveInActiveWaveformPainter {
     required List<double> samples,
     required Color inactiveColor,
     required double activeRatio,
-    required WaveformAlign waveformAlign,
+    required WaveformAlignment waveformAlignment,
     required double sampleWidth,
     required this.absolute,
     required this.invert,
@@ -21,7 +21,7 @@ class SquigglyWaveformPainter extends ActiveInActiveWaveformPainter {
           activeColor: activeColor,
           inactiveColor: inactiveColor,
           activeRatio: activeRatio,
-          waveformAlign: waveformAlign,
+          waveformAlignment: waveformAlignment,
           sampleWidth: sampleWidth,
         );
 
@@ -58,7 +58,7 @@ class SquigglyWaveformPainter extends ActiveInActiveWaveformPainter {
       upwardFacingAbsoluteWaveform(waveformPath, sampleWidth);
     }
 
-    final alignPosition = waveformAlign.getAlignPosition(size.height);
+    final alignPosition = waveformAlignment.getAlignPosition(size.height);
 
     final shiftedPath = waveformPath.shift(Offset(0, alignPosition));
 

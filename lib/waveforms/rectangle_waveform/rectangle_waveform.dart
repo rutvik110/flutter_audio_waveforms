@@ -70,7 +70,8 @@ class _RectangleWaveformState extends AudioWaveformState<RectangleWaveform> {
     final processedSamples = this.processedSamples;
     final activeSamples = this.activeSamples;
     final showActiveWaveform = this.showActiveWaveform;
-    final waveformAlign = this.waveformAlign;
+    final waveformAlignment = this.waveformAlignment;
+    final sampleWidth = this.sampleWidth;
 
     return Stack(
       children: [
@@ -82,7 +83,7 @@ class _RectangleWaveformState extends AudioWaveformState<RectangleWaveform> {
               samples: processedSamples,
               color: widget.inactiveColor,
               gradient: widget.inactiveGradient,
-              waveformAlign: waveformAlign,
+              waveformAlignment: waveformAlignment,
               borderColor: widget.inactiveBorderColor,
               borderWidth: widget.borderWidth,
               sampleWidth: sampleWidth,
@@ -98,7 +99,7 @@ class _RectangleWaveformState extends AudioWaveformState<RectangleWaveform> {
               color: widget.activeColor,
               activeSamples: activeSamples,
               gradient: widget.activeGradient,
-              waveformAlign: widget.waveformAlign,
+              waveformAlignment: widget.waveformAlignment,
               borderColor: widget.activeBorderColor,
               borderWidth: widget.borderWidth,
               sampleWidth: sampleWidth,

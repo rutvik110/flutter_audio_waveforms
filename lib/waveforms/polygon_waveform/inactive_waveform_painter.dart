@@ -10,14 +10,14 @@ class PolygonInActiveWaveformPainter extends InActiveWaveformPainter {
     Color color = Colors.white,
     Gradient? gradient,
     required List<double> samples,
-    required WaveformAlign waveformAlign,
+    required WaveformAlignment waveformAlignment,
     required this.style,
     required double sampleWidth,
   }) : super(
           samples: samples,
           color: color,
           gradient: gradient,
-          waveformAlign: waveformAlign,
+          waveformAlignment: waveformAlignment,
           sampleWidth: sampleWidth,
         );
 
@@ -41,7 +41,7 @@ class PolygonInActiveWaveformPainter extends InActiveWaveformPainter {
       path.lineTo(x, y);
     }
 
-    final alignPosition = waveformAlign.getAlignPosition(size.height);
+    final alignPosition = waveformAlignment.getAlignPosition(size.height);
 
     final shiftedPath = path.shift(Offset(0, alignPosition));
 

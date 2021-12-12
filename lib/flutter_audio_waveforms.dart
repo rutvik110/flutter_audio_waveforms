@@ -4,9 +4,18 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_waveforms/helpers/check_samples_equality.dart';
 import 'package:flutter_audio_waveforms/helpers/waveform_align.dart';
+import 'package:flutter_audio_waveforms/waveforms/waveform_painters_ab.dart';
 
-/// A Standard Stateful widget to build skeleton for waveforms with core
-/// functionality.
+/// [AudioWaveform] is a custom StatefulWidget that other Waveform classes
+/// extend to.
+///
+/// This class handles the common functionality, properties and provides the
+/// most common waveform details to the subclasses. This details then can be
+/// used by the [WaveformPainter] to paint the waveform.
+///
+/// Anything that can be shared and used across all waveforms should
+/// be handled by this class.
+///
 abstract class AudioWaveform extends StatefulWidget {
   /// Constructor for [AudioWaveform]
   const AudioWaveform({
@@ -19,39 +28,44 @@ abstract class AudioWaveform extends StatefulWidget {
     required this.showActiveWaveform,
     this.absolute = false,
     this.invert = false,
-  })  : waveformAlign = absolute
+  })  : waveformAlignment = absolute
             ? invert
-                ? WaveformAlign.top
-                : WaveformAlign.bottom
-            : WaveformAlign.center,
+                ? WaveformAlignment.top
+                : WaveformAlignment.bottom
+            : WaveformAlignment.center,
         super(key: key);
 
-  /// Input from the user
+  /// Audio samples raw input.
+  /// This raw samples are processed before being used to paint the waveform.
   final List<double> samples;
 
-  /// Height of the waveform
+  /// Height of the canvas on which the waveform will be drawn.
   final double height;
 
-  /// Width of the waveform
+  /// Width of the canvas on which the waveform will be drawn.
   final double width;
 
-  /// Maximum duration of the audio
+  /// Maximum duration of the audio.
   final Duration maxDuration;
 
-  /// Elapsed duration of the audio
+  /// Elapsed duration of the audio.
   final Duration elapsedDuration;
 
-  /// Whether to show the absolute(*single direction waveform) waveform or not
+  /// Makes the waveform absolute.
+  /// Draws the waveform along the positive y-axis.
+  /// Samples are processed such that we end up with positive sample values.
   final bool absolute;
 
-  /// Whether to invert the waveform or not
+  /// Inverts/Flips the waveform along x-axis.
+  /// Samples are processed such that we end up with samples having opposite
+  /// sign.
   final bool invert;
 
-  /// Whether to show the active waveform(*represents elapsed duration) or not
+  /// Whether to show the active waveform or not.
   final bool showActiveWaveform;
 
-  /// Alignment of the waveform
-  final WaveformAlign waveformAlign;
+  /// Alignment of the waveform in the canvas.
+  final WaveformAlignment waveformAlignment;
 
   @override
   AudioWaveformState<AudioWaveform> createState();
@@ -59,14 +73,16 @@ abstract class AudioWaveform extends StatefulWidget {
 
 /// State of the [AudioWaveform]
 abstract class AudioWaveformState<T extends AudioWaveform> extends State<T> {
+  /// Samples after processing.
+  /// This are used to paint the waveform.
   late List<double> _processedSamples;
 
-  ///getter for processed samples
+  ///Getter for processed samples.
   List<double> get processedSamples => _processedSamples;
 
   late double _sampleWidth;
 
-  ///getter for sample width
+  ///Getter for sample width.
   double get sampleWidth => _sampleWidth;
 
   ///Method for subsclass to update the processed samples
@@ -76,37 +92,50 @@ abstract class AudioWaveformState<T extends AudioWaveform> extends State<T> {
     _processedSamples = updatedSamples;
   }
 
+  /// Active index of the sample in the raw samples.
+  ///
+  /// This is used to obtain the [activeSamples] for the audio as the
+  /// audio progresses.
+  /// This is calculated based on the [elapsedDuration], [maxDuration] and the
+  /// raw samples.
+  ///
+  /// final elapsedTimeRatio = elapsedDuration.inMilliseconds / maxDuration.inMilliseconds;
+  /// _activeIndex = (widget.samples.length * elapsedTimeRatio).round();
   late int _activeIndex;
 
-  ///getter for active samples
-  List<double> get activeSamples => _activeSamples;
-
+  /// Active samples that are used to draw the ActiveWaveform.
+  /// This are calculated using [_activeIndex] and are subList of the
+  /// [_processedSamples] at any given time.
   late List<double> _activeSamples;
 
-  ///getter for max Duration
+  ///Getter for active samples.
+  List<double> get activeSamples => _activeSamples;
+
+  ///Getter for maxDuration
   Duration get maxDuration => widget.maxDuration;
 
-  ///getter for elapsed Duration
+  ///getter for elapsedDuration
   Duration get elapsedDuration => widget.elapsedDuration;
 
-  ///whether to show active waveform or not
+  ///Whether to show active waveform or not
   bool get showActiveWaveform => widget.showActiveWaveform;
 
-  ///whether to show invert/flip waveform or not
+  ///Whether to invert/flip waveform or not
   bool get invert => widget.absolute ? !widget.invert : widget.invert;
 
-  ///whether to show absolute waveform or not
+  ///Whether to show absolute waveform or not
   bool get absolute => widget.absolute;
 
-  ///getter for waveform align
-  WaveformAlign get waveformAlign => widget.waveformAlign;
+  ///Getter for waveformAlignment.
+  WaveformAlignment get waveformAlignment => widget.waveformAlignment;
 
-  ///Samples input from the user is processed before used following some
-  ///standards. This is to have consistent samples that can be used to draw the
-  ///waveform.
+  /// Raw samples are processed before used following some
+  /// techniques. This is to have consistent samples that can be used to draw
+  /// the waveform properly.
   @protected
   void processSamples() {
     final rawSamples = widget.samples;
+
     _processedSamples = rawSamples
         .map((e) => absolute ? e.abs() * widget.height : e * widget.height)
         .toList();
@@ -115,6 +144,7 @@ abstract class AudioWaveformState<T extends AudioWaveform> extends State<T> {
         _processedSamples.reduce((a, b) => math.max(a.abs(), b.abs()));
     final multiplier = math.pow(maxNum, -1).toDouble();
     final finaHeight = absolute ? widget.height : widget.height / 2;
+
     _processedSamples = _processedSamples
         .map(
           (e) => invert
@@ -124,10 +154,14 @@ abstract class AudioWaveformState<T extends AudioWaveform> extends State<T> {
         .toList();
   }
 
+  /// Calculates the width that each sample would take.
+  /// This is later used in the Painters to calculate the Offset along x-axis
+  /// from the start for any sample while painting.
   void _calculateSampleWidth() {
     _sampleWidth = widget.width / (_processedSamples.length);
   }
 
+  /// Updates the [_activeIndex] whenever the duration changes.
   @protected
   void _updateActiveIndex({int? activeIndex}) {
     if (activeIndex != null) {
@@ -141,6 +175,7 @@ abstract class AudioWaveformState<T extends AudioWaveform> extends State<T> {
     _activeIndex = (widget.samples.length * elapsedTimeRatio).round();
   }
 
+  /// Updates [_activeSamples] based on the [_activeIndex].
   @protected
   void _updateActiveSamples() {
     _activeSamples = _processedSamples.sublist(0, _activeIndex);

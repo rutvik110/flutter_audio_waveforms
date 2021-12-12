@@ -10,7 +10,7 @@ class PolygonActiveWaveformPainter extends ActiveWaveformPainter {
     Gradient? gradient,
     required List<double> samples,
     required List<double> activeSamples,
-    required WaveformAlign waveformAlign,
+    required WaveformAlignment waveformAlignment,
     required this.style,
     required double sampleWidth,
   }) : super(
@@ -18,7 +18,7 @@ class PolygonActiveWaveformPainter extends ActiveWaveformPainter {
           color: color,
           gradient: gradient,
           activeSamples: activeSamples,
-          waveformAlign: waveformAlign,
+          waveformAlignment: waveformAlignment,
           sampleWidth: sampleWidth,
         );
 
@@ -50,7 +50,7 @@ class PolygonActiveWaveformPainter extends ActiveWaveformPainter {
       }
     }
 
-    final alignPosition = waveformAlign.getAlignPosition(size.height);
+    final alignPosition = waveformAlignment.getAlignPosition(size.height);
 
     final shiftedPath = path.shift(Offset(0, alignPosition));
 

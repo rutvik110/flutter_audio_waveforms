@@ -1,14 +1,14 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_waveforms/helpers/waveform_align.dart';
 
-///A base class that all types of waveforms extend to.
+/// A 
 abstract class WaveformPainter extends CustomPainter {
   // ignore: public_member_api_docs
   WaveformPainter({
     required this.samples,
     required this.color,
     required this.gradient,
-    required this.waveformAlign,
+    required this.waveformAlignment,
     required this.sampleWidth,
   });
 
@@ -22,7 +22,7 @@ abstract class WaveformPainter extends CustomPainter {
   final Gradient? gradient;
 
   ///The alignment of the waveform.
-  final WaveformAlign waveformAlign;
+  final WaveformAlignment waveformAlignment;
 
   ///The width of each sample.
   final double sampleWidth;
@@ -37,12 +37,12 @@ abstract class ActiveWaveformPainter extends WaveformPainter {
     required List<double> samples,
     required double sampleWidth,
     required this.activeSamples,
-    required WaveformAlign waveformAlign,
+    required WaveformAlignment waveformAlignment,
   }) : super(
           samples: samples,
           color: color,
           gradient: gradient,
-          waveformAlign: waveformAlign,
+          waveformAlignment: waveformAlignment,
           sampleWidth: sampleWidth,
         );
 
@@ -62,13 +62,13 @@ abstract class InActiveWaveformPainter extends WaveformPainter {
     required Color color,
     required Gradient? gradient,
     required List<double> samples,
-    required WaveformAlign waveformAlign,
+    required WaveformAlignment waveformAlignment,
     required double sampleWidth,
   }) : super(
           samples: samples,
           color: color,
           gradient: gradient,
-          waveformAlign: waveformAlign,
+          waveformAlignment: waveformAlignment,
           sampleWidth: sampleWidth,
         );
 
@@ -88,12 +88,12 @@ abstract class ActiveInActiveWaveformPainter extends WaveformPainter {
     required double sampleWidth,
     required this.inactiveColor,
     required this.activeRatio,
-    WaveformAlign waveformAlign = WaveformAlign.center,
+    WaveformAlignment waveformAlignment = WaveformAlignment.center,
   }) : super(
           samples: samples,
           color: activeColor,
           gradient: null,
-          waveformAlign: waveformAlign,
+          waveformAlignment: waveformAlignment,
           sampleWidth: sampleWidth,
         );
 

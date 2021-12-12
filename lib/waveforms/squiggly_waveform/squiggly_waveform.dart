@@ -75,7 +75,7 @@ class _SquigglyWaveformState extends AudioWaveformState<SquigglyWaveform> {
     final activeRatio = showActiveWaveform
         ? elapsedDuration.inMilliseconds / maxDuration.inMilliseconds
         : 0;
-    final waveformAlign = this.waveformAlign;
+    final waveformAlignment = this.waveformAlignment;
 
     return CustomPaint(
       size: Size(widget.width, widget.height),
@@ -85,7 +85,7 @@ class _SquigglyWaveformState extends AudioWaveformState<SquigglyWaveform> {
         activeColor: widget.activeColor,
         inactiveColor: widget.inactiveColor,
         activeRatio: activeRatio as double,
-        waveformAlign: waveformAlign,
+        waveformAlignment: waveformAlignment,
         absolute: widget.absolute,
         invert: widget.invert,
         strokeWidth: widget.strokeWidth,

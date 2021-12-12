@@ -1,5 +1,5 @@
 ///Waveform align enum
-enum WaveformAlign {
+enum WaveformAlignment {
   ///Aligns waveform to the top of the canvas.
   top,
 
@@ -13,15 +13,15 @@ enum WaveformAlign {
 }
 
 ///Extension to get Offset height based on waveform align
-extension WaveformAlignExtension on WaveformAlign {
+extension WaveformAlignExtension on WaveformAlignment {
   ///Gets offset height based on waveform align
   double getAlignPosition(double height) {
     switch (this) {
-      case WaveformAlign.top:
+      case WaveformAlignment.top:
         return 0;
-      case WaveformAlign.center:
+      case WaveformAlignment.center:
         return height / 2;
-      case WaveformAlign.bottom:
+      case WaveformAlignment.bottom:
         return height;
     }
   }

@@ -10,7 +10,7 @@ class RectangleActiveWaveformPainter extends ActiveWaveformPainter {
     Gradient? gradient,
     required List<double> samples,
     required List<double> activeSamples,
-    required WaveformAlign waveformAlign,
+    required WaveformAlignment waveformAlignment,
     required this.borderColor,
     required this.borderWidth,
     required double sampleWidth,
@@ -19,7 +19,7 @@ class RectangleActiveWaveformPainter extends ActiveWaveformPainter {
           color: color,
           gradient: gradient,
           activeSamples: activeSamples,
-          waveformAlign: waveformAlign,
+          waveformAlignment: waveformAlignment,
           sampleWidth: sampleWidth,
         );
 
@@ -43,7 +43,7 @@ class RectangleActiveWaveformPainter extends ActiveWaveformPainter {
       ..color = borderColor
       ..strokeWidth = borderWidth;
 
-    final alignPosition = waveformAlign.getAlignPosition(size.height);
+    final alignPosition = waveformAlignment.getAlignPosition(size.height);
 
     for (var i = 0; i < activeSamples.length; i++) {
       final x = sampleWidth * i;
