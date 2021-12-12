@@ -3,7 +3,7 @@ library flutter_audio_waveforms;
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_waveforms/helpers/check_samples_equality.dart';
-import 'package:flutter_audio_waveforms/helpers/waveform_align.dart';
+import 'package:flutter_audio_waveforms/helpers/waveform_alignment.dart';
 import 'package:flutter_audio_waveforms/waveforms/waveform_painters_ab.dart';
 
 /// [AudioWaveform] is a custom StatefulWidget that other Waveform classes

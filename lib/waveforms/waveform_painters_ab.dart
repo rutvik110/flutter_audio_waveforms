@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_audio_waveforms/helpers/waveform_align.dart';
+import 'package:flutter_audio_waveforms/helpers/waveform_alignment.dart';
 
 /// A Painter class that all the types of Waveform Painters extend to.
 ///
