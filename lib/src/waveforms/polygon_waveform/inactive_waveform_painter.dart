@@ -1,16 +1,14 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_audio_waveforms/helpers/waveform_alignment.dart';
-import 'package:flutter_audio_waveforms/waveforms/polygon_waveform/polygon_waveform.dart';
-import 'package:flutter_audio_waveforms/waveforms/waveform_painters_ab.dart';
+import 'package:flutter_audio_waveforms/src/util/waveform_alignment.dart';
+import 'package:flutter_audio_waveforms/src/core/waveform_painters_ab.dart';
 
-///ActiveWaveformPainter for the [PolygonWaveform]
-class PolygonActiveWaveformPainter extends ActiveWaveformPainter {
+///InActiveWaveformPainter for the [PolygonWaveform]
+class PolygonInActiveWaveformPainter extends InActiveWaveformPainter {
   // ignore: public_member_api_docs
-  PolygonActiveWaveformPainter({
-    required Color color,
+  PolygonInActiveWaveformPainter({
+    Color color = Colors.white,
     Gradient? gradient,
     required List<double> samples,
-    required List<double> activeSamples,
     required WaveformAlignment waveformAlignment,
     required this.style,
     required double sampleWidth,
@@ -18,16 +16,16 @@ class PolygonActiveWaveformPainter extends ActiveWaveformPainter {
           samples: samples,
           color: color,
           gradient: gradient,
-          activeSamples: activeSamples,
           waveformAlignment: waveformAlignment,
           sampleWidth: sampleWidth,
         );
 
-  ///Style of the waveform
+  /// Style of the waveform
   final PaintingStyle style;
+
   @override
   void paint(Canvas canvas, Size size) {
-    final continousActivePaint = Paint()
+    final paint = Paint()
       ..style = style
       ..color = color
       ..shader = gradient?.createShader(
@@ -35,20 +33,11 @@ class PolygonActiveWaveformPainter extends ActiveWaveformPainter {
       );
 
     final path = Path();
-    final isStroked = style == PaintingStyle.stroke;
 
-    for (var i = 0; i < activeSamples.length; i++) {
+    for (var i = 0; i < samples.length; i++) {
       final x = sampleWidth * i;
-      final y = activeSamples[i];
-      if (isStroked) {
-        path.lineTo(x, y);
-      } else {
-        if (i == activeSamples.length - 1) {
-          path.lineTo(x, 0);
-        } else {
-          path.lineTo(x, y);
-        }
-      }
+      final y = samples[i];
+      path.lineTo(x, y);
     }
 
     //Gets the [alignPosition] depending on [waveformAlignment]
@@ -57,6 +46,6 @@ class PolygonActiveWaveformPainter extends ActiveWaveformPainter {
     //Shifts the path along y-axis by amount of [alignPosition]
     final shiftedPath = path.shift(Offset(0, alignPosition));
 
-    canvas.drawPath(shiftedPath, continousActivePaint);
+    canvas.drawPath(shiftedPath, paint);
   }
 }

@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_waveforms/flutter_audio_waveforms.dart';
-import 'package:flutter_audio_waveforms/waveforms/polygon_waveform/active_waveform_painter.dart';
-import 'package:flutter_audio_waveforms/waveforms/polygon_waveform/inactive_waveform_painter.dart';
+import 'package:flutter_audio_waveforms/src/core/audio_waveform.dart';
+import 'package:flutter_audio_waveforms/src/waveforms/polygon_waveform/active_waveform_painter.dart';
+import 'package:flutter_audio_waveforms/src/waveforms/polygon_waveform/inactive_waveform_painter.dart';
 
 /// [PolygonWaveform] paints the standard waveform that is used for audio
 /// waveforms, a sharp continuous line joining the points of a waveform.

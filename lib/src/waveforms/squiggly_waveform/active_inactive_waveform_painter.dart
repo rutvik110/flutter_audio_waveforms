@@ -1,8 +1,7 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
-import 'package:flutter_audio_waveforms/helpers/waveform_alignment.dart';
-import 'package:flutter_audio_waveforms/waveforms/squiggly_waveform/squiggly_waveform.dart';
-import 'package:flutter_audio_waveforms/waveforms/waveform_painters_ab.dart';
+import 'package:flutter_audio_waveforms/src/util/waveform_alignment.dart';
+import 'package:flutter_audio_waveforms/src/core/waveform_painters_ab.dart';
 
 ///Painter for the [SquigglyWaveform]
 class SquigglyWaveformPainter extends ActiveInActiveWaveformPainter {
