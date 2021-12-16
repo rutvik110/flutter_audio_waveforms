@@ -2,8 +2,10 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_waveforms/src/util/waveform_alignment.dart';
 import 'package:flutter_audio_waveforms/src/core/waveform_painters_ab.dart';
+import 'package:flutter_audio_waveforms/src/waveforms/squiggly_waveform/squiggly_waveform.dart';
 
 ///Painter for the [SquigglyWaveform]
+/// Handles Painting both InActive and Active Waveforms.
 class SquigglyWaveformPainter extends ActiveInActiveWaveformPainter {
   // ignore: public_member_api_docs
   SquigglyWaveformPainter({

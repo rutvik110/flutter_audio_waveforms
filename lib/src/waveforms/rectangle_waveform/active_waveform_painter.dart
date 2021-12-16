@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_waveforms/src/util/waveform_alignment.dart';
 import 'package:flutter_audio_waveforms/src/core/waveform_painters_ab.dart';
+import 'package:flutter_audio_waveforms/src/waveforms/rectangle_waveform/rectangle_waveform.dart';
 
 ///ActiveWaveformPainter for the [RectangleWaveform]
 class RectangleActiveWaveformPainter extends ActiveWaveformPainter {
