@@ -76,6 +76,7 @@ class _PolygonWaveformState extends AudioWaveformState<PolygonWaveform> {
     final processedSamples = this.processedSamples;
     final activeSamples = this.activeSamples;
     final showActiveWaveform = this.showActiveWaveform;
+    final waveformAlignment = this.waveformAlignment;
     final sampleWidth = this.sampleWidth;
 
     return Stack(
@@ -89,7 +90,7 @@ class _PolygonWaveformState extends AudioWaveformState<PolygonWaveform> {
               style: widget.style,
               color: widget.inactiveColor,
               gradient: widget.inactiveGradient,
-              waveformAlignment: widget.waveformAlignment,
+              waveformAlignment: waveformAlignment,
               sampleWidth: sampleWidth,
             ),
           ),
@@ -104,7 +105,7 @@ class _PolygonWaveformState extends AudioWaveformState<PolygonWaveform> {
               color: widget.activeColor,
               activeSamples: activeSamples,
               gradient: widget.activeGradient,
-              waveformAlignment: widget.waveformAlignment,
+              waveformAlignment: waveformAlignment,
               sampleWidth: sampleWidth,
             ),
           ),
