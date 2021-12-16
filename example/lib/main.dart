@@ -1,13 +1,9 @@
-import 'dart:math';
-
 import 'package:audioplayers/audioplayers.dart';
 import 'package:example/load_audio_data.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:flutter_audio_waveforms/waveforms/polygon_waveform/polygon_waveform.dart';
-import 'package:flutter_audio_waveforms/waveforms/rectangle_waveform/rectangle_waveform.dart';
-import 'package:flutter_audio_waveforms/waveforms/squiggly_waveform/squiggly_waveform.dart';
+import 'package:flutter_audio_waveforms/flutter_audio_waveforms.dart';
 
 void main() {
   runApp(const MyApp());
@@ -95,49 +91,17 @@ class _HomeState extends State<Home> {
                   controller: scrollController,
                   scrollDirection: Axis.horizontal,
                   children: [
-                    RectangleWaveform(
+                    SquigglyWaveform(
                       maxDuration: Duration(milliseconds: maxDuration),
                       elapsedDuration: elapsedDuration,
-
                       samples: samples,
-                      height: 100,
+                      height: 300,
                       width: MediaQuery.of(context).size.width * widthMultipier,
-                      absolute: true,
-                      invert: false,
-                      showActiveWaveform: false,
-                      activeBorderColor: Colors.transparent,
-                      inactiveBorderColor: Colors.transparent,
-                      // style: PaintingStyle.fill,
-                      activeGradient: LinearGradient(
-                          begin: Alignment.centerLeft,
-                          end: Alignment.centerRight,
-                          colors: [
-                            Colors.yellow,
-                            Colors.red,
-                            Colors.green,
-                          ],
-                          stops: [
-                            0.3,
-                            0.5,
-                            0.7,
-                          ]),
-                      // inactiveGradient: LinearGradient(
-                      //     begin: Alignment.centerLeft,
-                      //     end: Alignment.centerRight,
-                      //     colors: [
-                      //       Colors.yellow,
-                      //       Colors.red,
-                      //       Colors.green,
-                      //     ],
-                      //     stops: [
-                      //       0.3,
-                      //       0.5,
-                      //       0.7,
-                      //     ]),
                     ),
                   ],
                 ),
               ),
+
               // Container(
               //   height: 100,
               //   width: MediaQuery.of(context).size.width,
