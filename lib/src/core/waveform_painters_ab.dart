@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_audio_waveforms/src/util/check_samples_equality.dart';
 import 'package:flutter_audio_waveforms/src/util/waveform_alignment.dart';
 
 /// A Painter class that all the types of Waveform Painters extend to.
@@ -83,7 +84,7 @@ abstract class InActiveWaveformPainter extends WaveformPainter {
   /// Whether the waveform should be rePainted or not.
   @override
   bool shouldRepaint(covariant InActiveWaveformPainter oldDelegate) {
-    return samples.length != oldDelegate.samples.length;
+    return !checkforSamplesEquality(samples, oldDelegate.samples);
   }
 }
 
