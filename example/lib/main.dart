@@ -43,6 +43,7 @@ class _HomeState extends State<Home> {
     final dataPoints = await compute(loadparseJson, jsonString);
     await audioPlayer.load('/dance_monkey.mp3');
     await audioPlayer.play('/dance_monkey.mp3');
+    // maxDuration in milliseconds
     maxDuration = await audioPlayer.fixedPlayer!.getDuration();
     setState(() {
       samples = dataPoints;

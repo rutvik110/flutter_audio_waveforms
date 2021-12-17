@@ -6,6 +6,9 @@ List<double> loadparseJson(String jsonBody) {
   final data = jsonDecode(jsonBody);
   final List<int> points = List.castFrom<dynamic, int>(data['data']);
   List<int> filteredData = [];
+  // Change this value to number of data samples you want.
+  // Values between 256 and 1024 are good for showing [RectangleWaveform] and [SquigglyWaveform]
+  // While the values above them are good for showing [PolygonWaveform]
   const int samples = 10000;
   final double blockSize = points.length / samples;
 
@@ -26,7 +29,6 @@ List<double> loadparseJson(String jsonBody) {
   final maxNum = filteredData.reduce(math.max);
 
   final double multiplier = math.pow(maxNum, -1).toDouble();
-  //Needed for having a waveform that ends at the 0 y level
-  // filteredData.add(0);
+
   return filteredData.map<double>((e) => (e * multiplier)).toList();
 }
