@@ -1,6 +1,7 @@
 import 'dart:math' as math;
 
 import 'package:flutter/material.dart';
+import 'package:flutter_audio_waveforms/src/core/waveform_painters_ab.dart';
 import 'package:flutter_audio_waveforms/src/util/check_samples_equality.dart';
 import 'package:flutter_audio_waveforms/src/util/waveform_alignment.dart';
 
