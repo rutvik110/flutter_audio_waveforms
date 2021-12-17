@@ -2,23 +2,25 @@ import 'dart:convert';
 
 import 'dart:math' as math;
 
-List<double> loadparseJson(String jsonBody) {
-  final data = jsonDecode(jsonBody);
-  final List<int> points = List.castFrom<dynamic, int>(data['data']);
+Map<String, dynamic> loadparseJson(Map<String, dynamic> audioDataMap) {
+  final data = jsonDecode(audioDataMap["json"]);
+
+  final List<int> rawSamples = List.castFrom<dynamic, int>(data['data']);
+  final int length = data['length'];
   List<int> filteredData = [];
-  // Change this value to number of data samples you want.
+  // Change this value to number of audio samples you want.
   // Values between 256 and 1024 are good for showing [RectangleWaveform] and [SquigglyWaveform]
   // While the values above them are good for showing [PolygonWaveform]
-  const int samples = 10000;
-  final double blockSize = points.length / samples;
+  final int totalSamples = audioDataMap["totalSamples"];
+  final double blockSize = rawSamples.length / totalSamples;
 
-  for (int i = 0; i < samples; i++) {
+  for (int i = 0; i < totalSamples; i++) {
     final double blockStart =
         blockSize * i; // the location of the first sample in the block
     int sum = 0;
     for (int j = 0; j < blockSize; j++) {
       sum = sum +
-          points[(blockStart + j).toInt()]
+          rawSamples[(blockStart + j).toInt()]
               .toInt(); // find the sum of all the samples in the block
 
     }
@@ -30,5 +32,10 @@ List<double> loadparseJson(String jsonBody) {
 
   final double multiplier = math.pow(maxNum, -1).toDouble();
 
-  return filteredData.map<double>((e) => (e * multiplier)).toList();
+  final samples = filteredData.map<double>((e) => (e * multiplier)).toList();
+
+  return {
+    "samples": samples,
+    "length": length,
+  };
 }
