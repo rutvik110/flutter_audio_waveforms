@@ -64,6 +64,7 @@ abstract class AudioWaveform extends StatefulWidget {
   final bool showActiveWaveform;
 
   /// Alignment of the waveform in the canvas.
+  @protected
   final WaveformAlignment waveformAlignment;
 
   @override
