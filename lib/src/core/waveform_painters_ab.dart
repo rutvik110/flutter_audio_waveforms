@@ -40,12 +40,18 @@ abstract class ActiveWaveformPainter extends WaveformPainter {
   ActiveWaveformPainter({
     required Color color,
     required Gradient? gradient,
-    required List<double> samples,
+    // Do we really need to pass the samples here?. I believe
+    // [ActiveWaveformPainter] should only care about the [activeSamples] value.
+    // If [samples] changes, then [activeSamples] should change as well so it's
+    // redundant to check for [samples] equality and to pass them here.
+    // Only if ActiveWaveformPainter depends on samples in future for any
+    // reasons, then we should pass them here.
+    // required List<double> samples,
     required double sampleWidth,
     required this.activeSamples,
     required WaveformAlignment waveformAlignment,
   }) : super(
-          samples: samples,
+          samples: [], //samples,
           color: color,
           gradient: gradient,
           waveformAlignment: waveformAlignment,
@@ -58,7 +64,11 @@ abstract class ActiveWaveformPainter extends WaveformPainter {
   /// Whether the waveform should be rePainted or not.
   @override
   bool shouldRepaint(covariant ActiveWaveformPainter oldDelegate) {
-    return activeSamples.length != oldDelegate.activeSamples.length;
+    return !checkforSamplesEquality(activeSamples, oldDelegate.activeSamples) ||
+        color != oldDelegate.color ||
+        gradient != oldDelegate.gradient ||
+        waveformAlignment != oldDelegate.waveformAlignment ||
+        sampleWidth != oldDelegate.sampleWidth;
   }
 }
 
@@ -103,10 +113,10 @@ abstract class ActiveInActiveWaveformPainter extends WaveformPainter {
     required double sampleWidth,
     required this.inactiveColor,
     required this.activeRatio,
-    WaveformAlignment waveformAlignment = WaveformAlignment.center,
+    required WaveformAlignment waveformAlignment,
   }) : super(
           samples: samples,
-          color: activeColor,
+          color: inactiveColor,
           gradient: null,
           waveformAlignment: waveformAlignment,
           sampleWidth: sampleWidth,
@@ -124,6 +134,13 @@ abstract class ActiveInActiveWaveformPainter extends WaveformPainter {
   /// Whether the waveform should be rePainted or not.
   @override
   bool shouldRepaint(covariant ActiveInActiveWaveformPainter oldDelegate) {
-    return activeRatio != oldDelegate.activeRatio;
+    return activeRatio != oldDelegate.activeRatio ||
+        activeColor != oldDelegate.activeColor ||
+        inactiveColor != oldDelegate.inactiveColor ||
+        !checkforSamplesEquality(samples, oldDelegate.samples) ||
+        color != oldDelegate.color ||
+        gradient != oldDelegate.gradient ||
+        waveformAlignment != oldDelegate.waveformAlignment ||
+        sampleWidth != oldDelegate.sampleWidth;
   }
 }
