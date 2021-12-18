@@ -9,13 +9,11 @@ class PolygonActiveWaveformPainter extends ActiveWaveformPainter {
   PolygonActiveWaveformPainter({
     required Color color,
     Gradient? gradient,
-    required List<double> samples,
     required List<double> activeSamples,
     required WaveformAlignment waveformAlignment,
     required this.style,
     required double sampleWidth,
   }) : super(
-          samples: samples,
           color: color,
           gradient: gradient,
           activeSamples: activeSamples,

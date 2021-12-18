@@ -9,14 +9,12 @@ class RectangleActiveWaveformPainter extends ActiveWaveformPainter {
   RectangleActiveWaveformPainter({
     required Color color,
     Gradient? gradient,
-    required List<double> samples,
     required List<double> activeSamples,
     required WaveformAlignment waveformAlignment,
     required this.borderColor,
     required this.borderWidth,
     required double sampleWidth,
   }) : super(
-          samples: samples,
           color: color,
           gradient: gradient,
           activeSamples: activeSamples,

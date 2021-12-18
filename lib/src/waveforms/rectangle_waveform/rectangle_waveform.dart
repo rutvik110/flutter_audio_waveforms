@@ -110,11 +110,10 @@ class _RectangleWaveformState extends AudioWaveformState<RectangleWaveform> {
             size: Size(widget.width, widget.height),
             isComplex: true,
             painter: RectangleActiveWaveformPainter(
-              samples: processedSamples,
               color: widget.activeColor,
               activeSamples: activeSamples,
               gradient: widget.activeGradient,
-              waveformAlignment: widget.waveformAlignment,
+              waveformAlignment: waveformAlignment,
               borderColor: widget.activeBorderColor,
               borderWidth: widget.borderWidth,
               sampleWidth: sampleWidth,

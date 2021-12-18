@@ -100,7 +100,6 @@ class _PolygonWaveformState extends AudioWaveformState<PolygonWaveform> {
             isComplex: true,
             size: Size(widget.width, widget.height),
             painter: PolygonActiveWaveformPainter(
-              samples: processedSamples,
               style: widget.style,
               color: widget.activeColor,
               activeSamples: activeSamples,
