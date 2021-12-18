@@ -84,7 +84,11 @@ abstract class InActiveWaveformPainter extends WaveformPainter {
   /// Whether the waveform should be rePainted or not.
   @override
   bool shouldRepaint(covariant InActiveWaveformPainter oldDelegate) {
-    return !checkforSamplesEquality(samples, oldDelegate.samples);
+    return !checkforSamplesEquality(samples, oldDelegate.samples) ||
+        color != oldDelegate.color ||
+        gradient != oldDelegate.gradient ||
+        waveformAlignment != oldDelegate.waveformAlignment ||
+        sampleWidth != oldDelegate.sampleWidth;
   }
 }
 
