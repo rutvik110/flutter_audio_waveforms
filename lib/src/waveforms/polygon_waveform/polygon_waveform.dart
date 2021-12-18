@@ -96,16 +96,18 @@ class _PolygonWaveformState extends AudioWaveformState<PolygonWaveform> {
           ),
         ),
         if (showActiveWaveform)
-          CustomPaint(
-            isComplex: true,
-            size: Size(widget.width, widget.height),
-            painter: PolygonActiveWaveformPainter(
-              style: widget.style,
-              color: widget.activeColor,
-              activeSamples: activeSamples,
-              gradient: widget.activeGradient,
-              waveformAlignment: waveformAlignment,
-              sampleWidth: sampleWidth,
+          RepaintBoundary(
+            child: CustomPaint(
+              isComplex: true,
+              size: Size(widget.width, widget.height),
+              painter: PolygonActiveWaveformPainter(
+                style: widget.style,
+                color: widget.activeColor,
+                activeSamples: activeSamples,
+                gradient: widget.activeGradient,
+                waveformAlignment: waveformAlignment,
+                sampleWidth: sampleWidth,
+              ),
             ),
           ),
       ],

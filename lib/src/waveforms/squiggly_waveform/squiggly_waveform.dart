@@ -2,6 +2,7 @@ import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_waveforms/src/core/audio_waveform.dart';
 import 'package:flutter_audio_waveforms/src/core/waveform_painters_ab.dart';
+import 'package:flutter_audio_waveforms/src/util/waveform_alignment.dart';
 import 'package:flutter_audio_waveforms/src/waveforms/squiggly_waveform/active_inactive_waveform_painter.dart';
 
 /// [SquigglyWaveform] paints a squiggly waveform.
@@ -92,19 +93,21 @@ class _SquigglyWaveformState extends AudioWaveformState<SquigglyWaveform> {
         : 0;
     final waveformAlignment = this.waveformAlignment;
 
-    return CustomPaint(
-      size: Size(widget.width, widget.height),
-      isComplex: true,
-      painter: SquigglyWaveformPainter(
-        samples: processedSamples,
-        activeColor: widget.activeColor,
-        inactiveColor: widget.inactiveColor,
-        activeRatio: activeRatio as double,
-        waveformAlignment: waveformAlignment,
-        absolute: widget.absolute,
-        invert: widget.invert,
-        strokeWidth: widget.strokeWidth,
-        sampleWidth: sampleWidth,
+    return RepaintBoundary(
+      child: CustomPaint(
+        size: Size(widget.width, widget.height),
+        isComplex: true,
+        painter: SquigglyWaveformPainter(
+          samples: processedSamples,
+          activeColor: widget.activeColor,
+          inactiveColor: widget.inactiveColor,
+          activeRatio: activeRatio as double,
+          waveformAlignment: waveformAlignment,
+          absolute: widget.absolute,
+          invert: widget.invert,
+          strokeWidth: widget.strokeWidth,
+          sampleWidth: sampleWidth,
+        ),
       ),
     );
   }
