@@ -50,6 +50,7 @@ abstract class ActiveWaveformPainter extends WaveformPainter {
     required double sampleWidth,
     required this.activeSamples,
     required WaveformAlignment waveformAlignment,
+    this.style = PaintingStyle.stroke,
   }) : super(
           samples: [], //samples,
           color: color,
@@ -61,6 +62,9 @@ abstract class ActiveWaveformPainter extends WaveformPainter {
   ///The active samples used to paint the waveform.
   final List<double> activeSamples;
 
+  /// The style of the waveform.
+  final PaintingStyle style;
+
   /// Whether the waveform should be rePainted or not.
   @override
   bool shouldRepaint(covariant ActiveWaveformPainter oldDelegate) {
@@ -68,7 +72,8 @@ abstract class ActiveWaveformPainter extends WaveformPainter {
         color != oldDelegate.color ||
         gradient != oldDelegate.gradient ||
         waveformAlignment != oldDelegate.waveformAlignment ||
-        sampleWidth != oldDelegate.sampleWidth;
+        sampleWidth != oldDelegate.sampleWidth ||
+        style != oldDelegate.style;
   }
 }
 
