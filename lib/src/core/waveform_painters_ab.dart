@@ -12,6 +12,7 @@ abstract class WaveformPainter extends CustomPainter {
     required this.gradient,
     required this.waveformAlignment,
     required this.sampleWidth,
+    required this.style,
   });
 
   /// Samples that are used to paint the waveform.
@@ -28,6 +29,9 @@ abstract class WaveformPainter extends CustomPainter {
 
   /// Width of each sample.
   final double sampleWidth;
+
+  /// The style of the waveform.
+  final PaintingStyle style;
 }
 
 /// A Painter class that all other ActiveWaveform Painters extend to.
@@ -50,20 +54,18 @@ abstract class ActiveWaveformPainter extends WaveformPainter {
     required double sampleWidth,
     required this.activeSamples,
     required WaveformAlignment waveformAlignment,
-    this.style = PaintingStyle.stroke,
+    PaintingStyle style = PaintingStyle.stroke,
   }) : super(
           samples: [], //samples,
           color: color,
           gradient: gradient,
           waveformAlignment: waveformAlignment,
           sampleWidth: sampleWidth,
+          style: style,
         );
 
   ///The active samples used to paint the waveform.
   final List<double> activeSamples;
-
-  /// The style of the waveform.
-  final PaintingStyle style;
 
   /// Whether the waveform should be rePainted or not.
   @override
@@ -88,12 +90,14 @@ abstract class InActiveWaveformPainter extends WaveformPainter {
     required List<double> samples,
     required WaveformAlignment waveformAlignment,
     required double sampleWidth,
+    PaintingStyle style = PaintingStyle.stroke,
   }) : super(
           samples: samples,
           color: color,
           gradient: gradient,
           waveformAlignment: waveformAlignment,
           sampleWidth: sampleWidth,
+          style: style,
         );
 
   /// Whether the waveform should be rePainted or not.
@@ -103,7 +107,8 @@ abstract class InActiveWaveformPainter extends WaveformPainter {
         color != oldDelegate.color ||
         gradient != oldDelegate.gradient ||
         waveformAlignment != oldDelegate.waveformAlignment ||
-        sampleWidth != oldDelegate.sampleWidth;
+        sampleWidth != oldDelegate.sampleWidth ||
+        style != oldDelegate.style;
   }
 }
 
@@ -119,12 +124,14 @@ abstract class ActiveInActiveWaveformPainter extends WaveformPainter {
     required this.inactiveColor,
     required this.activeRatio,
     required WaveformAlignment waveformAlignment,
+    PaintingStyle style = PaintingStyle.stroke,
   }) : super(
           samples: samples,
           color: inactiveColor,
           gradient: null,
           waveformAlignment: waveformAlignment,
           sampleWidth: sampleWidth,
+          style: style,
         );
 
   ///The color of the active waveform.
