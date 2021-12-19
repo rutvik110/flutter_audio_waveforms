@@ -86,7 +86,7 @@ abstract class ActiveWaveformPainter extends WaveformPainter {
         sampleWidth != oldDelegate.sampleWidth ||
         style != oldDelegate.style ||
         borderWidth != oldDelegate.borderWidth ||
-        borderColor != borderColor;
+        borderColor != oldDelegate.borderColor;
   }
 }
 
@@ -129,7 +129,7 @@ abstract class InActiveWaveformPainter extends WaveformPainter {
         sampleWidth != oldDelegate.sampleWidth ||
         style != oldDelegate.style ||
         borderWidth != oldDelegate.borderWidth ||
-        borderColor != borderColor;
+        borderColor != oldDelegate.borderColor;
   }
 }
 
@@ -146,6 +146,7 @@ abstract class ActiveInActiveWaveformPainter extends WaveformPainter {
     required this.activeRatio,
     required WaveformAlignment waveformAlignment,
     PaintingStyle style = PaintingStyle.stroke,
+    required this.strokeWidth,
   }) : super(
           samples: samples,
           color: inactiveColor,
@@ -164,6 +165,9 @@ abstract class ActiveInActiveWaveformPainter extends WaveformPainter {
   ///The ratio of the elapsedDuration to the maxDuration.
   final double activeRatio;
 
+  /// Stroke Width
+  final double strokeWidth;
+
   /// Whether the waveform should be rePainted or not.
   @override
   bool shouldRepaint(covariant ActiveInActiveWaveformPainter oldDelegate) {
@@ -174,6 +178,7 @@ abstract class ActiveInActiveWaveformPainter extends WaveformPainter {
         color != oldDelegate.color ||
         gradient != oldDelegate.gradient ||
         waveformAlignment != oldDelegate.waveformAlignment ||
-        sampleWidth != oldDelegate.sampleWidth;
+        sampleWidth != oldDelegate.sampleWidth ||
+        strokeWidth != oldDelegate.strokeWidth;
   }
 }
