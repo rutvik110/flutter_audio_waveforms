@@ -15,9 +15,9 @@ class SquigglyWaveformPainter extends ActiveInActiveWaveformPainter {
     required double activeRatio,
     required WaveformAlignment waveformAlignment,
     required double sampleWidth,
+    required double strokeWidth,
     required this.absolute,
     required this.invert,
-    required this.strokeWidth,
   }) : super(
           samples: samples,
           activeColor: activeColor,
@@ -25,6 +25,7 @@ class SquigglyWaveformPainter extends ActiveInActiveWaveformPainter {
           activeRatio: activeRatio,
           waveformAlignment: waveformAlignment,
           sampleWidth: sampleWidth,
+          strokeWidth: strokeWidth,
         );
 
   ///Whether to draw the absolute waveform or not
@@ -33,8 +34,6 @@ class SquigglyWaveformPainter extends ActiveInActiveWaveformPainter {
   ///Whether to invert the waveform or not
   final bool invert;
 
-  ///Width of the stroke
-  final double strokeWidth;
   @override
   void paint(Canvas canvas, Size size) {
     final paint = Paint()
