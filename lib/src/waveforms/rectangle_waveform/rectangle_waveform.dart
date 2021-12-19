@@ -38,7 +38,11 @@ class RectangleWaveform extends AudioWaveform {
     bool showActiveWaveform = true,
     bool absolute = false,
     bool invert = false,
-  }) : super(
+  })  : assert(
+          borderWidth >= 0 && borderWidth <= 1.0,
+          "BorderWidth must be between 0 and 1",
+        ),
+        super(
           key: key,
           samples: samples,
           height: height,
