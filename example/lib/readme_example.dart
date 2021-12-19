@@ -79,7 +79,7 @@ class _HomeState extends State<Home> {
     // Change this value to number of audio samples you want.
     // Values between 256 and 1024 are good for showing [RectangleWaveform] and [SquigglyWaveform]
     // While the values above them are good for showing [PolygonWaveform]
-    totalSamples = 5000;
+    totalSamples = 1000;
     audioData = audioDataList[0];
     audioPlayer = AudioCache(
       fixedPlayer: AudioPlayer(),
@@ -120,7 +120,7 @@ class _HomeState extends State<Home> {
             maxDuration: maxDuration,
             elapsedDuration: elapsedDuration,
             samples: samples,
-            height: 100,
+            height: 300,
             width: MediaQuery.of(context).size.width,
           ),
           sizedBox,

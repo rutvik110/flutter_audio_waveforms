@@ -37,6 +37,9 @@ class _HomeState extends State<Home> {
   late AudioCache audioPlayer;
   late List<double> samples;
   double sliderValue = 0;
+  // Change this value to number of audio samples you want.
+  // Values between 256 and 1024 are good for showing [RectangleWaveform] and [SquigglyWaveform]
+  // While the values above them are good for showing [PolygonWaveform]
   int totalSamples = 256;
   WaveformType waveformType = WaveformType.polygon;
   late WaveformCustomizations waveformCustomizations;

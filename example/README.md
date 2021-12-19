@@ -122,7 +122,7 @@ class _HomeState extends State<Home> {
             maxDuration: maxDuration,
             elapsedDuration: elapsedDuration,
             samples: samples,
-            height: 100,
+            height: 300,
             width: MediaQuery.of(context).size.width,
           ),
           sizedBox,
