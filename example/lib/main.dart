@@ -19,19 +19,19 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       title: 'Flutter Demo',
-      home: Home(),
+      home: WaveformsDashboard(),
     );
   }
 }
 
-class Home extends StatefulWidget {
-  const Home({Key? key}) : super(key: key);
+class WaveformsDashboard extends StatefulWidget {
+  const WaveformsDashboard({Key? key}) : super(key: key);
 
   @override
-  State<Home> createState() => _HomeState();
+  State<WaveformsDashboard> createState() => _WaveformsDashboardState();
 }
 
-class _HomeState extends State<Home> {
+class _WaveformsDashboardState extends State<WaveformsDashboard> {
   late int maxDuration;
   late Duration elapsedDuration;
   late AudioCache audioPlayer;
