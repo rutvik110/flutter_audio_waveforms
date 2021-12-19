@@ -162,3 +162,11 @@ Defaults to `true`.
 TODO: Tell users more about the package: where to find more information, how to 
 contribute to the package, how to file issues, what response they can expect 
 from the package authors, and more.
+
+# Contributing Guide
+
+* Feature request :<br> If you have any new feature in mind from which this package can benefit then please let me know by filing an [issue here]().
+
+* Improvements :<br> Got any suggestions on improving the package, anything from API to performance then let me know by filing the [issue here]().
+
+* Bugs: <br> If you happen to come across anything that shoudln't be happening then please file an [issue here]() describing what the issue and how to reproduce it with any attached code and preview if possible.
