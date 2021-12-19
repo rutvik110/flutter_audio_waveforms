@@ -1,4 +1,3 @@
-```dart
 import 'package:audioplayers/audioplayers.dart';
 import 'package:example/load_audio_data.dart';
 import 'package:flutter/foundation.dart';
@@ -103,7 +102,6 @@ class _HomeState extends State<Home> {
     });
   }
 
-
   @override
   Widget build(BuildContext context) {
     const sizedBox = SizedBox(
@@ -161,5 +159,3 @@ class _HomeState extends State<Home> {
     );
   }
 }
-
-```

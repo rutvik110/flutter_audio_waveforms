@@ -1,11 +1,11 @@
-Add audio waveforms with ability to customize them and show active track for audio.
+Flutter Audio Waveforms is an UI library to add audio waveforms to your apps easily ,while also providing customization options.
 
 # Features
 
 You can use the following available waveform types.
 /// Images of waveforms inactive
 
-Need some gradient for your waveform? Say no more! You get it along with other customization options.
+Need to add some gradient to your waveform? Say no more! You get it along with other customization options.
 
 Want an active track for your audio out of the box?
 You get that too!
@@ -22,7 +22,7 @@ It's mostly like a UI library for waveforms with an additional ability to show a
 So it relies on you to provide the necessary audio data which it needs to draw the waveform.
 The data we need is basically a list of points that represents that audio on a graph.
 
-You can use this [waveform generator](https://github.com/bbc/audiowaveform) to get the [json audio data](https://gist.github.com/rutvik110/946ee0f3036a18da1297e57c547ae241) from an audio file. The generated data needs to be processed following some rules which are necessary to get the waveforms drawn properly. To process the data use [this parser]().
+You can use this [waveform generator](https://github.com/bbc/audiowaveform) to get the [json audio data](https://gist.github.com/rutvik110/946ee0f3036a18da1297e57c547ae241) from an audio file. The generated data needs to be processed following some rules which are necessary to get the waveforms drawn properly. To process the data use [this parser](https://gist.github.com/rutvik110/31a588244d288e89368e8704c1437d34).
 
 Once you have the processed data points list then you can just pass it down to any of the waveforms available and get started using them.
 
@@ -38,7 +38,7 @@ Usage of all waveforms available is the same with only exception of having more/
  PolygonWaveform( 
    maxDuration: maxDuration,
    elapsedDuration: elapsedDuration,
-   samples: samples,
+   samples: [],
    height: height,
    width: width, 
  )
@@ -48,7 +48,7 @@ Usage of all waveforms available is the same with only exception of having more/
  RectangleWaveform(
    maxDuration: maxDuration,
    elapsedDuration: elapsedDuration,
-   samples: samples,
+   samples: [],
    height: height,
    width: width,
  )
@@ -58,7 +58,7 @@ Usage of all waveforms available is the same with only exception of having more/
  SquigglyWaveform(
    maxDuration: maxDuration,
    elapsedDuration: elapsedDuration,
-   samples: samples,
+   samples: [],
    height: height,
    width: width,
  )
@@ -66,7 +66,7 @@ Usage of all waveforms available is the same with only exception of having more/
 
 > Find detailed example in `example section` with some `sample data` ready to use.
 
-## Properties
+# Properties
 
 maxDuration:
 
@@ -83,14 +83,14 @@ List of the audio data samples.
 
 height :
 
-Waveforms height.
+Waveform height.
 
 width :
 
 Waveform width.
 
 
-## Customization Options
+## Customization Options 
 
 inactiveColor :
 
@@ -153,20 +153,13 @@ Defaults to `true`.
 
 **More customization options coming soon!**
 
-
-
-
-
-# Additional information
-
-TODO: Tell users more about the package: where to find more information, how to 
-contribute to the package, how to file issues, what response they can expect 
-from the package authors, and more.
-
 # Contributing Guide
 
 * Feature request :<br> If you have any new feature in mind from which this package can benefit then please let me know by filing an [issue here]().
 
 * Improvements :<br> Got any suggestions on improving the package, anything from API to performance then let me know by filing the [issue here]().
 
-* Bugs: <br> If you happen to come across anything that shoudln't be happening then please file an [issue here]() describing what the issue and how to reproduce it with any attached code and preview if possible.
+* Bugs: <br> If you happen to come across anything that shoudln't be happening then please file an [issue here]() describing what the bug is and how to reproduce it with attached code and preview if possible.
+
+# Additional information
+
