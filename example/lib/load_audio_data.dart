@@ -6,7 +6,6 @@ Map<String, dynamic> loadparseJson(Map<String, dynamic> audioDataMap) {
   final data = jsonDecode(audioDataMap["json"]);
 
   final List<int> rawSamples = List.castFrom<dynamic, int>(data['data']);
-  final int length = data['length'];
   List<int> filteredData = [];
   // Change this value to number of audio samples you want.
   // Values between 256 and 1024 are good for showing [RectangleWaveform] and [SquigglyWaveform]
@@ -36,6 +35,5 @@ Map<String, dynamic> loadparseJson(Map<String, dynamic> audioDataMap) {
 
   return {
     "samples": samples,
-    "length": length,
   };
 }
