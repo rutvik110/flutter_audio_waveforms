@@ -90,7 +90,7 @@ class _SquigglyWaveformState extends AudioWaveformState<SquigglyWaveform> {
     final processedSamples = this.processedSamples;
     final activeRatio = showActiveWaveform
         ? elapsedDuration.inMilliseconds / maxDuration.inMilliseconds
-        : 0;
+        : 0.0;
     final waveformAlignment = this.waveformAlignment;
 
     return RepaintBoundary(
@@ -101,7 +101,7 @@ class _SquigglyWaveformState extends AudioWaveformState<SquigglyWaveform> {
           samples: processedSamples,
           activeColor: widget.activeColor,
           inactiveColor: widget.inactiveColor,
-          activeRatio: activeRatio as double,
+          activeRatio: activeRatio,
           waveformAlignment: waveformAlignment,
           absolute: widget.absolute,
           invert: widget.invert,
