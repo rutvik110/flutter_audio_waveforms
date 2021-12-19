@@ -38,7 +38,12 @@ class PolygonInActiveWaveformPainter extends InActiveWaveformPainter {
     for (var i = 0; i < samples.length; i++) {
       final x = sampleWidth * i;
       final y = samples[i];
-      path.lineTo(x, y);
+
+      if (i == samples.length - 1) {
+        path.lineTo(x, 0);
+      } else {
+        path.lineTo(x, y);
+      }
     }
 
     //Gets the [alignPosition] depending on [waveformAlignment]

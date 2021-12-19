@@ -74,7 +74,11 @@ class SquigglyWaveformPainter extends ActiveInActiveWaveformPainter {
       final upOrDown = invert ? i.isOdd : i.isEven;
       final x = pointWidth * i;
       final x2 = pointWidth * (i + 1);
-      final y2 = upOrDown ? -value : value;
+      final y2 = i != samples.length - 1
+          ? upOrDown
+              ? -value
+              : value
+          : 0.0;
       final diameter = x2 - x;
       final radius = diameter / 2;
       waveformPath
