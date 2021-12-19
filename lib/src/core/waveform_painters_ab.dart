@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_audio_waveforms/src/const/colors.dart';
 import 'package:flutter_audio_waveforms/src/util/check_samples_equality.dart';
 import 'package:flutter_audio_waveforms/src/util/waveform_alignment.dart';
 
@@ -55,6 +56,8 @@ abstract class ActiveWaveformPainter extends WaveformPainter {
     required this.activeSamples,
     required WaveformAlignment waveformAlignment,
     PaintingStyle style = PaintingStyle.stroke,
+    this.borderWidth = 0.0,
+    this.borderColor = opaqueBlack,
   }) : super(
           samples: [], //samples,
           color: color,
@@ -67,6 +70,12 @@ abstract class ActiveWaveformPainter extends WaveformPainter {
   ///The active samples used to paint the waveform.
   final List<double> activeSamples;
 
+  /// Stroke/Border Width
+  final double borderWidth;
+
+  /// Stroke/Border Width
+  final Color borderColor;
+
   /// Whether the waveform should be rePainted or not.
   @override
   bool shouldRepaint(covariant ActiveWaveformPainter oldDelegate) {
@@ -75,7 +84,9 @@ abstract class ActiveWaveformPainter extends WaveformPainter {
         gradient != oldDelegate.gradient ||
         waveformAlignment != oldDelegate.waveformAlignment ||
         sampleWidth != oldDelegate.sampleWidth ||
-        style != oldDelegate.style;
+        style != oldDelegate.style ||
+        borderWidth != oldDelegate.borderWidth ||
+        borderColor != borderColor;
   }
 }
 
@@ -91,6 +102,8 @@ abstract class InActiveWaveformPainter extends WaveformPainter {
     required WaveformAlignment waveformAlignment,
     required double sampleWidth,
     PaintingStyle style = PaintingStyle.stroke,
+    this.borderWidth = 0.0,
+    this.borderColor = opaqueBlack,
   }) : super(
           samples: samples,
           color: color,
@@ -100,6 +113,12 @@ abstract class InActiveWaveformPainter extends WaveformPainter {
           style: style,
         );
 
+  /// Stroke/Border Width
+  final double borderWidth;
+
+  /// Stroke/Border Width
+  final Color borderColor;
+
   /// Whether the waveform should be rePainted or not.
   @override
   bool shouldRepaint(covariant InActiveWaveformPainter oldDelegate) {
@@ -108,7 +127,9 @@ abstract class InActiveWaveformPainter extends WaveformPainter {
         gradient != oldDelegate.gradient ||
         waveformAlignment != oldDelegate.waveformAlignment ||
         sampleWidth != oldDelegate.sampleWidth ||
-        style != oldDelegate.style;
+        style != oldDelegate.style ||
+        borderWidth != oldDelegate.borderWidth ||
+        borderColor != borderColor;
   }
 }
 
