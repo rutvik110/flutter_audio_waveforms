@@ -1,3 +1,6 @@
+[source code](https://github.com/rutvik110/flutter_audio_waveforms/blob/master/example/lib/readme_example.dart)
+
+
 ```dart
 import 'package:audioplayers/audioplayers.dart';
 import 'package:example/load_audio_data.dart';
@@ -37,7 +40,6 @@ class _HomeState extends State<Home> {
   late int totalSamples;
 
   late List<String> audioData;
-
   List<List<String>> audioDataList = [
     [
       'assets/dm.json',
