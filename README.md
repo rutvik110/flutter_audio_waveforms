@@ -3,7 +3,6 @@
 <p align="center">
 	<a href="https://github.com/rutvik110/flutter_audio_waveforms"  target="_blank"><img src="https://img.shields.io/pub/v/flutter_audio_waveforms.svg" alt="Pub.dev Badge"></a>
 	<a href="https://opensource.org/licenses/MIT" rel="noopener" target="_blank"><img src="https://img.shields.io/badge/license-MIT-purple.svg" alt="MIT License Badge"></a>
-	<!-- <a href="https://github.com/EdsonBueno/infinite_scroll_pagination" rel="noopener" target="_blank"><img src="https://img.shields.io/badge/platform-flutter-blue.svg" alt="Flutter Platform Badge"></a> -->
 </p>
 
 

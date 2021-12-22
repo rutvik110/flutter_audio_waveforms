@@ -35,7 +35,8 @@ class SquigglyWaveform extends AudioWaveform {
     bool showActiveWaveform = true,
     bool absolute = false,
     bool invert = false,
-  }) : super(
+  })  : assert(strokeWidth >= 0, "strokeWidth can't be negative."),
+        super(
           key: key,
           samples: samples,
           height: height,
