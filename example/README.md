@@ -2,6 +2,7 @@
 
 
 ```dart
+
 import 'package:audioplayers/audioplayers.dart';
 import 'package:example/load_audio_data.dart';
 import 'package:flutter/foundation.dart';
@@ -40,23 +41,23 @@ class _HomeState extends State<Home> {
   late int totalSamples;
 
   late List<String> audioData;
+
   List<List<String>> audioDataList = [
     [
       'assets/dm.json',
-      '/dance_monkey.mp3',
+      'dance_monkey.mp3',
     ],
     [
       'assets/soy.json',
-      '/shape_of_you.mp3',
+      'shape_of_you.mp3',
     ],
     [
       'assets/sp.json',
-      '/surface_pressure.mp3',
+      'surface_pressure.mp3',
     ],
   ];
 
   Future<void> parseData() async {
-    audioPlayer.fixedPlayer!.stop();
     final json = await rootBundle.loadString(audioData[0]);
     Map<String, dynamic> audioDataMap = {
       "json": json,
@@ -66,11 +67,12 @@ class _HomeState extends State<Home> {
     await audioPlayer.load(audioData[1]);
     await audioPlayer.play(audioData[1]);
     // maxDuration in milliseconds
-    int maxDurationInMilliseconds =
-        await audioPlayer.fixedPlayer!.getDuration();
+    await Future.delayed(const Duration(milliseconds: 200));
 
+    int maxDurationInseconds = await audioPlayer.fixedPlayer!.getDuration();
+
+    maxDuration = Duration(milliseconds: maxDurationInseconds);
     setState(() {
-      maxDuration = Duration(milliseconds: maxDurationInMilliseconds);
       samples = samplesData["samples"];
     });
   }
@@ -82,14 +84,14 @@ class _HomeState extends State<Home> {
     // Change this value to number of audio samples you want.
     // Values between 256 and 1024 are good for showing [RectangleWaveform] and [SquigglyWaveform]
     // While the values above them are good for showing [PolygonWaveform]
-    totalSamples = 5000;
+    totalSamples = 1000;
     audioData = audioDataList[0];
     audioPlayer = AudioCache(
       fixedPlayer: AudioPlayer(),
     );
 
     samples = [];
-    maxDuration = const Duration();
+    maxDuration = const Duration(milliseconds: 1000);
     elapsedDuration = const Duration();
     parseData();
     audioPlayer.fixedPlayer!.onPlayerCompletion.listen((_) {
@@ -104,7 +106,6 @@ class _HomeState extends State<Home> {
       });
     });
   }
-
 
   @override
   Widget build(BuildContext context) {

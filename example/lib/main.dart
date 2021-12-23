@@ -32,7 +32,7 @@ class WaveformsDashboard extends StatefulWidget {
 }
 
 class _WaveformsDashboardState extends State<WaveformsDashboard> {
-  late int maxDuration;
+  late Duration maxDuration;
   late Duration elapsedDuration;
   late AudioCache audioPlayer;
   late List<double> samples;
@@ -49,20 +49,19 @@ class _WaveformsDashboardState extends State<WaveformsDashboard> {
   List<List<String>> audioDataList = [
     [
       'assets/dm.json',
-      '/dance_monkey.mp3',
+      'dance_monkey.mp3',
     ],
     [
       'assets/soy.json',
-      '/shape_of_you.mp3',
+      'shape_of_you.mp3',
     ],
     [
       'assets/sp.json',
-      '/surface_pressure.mp3',
+      'surface_pressure.mp3',
     ],
   ];
 
   Future<void> parseData() async {
-    audioPlayer.fixedPlayer!.stop();
     final json = await rootBundle.loadString(audioData[0]);
     Map<String, dynamic> audioDataMap = {
       "json": json,
@@ -72,7 +71,11 @@ class _WaveformsDashboardState extends State<WaveformsDashboard> {
     await audioPlayer.load(audioData[1]);
     await audioPlayer.play(audioData[1]);
     // maxDuration in milliseconds
-    maxDuration = await audioPlayer.fixedPlayer!.getDuration();
+    await Future.delayed(const Duration(milliseconds: 200));
+
+    int maxDurationInseconds = await audioPlayer.fixedPlayer!.getDuration();
+
+    maxDuration = Duration(milliseconds: maxDurationInseconds);
     setState(() {
       samples = samplesData["samples"];
     });
@@ -87,20 +90,22 @@ class _WaveformsDashboardState extends State<WaveformsDashboard> {
       fixedPlayer: AudioPlayer(),
     );
 
-    samples = [];
-    maxDuration = 1;
-    elapsedDuration = const Duration();
     parseData();
+
+    samples = [];
+    maxDuration = const Duration(milliseconds: 1000);
+    elapsedDuration = const Duration();
+
     audioPlayer.fixedPlayer!.onPlayerCompletion.listen((_) {
       setState(() {
-        elapsedDuration = Duration(milliseconds: maxDuration);
+        elapsedDuration = maxDuration;
         sliderValue = 1;
       });
     });
     audioPlayer.fixedPlayer!.onAudioPositionChanged.listen((Duration p) {
       setState(() {
         elapsedDuration = p;
-        sliderValue = p.inMilliseconds.toDouble() / maxDuration;
+        sliderValue = p.inMilliseconds / maxDuration.inMilliseconds;
       });
     });
   }
@@ -110,7 +115,7 @@ class _WaveformsDashboardState extends State<WaveformsDashboard> {
     // TODO: implement didChangeDependencies
     super.didChangeDependencies();
     waveformCustomizations = WaveformCustomizations(
-      height: 300,
+      height: MediaQuery.of(context).size.height * 0.2,
       width: MediaQuery.of(context).size.width,
     );
   }
@@ -230,8 +235,9 @@ class _WaveformsDashboardState extends State<WaveformsDashboard> {
                 setState(() {
                   sliderValue = val;
 
-                  audioPlayer.fixedPlayer!.seek(
-                      Duration(milliseconds: (maxDuration * val).toInt()));
+                  audioPlayer.fixedPlayer!.seek(Duration(
+                      milliseconds:
+                          (maxDuration.inMilliseconds * val).toInt()));
                 });
               },
             ),
@@ -645,7 +651,7 @@ class SquigglyWaveformExample extends StatelessWidget {
     required this.waveformCustomizations,
   }) : super(key: key);
 
-  final int maxDuration;
+  final Duration maxDuration;
   final Duration elapsedDuration;
   final List<double> samples;
   final WaveformCustomizations waveformCustomizations;
@@ -653,7 +659,7 @@ class SquigglyWaveformExample extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SquigglyWaveform(
-      maxDuration: Duration(milliseconds: maxDuration),
+      maxDuration: maxDuration,
       elapsedDuration: elapsedDuration,
       samples: samples,
       height: waveformCustomizations.height,
@@ -677,7 +683,7 @@ class RectangleWaveformExample extends StatelessWidget {
     required this.waveformCustomizations,
   }) : super(key: key);
 
-  final int maxDuration;
+  final Duration maxDuration;
   final Duration elapsedDuration;
   final List<double> samples;
   final WaveformCustomizations waveformCustomizations;
@@ -685,7 +691,7 @@ class RectangleWaveformExample extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return RectangleWaveform(
-      maxDuration: Duration(milliseconds: maxDuration),
+      maxDuration: maxDuration,
       elapsedDuration: elapsedDuration,
       samples: samples,
       height: waveformCustomizations.height,
@@ -713,7 +719,7 @@ class PolygonWaveformExample extends StatelessWidget {
     required this.waveformCustomizations,
   }) : super(key: key);
 
-  final int maxDuration;
+  final Duration maxDuration;
   final Duration elapsedDuration;
   final List<double> samples;
   final WaveformCustomizations waveformCustomizations;
@@ -721,7 +727,7 @@ class PolygonWaveformExample extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PolygonWaveform(
-      maxDuration: Duration(milliseconds: maxDuration),
+      maxDuration: maxDuration,
       elapsedDuration: elapsedDuration,
       samples: samples,
       height: waveformCustomizations.height,
