@@ -6,7 +6,7 @@
 </p>
 
 
-Flutter Audio Waveforms is an UI library to add audio waveforms to your apps easily ,while also providing customization options.
+A UI library for easily adding audio waveforms to your apps, with several customization options.
 
 # Features
 
