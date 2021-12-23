@@ -93,9 +93,9 @@ packages:
   flutter_audio_waveforms:
     dependency: "direct main"
     description:
-      path: ".."
-      relative: true
-    source: path
+      name: flutter_audio_waveforms
+      url: "https://pub.dartlang.org"
+    source: hosted
     version: "1.0.0+1"
   flutter_lints:
     dependency: "direct dev"
