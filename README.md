@@ -57,7 +57,13 @@ It's mostly like a UI library for waveforms with an additional ability to show a
 So it relies on you to provide the necessary audio data which it needs to draw the waveform.
 The data we need is basically a list of points/samples that represents that audio.
 
-You can use this [waveform generator](https://github.com/bbc/audiowaveform) to get the [json audio data](https://gist.github.com/rutvik110/946ee0f3036a18da1297e57c547ae241) from an audio file. The generated data needs to be processed following some rules which are necessary to get the waveforms drawn properly. To process the data use [this parser](https://gist.github.com/rutvik110/31a588244d288e89368e8704c1437d34).
+You can use this [audiowaveform program](https://github.com/bbc/audiowaveform) to get the [audio json file](https://gist.github.com/rutvik110/946ee0f3036a18da1297e57c547ae241) which will provide us the samples.
+After installing this program on your machine, generate the json file for an audio by using this command in your terminal.
+```dart
+audiowaveform -i test.mp3 -o test.json
+```
+
+The generated data needs to be processed following some rules which are necessary to get the waveforms drawn properly. To process the data use [this parser](https://gist.github.com/rutvik110/31a588244d288e89368e8704c1437d34).
 
 Once you have the processed data points list then you can just pass it down to any of the waveforms available and get started using them.
 
