@@ -163,12 +163,12 @@ abstract class AudioWaveformState<T extends AudioWaveform> extends State<T> {
 
   /// Updates the [_activeIndex] whenever the duration changes.
   @protected
-  void _updateActiveIndex({int? activeIndex}) {
-    if (activeIndex != null) {
-      _activeIndex = activeIndex;
+  void _updateActiveIndex() {
+    // if (activeIndex != null) {
+    //   _activeIndex = activeIndex;
 
-      return;
-    }
+    //   return;
+    // }
     final elapsedTimeRatio =
         elapsedDuration.inMilliseconds / maxDuration.inMilliseconds;
 
@@ -203,7 +203,7 @@ abstract class AudioWaveformState<T extends AudioWaveform> extends State<T> {
         widget.samples.isNotEmpty) {
       processSamples();
       _calculateSampleWidth();
-      _updateActiveIndex(activeIndex: 0);
+      _updateActiveIndex();
       _updateActiveSamples();
     }
     if (widget.showActiveWaveform) {
