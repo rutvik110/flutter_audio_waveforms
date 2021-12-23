@@ -197,25 +197,34 @@ class _WaveformsDashboardState extends State<WaveformsDashboard> {
               height: 30,
             ),
             if (waveformType == WaveformType.polygon)
-              PolygonWaveformExample(
-                maxDuration: maxDuration,
-                elapsedDuration: elapsedDuration,
-                samples: samples,
-                waveformCustomizations: waveformCustomizations,
+              Align(
+                alignment: Alignment.center,
+                child: PolygonWaveformExample(
+                  maxDuration: maxDuration,
+                  elapsedDuration: elapsedDuration,
+                  samples: samples,
+                  waveformCustomizations: waveformCustomizations,
+                ),
               )
             else if (waveformType == WaveformType.rectangle)
-              RectangleWaveformExample(
-                maxDuration: maxDuration,
-                elapsedDuration: elapsedDuration,
-                samples: samples,
-                waveformCustomizations: waveformCustomizations,
+              Align(
+                alignment: Alignment.center,
+                child: RectangleWaveformExample(
+                  maxDuration: maxDuration,
+                  elapsedDuration: elapsedDuration,
+                  samples: samples,
+                  waveformCustomizations: waveformCustomizations,
+                ),
               )
             else
-              SquigglyWaveformExample(
-                maxDuration: maxDuration,
-                elapsedDuration: elapsedDuration,
-                samples: samples,
-                waveformCustomizations: waveformCustomizations,
+              Align(
+                alignment: Alignment.center,
+                child: SquigglyWaveformExample(
+                  maxDuration: maxDuration,
+                  elapsedDuration: elapsedDuration,
+                  samples: samples,
+                  waveformCustomizations: waveformCustomizations,
+                ),
               ),
             SizedBox(
               height: 30,
