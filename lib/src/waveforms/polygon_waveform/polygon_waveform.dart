@@ -21,7 +21,7 @@ import 'package:flutter_audio_waveforms/src/waveforms/polygon_waveform/inactive_
 /// {@end-tool}
 class PolygonWaveform extends AudioWaveform {
   // ignore: public_member_api_docs
-  const PolygonWaveform({
+  PolygonWaveform({
     Key? key,
     required List<double> samples,
     required double height,

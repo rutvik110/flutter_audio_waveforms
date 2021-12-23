@@ -17,7 +17,7 @@ import 'package:flutter_audio_waveforms/src/util/waveform_alignment.dart';
 ///
 abstract class AudioWaveform extends StatefulWidget {
   /// Constructor for [AudioWaveform]
-  const AudioWaveform({
+  AudioWaveform({
     Key? key,
     required this.samples,
     required this.height,
@@ -27,7 +27,15 @@ abstract class AudioWaveform extends StatefulWidget {
     required this.showActiveWaveform,
     this.absolute = false,
     this.invert = false,
-  })  : waveformAlignment = absolute
+  })  : assert(
+          elapsedDuration.inMilliseconds <= maxDuration.inMilliseconds,
+          'elapsedDuration must be less than or equal to maxDuration',
+        ),
+        assert(
+          maxDuration.inMilliseconds > 0,
+          'maxDuration must be greater than 0',
+        ),
+        waveformAlignment = absolute
             ? invert
                 ? WaveformAlignment.top
                 : WaveformAlignment.bottom

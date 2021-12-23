@@ -21,7 +21,7 @@ import 'package:flutter_audio_waveforms/src/waveforms/rectangle_waveform/inactiv
 /// {@end-tool}
 class RectangleWaveform extends AudioWaveform {
   // ignore: public_member_api_docs
-  const RectangleWaveform({
+  RectangleWaveform({
     Key? key,
     required List<double> samples,
     required double height,
