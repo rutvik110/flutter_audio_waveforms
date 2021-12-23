@@ -1,4 +1,4 @@
-<img src="example/assets/images/logo/logo.png">
+<img src="https://github.com/rutvik110/flutter_audio_waveforms/blob/master/example/assets/images/logo/logo.png?raw=true">
 
 <p align="center">
 	<a href="https://github.com/rutvik110/flutter_audio_waveforms"  target="_blank"><img src="https://img.shields.io/pub/v/flutter_audio_waveforms.svg" alt="Pub.dev Badge"></a>
@@ -16,36 +16,38 @@ You can use the following available waveform types.
 * Rectangle
 * Squiggly
 
-<img src="example/assets/images/inactive/polygon.png" height="150" width="300">
-<img src="example/assets/images/inactive/rectangle.png" height="150" width="300">
-<img src="example/assets/images/inactive/squiggly.png" height="150" width="300">
+<p>
+<img src="https://github.com/rutvik110/flutter_audio_waveforms/blob/master/example/assets/images/inactive/polygon.png?raw=true" height="150" width="300">
+<img src="https://github.com/rutvik110/flutter_audio_waveforms/blob/master/example/assets/images/inactive/rectangle.png?raw=true" height="150" width="300">
+<img src="https://github.com/rutvik110/flutter_audio_waveforms/blob/master/example/assets/images/inactive/squiggly.png?raw=true" height="150" width="300">
+</p>
 
 <br>
 
 Need to add some gradient to your waveform? Say no more! You get it along with other customization options.
-
-<img src="example/assets/images/customizations/pg.png" height="150" width="300">
-<img src="example/assets/images/customizations/rg.png" height="150" width="300">
-<img src="example/assets/images/customizations/pa.png" height="150" width="300">
-<img src="example/assets/images/customizations/ra.png" height="150" width="300">
-<img src="example/assets/images/customizations/sa.png" height="150" width="300">
-<img src="example/assets/images/customizations/pai.png" height="150" width="300">
-<img src="example/assets/images/customizations/rai.png" height="150" width="300">
-<img src="example/assets/images/customizations/sai.png" height="150" width="300">
-<img src="example/assets/images/customizations/pf.png" height="150" width="300">
-<img src="example/assets/images/customizations/paf2.png" height="150" width="300">
-<img src="example/assets/images/customizations/pgf.png" height="150" width="300">
-<img src="example/assets/images/customizations/paf.png" height="150" width="300">
-
+<p>
+<img src="https://github.com/rutvik110/flutter_audio_waveforms/blob/master/example/assets/images/customizations/pg.png?raw=true" height="150" width="300">
+<img src="https://github.com/rutvik110/flutter_audio_waveforms/blob/master/example/assets/images/customizations/rg.png?raw=true" height="150" width="300">
+<img src="https://github.com/rutvik110/flutter_audio_waveforms/blob/master/example/assets/images/customizations/pa.png?raw=true" height="150" width="300">
+<img src="https://github.com/rutvik110/flutter_audio_waveforms/blob/master/example/assets/images/customizations/ra.png?raw=true" height="150" width="300">
+<img src="https://github.com/rutvik110/flutter_audio_waveforms/blob/master/example/assets/images/customizations/sa.png?raw=true" height="150" width="300">
+<img src="https://github.com/rutvik110/flutter_audio_waveforms/blob/master/example/assets/images/customizations/pai.png?raw=true" height="150" width="300">
+<img src="https://github.com/rutvik110/flutter_audio_waveforms/blob/master/example/assets/images/customizations/rai.png?raw=true" height="150" width="300">
+<img src="https://github.com/rutvik110/flutter_audio_waveforms/blob/master/example/assets/images/customizations/sai.png?raw=true" height="150" width="300">
+<img src="https://github.com/rutvik110/flutter_audio_waveforms/blob/master/example/assets/images/customizations/pf.png?raw=true" height="150" width="300">
+<img src="https://github.com/rutvik110/flutter_audio_waveforms/blob/master/example/assets/images/customizations/paf2.png?raw=true" height="150" width="300">
+<img src="https://github.com/rutvik110/flutter_audio_waveforms/blob/master/example/assets/images/customizations/pgf.png?raw=true" height="150" width="300">
+<img src="https://github.com/rutvik110/flutter_audio_waveforms/blob/master/example/assets/images/customizations/paf.png?raw=true" height="150" width="300">
+</p>
 <br>
 
 Want an active track for your audio out of the box?
 You get that too!
-
-<img src="example/assets/images/gifs/pa_gif.gif" height="150" width="300">
-<img src="example/assets/images/gifs/ra_gif.gif" height="150" width="300">
-<img src="example/assets/images/gifs/sa_gif.gif" height="150" width="300">
-
+<p>
+<img src="https://github.com/rutvik110/flutter_audio_waveforms/blob/master/example/assets/images/gifs/pa_gif.gif?raw=true" height="150" width="300">
+<img src="https://github.com/rutvik110/flutter_audio_waveforms/blob/master/example/assets/images/gifs/ra_gif.gif?raw=true" height="150" width="300">
+<img src="https://github.com/rutvik110/flutter_audio_waveforms/blob/master/example/assets/images/gifs/sa_gif.gif?raw=true" height="150" width="300">
+</p>
 
 
 
