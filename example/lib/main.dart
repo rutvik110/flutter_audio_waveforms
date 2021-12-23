@@ -131,8 +131,8 @@ class _WaveformsDashboardState extends State<WaveformsDashboard> {
         appBar: AppBar(
           title: const Text('Flutter Audio Waveforms'),
         ),
-        body: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
+        body: ListView(
+          //    mainAxisAlignment: MainAxisAlignment.center,
           children: [
             SizedBox(
               height: 20,
@@ -348,49 +348,224 @@ class _WaveformsDashboardState extends State<WaveformsDashboard> {
               ],
             ),
             sizedBox,
-            Flexible(
-              child: ListView(
-                shrinkWrap: true,
-                children: [
+            Wrap(
+              children: [
+                Text(
+                  "Height",
+                  style: TextStyle(color: Colors.white),
+                ),
+                Slider(
+                  value: waveformCustomizations.height,
+                  min: 0,
+                  onChanged: (height) {},
+                  max: MediaQuery.of(context).size.height / 2,
+                  onChangeEnd: (value) {
+                    setState(() {
+                      waveformCustomizations.height = value;
+                    });
+                  },
+                ),
+                sizedBox,
+                Text(
+                  "Width",
+                  style: TextStyle(color: Colors.white),
+                ),
+                Slider(
+                  value: waveformCustomizations.width,
+                  min: 0,
+                  onChanged: (width) {},
+                  max: MediaQuery.of(context).size.width,
+                  onChangeEnd: (value) {
+                    setState(() {
+                      waveformCustomizations.width = value;
+                    });
+                  },
+                ),
+                sizedBox,
+                ElevatedButton.icon(
+                  onPressed: () {
+                    setState(() {
+                      waveformCustomizations.inactiveGradient = null;
+                      waveformCustomizations.inactiveColor = Color.fromRGBO(
+                          Random().nextInt(255),
+                          Random().nextInt(255),
+                          Random().nextInt(255),
+                          1);
+                    });
+                  },
+                  label: Text("Change IA-Color"),
+                  icon: Icon(
+                    Icons.color_lens,
+                  ),
+                ),
+                sizedBox,
+                ElevatedButton.icon(
+                  onPressed: () {
+                    setState(() {
+                      waveformCustomizations.activeGradient = null;
+                      waveformCustomizations.activeColor = Color.fromRGBO(
+                          Random().nextInt(255),
+                          Random().nextInt(255),
+                          Random().nextInt(255),
+                          1);
+                    });
+                  },
+                  label: Text("Change A-Color"),
+                  icon: Icon(
+                    Icons.color_lens,
+                  ),
+                ),
+                sizedBox,
+                ElevatedButton.icon(
+                  onPressed: () {
+                    setState(() {
+                      waveformCustomizations.inactiveGradient =
+                          LinearGradient(colors: [
+                        Color.fromRGBO(Random().nextInt(255),
+                            Random().nextInt(255), Random().nextInt(255), 1),
+                        Color.fromRGBO(Random().nextInt(255),
+                            Random().nextInt(255), Random().nextInt(255), 1),
+                      ], stops: [
+                        0.4,
+                        0.6
+                      ]);
+                    });
+                  },
+                  label: Text("Change IA-Gradient"),
+                  icon: Icon(
+                    Icons.color_lens,
+                  ),
+                ),
+                sizedBox,
+                ElevatedButton.icon(
+                  onPressed: () {
+                    setState(() {
+                      waveformCustomizations.activeGradient =
+                          LinearGradient(colors: [
+                        Color.fromRGBO(Random().nextInt(255),
+                            Random().nextInt(255), Random().nextInt(255), 1),
+                        Color.fromRGBO(Random().nextInt(255),
+                            Random().nextInt(255), Random().nextInt(255), 1),
+                      ], stops: [
+                        0.4,
+                        0.6
+                      ]);
+                    });
+                  },
+                  label: Text("Change A-Gradient"),
+                  icon: Icon(
+                    Icons.color_lens,
+                  ),
+                ),
+                sizedBox,
+                Column(
+                  children: [
+                    Text("Absolute ", style: TextStyle(color: Colors.white)),
+                    Switch(
+                      inactiveTrackColor: Colors.grey[300],
+                      value: waveformCustomizations.absolute,
+                      onChanged: (value) {
+                        setState(() {
+                          waveformCustomizations.absolute = value;
+                        });
+                      },
+                    ),
+                  ],
+                ),
+                Column(
+                  children: [
+                    Text("Invert ", style: TextStyle(color: Colors.white)),
+                    Switch(
+                      inactiveTrackColor: Colors.grey[300],
+                      value: waveformCustomizations.invert,
+                      onChanged: (value) {
+                        setState(() {
+                          waveformCustomizations.invert = value;
+                        });
+                      },
+                    ),
+                  ],
+                ),
+                Column(
+                  children: [
+                    Text("Hide Active Waveform",
+                        style: TextStyle(color: Colors.white)),
+                    Switch(
+                      inactiveTrackColor: Colors.grey[300],
+                      value: !waveformCustomizations.showActiveWaveform,
+                      onChanged: (value) {
+                        setState(() {
+                          waveformCustomizations.showActiveWaveform = !value;
+                        });
+                      },
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            SizedBox(
+              height: 20,
+            ),
+            Text("Specific Waveform Customizations",
+                style: TextStyle(
+                  color: Colors.blue,
+                  fontWeight: FontWeight.bold,
+                )),
+            SizedBox(
+              height: 10,
+            ),
+            Wrap(
+              alignment: WrapAlignment.center,
+              crossAxisAlignment: WrapCrossAlignment.center,
+              children: [
+                if (waveformType == WaveformType.polygon)
+                  Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      Text("Style : ", style: TextStyle(color: Colors.white)),
+                      DropdownButton<PaintingStyle>(
+                        value: waveformCustomizations.style,
+                        style: TextStyle(
+                          color: Colors.white,
+                        ),
+                        dropdownColor: Colors.black,
+                        iconDisabledColor: Colors.white,
+                        items: [
+                          DropdownMenuItem(
+                            child: Text("Stroke"),
+                            value: PaintingStyle.stroke,
+                          ),
+                          DropdownMenuItem(
+                            child: Text("Fill"),
+                            value: PaintingStyle.fill,
+                          ),
+                        ],
+                        onChanged: (value) {
+                          setState(() {
+                            waveformCustomizations.style = value!;
+                          });
+                        },
+                      ),
+                    ],
+                  )
+                else if (waveformType == WaveformType.rectangle)
                   Wrap(
                     children: [
-                      Text(
-                        "Height",
-                        style: TextStyle(color: Colors.white),
-                      ),
+                      Text("BorderWidth : ",
+                          style: TextStyle(color: Colors.white)),
                       Slider(
-                        value: waveformCustomizations.height,
-                        min: 0,
-                        onChanged: (height) {},
-                        max: MediaQuery.of(context).size.height / 2,
-                        onChangeEnd: (value) {
-                          setState(() {
-                            waveformCustomizations.height = value;
-                          });
-                        },
-                      ),
-                      sizedBox,
-                      Text(
-                        "Width",
-                        style: TextStyle(color: Colors.white),
-                      ),
-                      Slider(
-                        value: waveformCustomizations.width,
-                        min: 0,
-                        onChanged: (width) {},
-                        max: MediaQuery.of(context).size.width,
-                        onChangeEnd: (value) {
-                          setState(() {
-                            waveformCustomizations.width = value;
-                          });
-                        },
-                      ),
+                          value: waveformCustomizations.borderWidth,
+                          onChangeEnd: (value) {
+                            setState(() {
+                              waveformCustomizations.borderWidth = value;
+                            });
+                          },
+                          onChanged: (value) {}),
                       sizedBox,
                       ElevatedButton.icon(
                         onPressed: () {
                           setState(() {
-                            waveformCustomizations.inactiveGradient = null;
-                            waveformCustomizations.inactiveColor =
+                            waveformCustomizations.inactiveBorderColor =
                                 Color.fromRGBO(
                                     Random().nextInt(255),
                                     Random().nextInt(255),
@@ -398,7 +573,7 @@ class _WaveformsDashboardState extends State<WaveformsDashboard> {
                                     1);
                           });
                         },
-                        label: Text("Change IA-Color"),
+                        label: Text("Change IA-BorderColor"),
                         icon: Icon(
                           Icons.color_lens,
                         ),
@@ -407,235 +582,36 @@ class _WaveformsDashboardState extends State<WaveformsDashboard> {
                       ElevatedButton.icon(
                         onPressed: () {
                           setState(() {
-                            waveformCustomizations.activeGradient = null;
-                            waveformCustomizations.activeColor = Color.fromRGBO(
-                                Random().nextInt(255),
-                                Random().nextInt(255),
-                                Random().nextInt(255),
-                                1);
+                            waveformCustomizations.activeBorderColor =
+                                Color.fromRGBO(
+                                    Random().nextInt(255),
+                                    Random().nextInt(255),
+                                    Random().nextInt(255),
+                                    1);
                           });
                         },
-                        label: Text("Change A-Color"),
+                        label: Text("Change A-BorderColor"),
                         icon: Icon(
                           Icons.color_lens,
                         ),
-                      ),
-                      sizedBox,
-                      ElevatedButton.icon(
-                        onPressed: () {
-                          setState(() {
-                            waveformCustomizations.inactiveGradient =
-                                LinearGradient(colors: [
-                              Color.fromRGBO(
-                                  Random().nextInt(255),
-                                  Random().nextInt(255),
-                                  Random().nextInt(255),
-                                  1),
-                              Color.fromRGBO(
-                                  Random().nextInt(255),
-                                  Random().nextInt(255),
-                                  Random().nextInt(255),
-                                  1),
-                            ], stops: [
-                              0.4,
-                              0.6
-                            ]);
-                          });
-                        },
-                        label: Text("Change IA-Gradient"),
-                        icon: Icon(
-                          Icons.color_lens,
-                        ),
-                      ),
-                      sizedBox,
-                      ElevatedButton.icon(
-                        onPressed: () {
-                          setState(() {
-                            waveformCustomizations.activeGradient =
-                                LinearGradient(colors: [
-                              Color.fromRGBO(
-                                  Random().nextInt(255),
-                                  Random().nextInt(255),
-                                  Random().nextInt(255),
-                                  1),
-                              Color.fromRGBO(
-                                  Random().nextInt(255),
-                                  Random().nextInt(255),
-                                  Random().nextInt(255),
-                                  1),
-                            ], stops: [
-                              0.4,
-                              0.6
-                            ]);
-                          });
-                        },
-                        label: Text("Change A-Gradient"),
-                        icon: Icon(
-                          Icons.color_lens,
-                        ),
-                      ),
-                      sizedBox,
-                      Column(
-                        children: [
-                          Text("Absolute ",
-                              style: TextStyle(color: Colors.white)),
-                          Switch(
-                            inactiveTrackColor: Colors.grey[300],
-                            value: waveformCustomizations.absolute,
-                            onChanged: (value) {
-                              setState(() {
-                                waveformCustomizations.absolute = value;
-                              });
-                            },
-                          ),
-                        ],
-                      ),
-                      Column(
-                        children: [
-                          Text("Invert ",
-                              style: TextStyle(color: Colors.white)),
-                          Switch(
-                            inactiveTrackColor: Colors.grey[300],
-                            value: waveformCustomizations.invert,
-                            onChanged: (value) {
-                              setState(() {
-                                waveformCustomizations.invert = value;
-                              });
-                            },
-                          ),
-                        ],
-                      ),
-                      Column(
-                        children: [
-                          Text("Hide Active Waveform",
-                              style: TextStyle(color: Colors.white)),
-                          Switch(
-                            inactiveTrackColor: Colors.grey[300],
-                            value: !waveformCustomizations.showActiveWaveform,
-                            onChanged: (value) {
-                              setState(() {
-                                waveformCustomizations.showActiveWaveform =
-                                    !value;
-                              });
-                            },
-                          ),
-                        ],
                       ),
                     ],
-                  ),
-                  SizedBox(
-                    height: 20,
-                  ),
-                  Text("Specific Waveform Customizations",
-                      style: TextStyle(
-                        color: Colors.blue,
-                        fontWeight: FontWeight.bold,
-                      )),
-                  SizedBox(
-                    height: 10,
-                  ),
-                  Wrap(
-                    alignment: WrapAlignment.center,
-                    crossAxisAlignment: WrapCrossAlignment.center,
-                    children: [
-                      if (waveformType == WaveformType.polygon)
-                        Row(
-                          mainAxisSize: MainAxisSize.min,
-                          children: [
-                            Text("Style : ",
-                                style: TextStyle(color: Colors.white)),
-                            DropdownButton<PaintingStyle>(
-                              value: waveformCustomizations.style,
-                              style: TextStyle(
-                                color: Colors.white,
-                              ),
-                              dropdownColor: Colors.black,
-                              iconDisabledColor: Colors.white,
-                              items: [
-                                DropdownMenuItem(
-                                  child: Text("Stroke"),
-                                  value: PaintingStyle.stroke,
-                                ),
-                                DropdownMenuItem(
-                                  child: Text("Fill"),
-                                  value: PaintingStyle.fill,
-                                ),
-                              ],
-                              onChanged: (value) {
-                                setState(() {
-                                  waveformCustomizations.style = value!;
-                                });
-                              },
-                            ),
-                          ],
-                        )
-                      else if (waveformType == WaveformType.rectangle)
-                        Wrap(
-                          children: [
-                            Text("BorderWidth : ",
-                                style: TextStyle(color: Colors.white)),
-                            Slider(
-                                value: waveformCustomizations.borderWidth,
-                                onChangeEnd: (value) {
-                                  setState(() {
-                                    waveformCustomizations.borderWidth = value;
-                                  });
-                                },
-                                onChanged: (value) {}),
-                            sizedBox,
-                            ElevatedButton.icon(
-                              onPressed: () {
-                                setState(() {
-                                  waveformCustomizations.inactiveBorderColor =
-                                      Color.fromRGBO(
-                                          Random().nextInt(255),
-                                          Random().nextInt(255),
-                                          Random().nextInt(255),
-                                          1);
-                                });
-                              },
-                              label: Text("Change IA-BorderColor"),
-                              icon: Icon(
-                                Icons.color_lens,
-                              ),
-                            ),
-                            sizedBox,
-                            ElevatedButton.icon(
-                              onPressed: () {
-                                setState(() {
-                                  waveformCustomizations.activeBorderColor =
-                                      Color.fromRGBO(
-                                          Random().nextInt(255),
-                                          Random().nextInt(255),
-                                          Random().nextInt(255),
-                                          1);
-                                });
-                              },
-                              label: Text("Change A-BorderColor"),
-                              icon: Icon(
-                                Icons.color_lens,
-                              ),
-                            ),
-                          ],
-                        )
-                      else
-                        Row(mainAxisSize: MainAxisSize.min, children: [
-                          Text("Stroke Width : ",
-                              style: TextStyle(color: Colors.white)),
-                          Slider(
-                              value: waveformCustomizations.borderWidth,
-                              max: 10,
-                              onChangeEnd: (value) {
-                                setState(() {
-                                  waveformCustomizations.borderWidth = value;
-                                });
-                              },
-                              onChanged: (value) {}),
-                        ]),
-                    ],
-                  ),
-                ],
-              ),
+                  )
+                else
+                  Row(mainAxisSize: MainAxisSize.min, children: [
+                    Text("Stroke Width : ",
+                        style: TextStyle(color: Colors.white)),
+                    Slider(
+                        value: waveformCustomizations.borderWidth,
+                        max: 10,
+                        onChangeEnd: (value) {
+                          setState(() {
+                            waveformCustomizations.borderWidth = value;
+                          });
+                        },
+                        onChanged: (value) {}),
+                  ]),
+              ],
             )
           ],
         ));
