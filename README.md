@@ -63,7 +63,7 @@ After installing this program on your machine, generate the json file for an aud
 audiowaveform -i test.mp3 -o test.json
 ```
 
-The generated data needs to be processed following some rules which are necessary to get the waveforms drawn properly. To process the data use [this parser](https://gist.github.com/rutvik110/31a588244d288e89368e8704c1437d34).
+The generated data needs to be processed following some rules which are necessary to get the waveforms drawn properly. To process the data use [this processor](https://gist.github.com/rutvik110/31a588244d288e89368e8704c1437d34).
 
 Once you have the processed data points list then you can just pass it down to any of the waveforms available and get started using them.
 
