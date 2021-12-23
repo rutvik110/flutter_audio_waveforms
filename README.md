@@ -99,7 +99,7 @@ Usage of all waveforms available is the same with only exception of having more/
  )
 ```
 
-> Find detailed [example here](https://github.com/rutvik110/flutter_audio_waveforms/blob/master/example/lib/readme_example.dart).
+> Find detailed [example here](https://github.com/rutvik110/flutter_audio_waveforms/blob/master/example/lib/main.dart).
 
 # Properties
 

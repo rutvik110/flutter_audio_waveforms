@@ -73,9 +73,10 @@ class _WaveformsDashboardState extends State<WaveformsDashboard> {
     // maxDuration in milliseconds
     await Future.delayed(const Duration(milliseconds: 200));
 
-    int maxDurationInseconds = await audioPlayer.fixedPlayer!.getDuration();
+    int maxDurationInmilliseconds =
+        await audioPlayer.fixedPlayer!.getDuration();
 
-    maxDuration = Duration(milliseconds: maxDurationInseconds);
+    maxDuration = Duration(milliseconds: maxDurationInmilliseconds);
     setState(() {
       samples = samplesData["samples"];
     });
