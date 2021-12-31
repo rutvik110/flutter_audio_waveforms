@@ -192,6 +192,24 @@ class _WaveformsDashboardState extends State<WaveformsDashboard> {
                   },
                   child: Text("Squiggly"),
                 ),
+                SizedBox(
+                  width: 20,
+                ),
+                ElevatedButton(
+                  style: OutlinedButton.styleFrom(
+                    backgroundColor: waveformType != WaveformType.curvedPolygon
+                        ? Colors.blue
+                        : Colors.red,
+                  ),
+                  onPressed: () {
+                    setState(() {
+                      totalSamples = 256;
+                      waveformType = WaveformType.curvedPolygon;
+                      parseData();
+                    });
+                  },
+                  child: Text("Curved Polygon"),
+                ),
               ],
             ),
             SizedBox(
@@ -211,6 +229,16 @@ class _WaveformsDashboardState extends State<WaveformsDashboard> {
               Align(
                 alignment: Alignment.center,
                 child: RectangleWaveformExample(
+                  maxDuration: maxDuration,
+                  elapsedDuration: elapsedDuration,
+                  samples: samples,
+                  waveformCustomizations: waveformCustomizations,
+                ),
+              )
+            else if (waveformType == WaveformType.curvedPolygon)
+              Align(
+                alignment: Alignment.center,
+                child: CurvedPolgonWaveformExample(
                   maxDuration: maxDuration,
                   elapsedDuration: elapsedDuration,
                   samples: samples,
@@ -528,7 +556,8 @@ class _WaveformsDashboardState extends State<WaveformsDashboard> {
               alignment: WrapAlignment.center,
               crossAxisAlignment: WrapCrossAlignment.center,
               children: [
-                if (waveformType == WaveformType.polygon)
+                if (waveformType == WaveformType.polygon ||
+                    waveformType == WaveformType.curvedPolygon)
                   Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
@@ -660,6 +689,39 @@ class SquigglyWaveformExample extends StatelessWidget {
   }
 }
 
+class CurvedPolgonWaveformExample extends StatelessWidget {
+  const CurvedPolgonWaveformExample({
+    Key? key,
+    required this.maxDuration,
+    required this.elapsedDuration,
+    required this.samples,
+    required this.waveformCustomizations,
+  }) : super(key: key);
+
+  final Duration maxDuration;
+  final Duration elapsedDuration;
+  final List<double> samples;
+  final WaveformCustomizations waveformCustomizations;
+
+  @override
+  Widget build(BuildContext context) {
+    return CurvedPolygonWaveform(
+      maxDuration: maxDuration,
+      elapsedDuration: elapsedDuration,
+      samples: samples,
+      height: waveformCustomizations.height,
+      width: waveformCustomizations.width,
+      inactiveColor: waveformCustomizations.inactiveColor,
+      invert: waveformCustomizations.invert,
+      absolute: waveformCustomizations.absolute,
+      activeColor: waveformCustomizations.activeColor,
+      showActiveWaveform: waveformCustomizations.showActiveWaveform,
+      strokeWidth: waveformCustomizations.borderWidth,
+      style: waveformCustomizations.style,
+    );
+  }
+}
+
 class RectangleWaveformExample extends StatelessWidget {
   const RectangleWaveformExample({
     Key? key,
@@ -734,6 +796,7 @@ enum WaveformType {
   polygon,
   rectangle,
   squiggly,
+  curvedPolygon,
 }
 
 class WaveformCustomizations {
