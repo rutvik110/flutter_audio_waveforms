@@ -1,3 +1,5 @@
+// Dashboard showcasing all the available Waveform types and their customizations.
+
 import 'dart:math';
 
 import 'package:audioplayers/audioplayers.dart';
