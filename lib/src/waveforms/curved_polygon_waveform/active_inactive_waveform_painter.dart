@@ -34,7 +34,7 @@ class CurvedPolygonActiveInActiveWaveformPainter
       ..color = color
       ..strokeJoin = StrokeJoin.round
       ..strokeCap = StrokeCap.round
-      ..strokeWidth = 2.0
+      ..strokeWidth = strokeWidth
       ..shader = LinearGradient(
         begin: const Alignment(-1.001, 0),
         end: const Alignment(1.001, 0),
@@ -54,6 +54,7 @@ class CurvedPolygonActiveInActiveWaveformPainter
       final currentPoint = samples[i];
       final nextPoint = i + 1 > samples.length - 1 ? 0.0 : samples[i + 1];
       bezierSamplesList.add(currentPoint);
+      // Addition of this two average points helps to get that curved effect.
       final averagePoint = (nextPoint + currentPoint) / 2;
       bezierSamplesList.add(averagePoint);
       final averagePoint2 = (nextPoint + averagePoint) / 2;

@@ -1,10 +1,7 @@
-import 'dart:math' as math;
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_waveforms/src/core/audio_waveform.dart';
 import 'package:flutter_audio_waveforms/src/core/waveform_painters_ab.dart';
-import 'package:flutter_audio_waveforms/src/util/waveform_alignment.dart';
 import 'package:flutter_audio_waveforms/src/waveforms/curved_polygon_waveform/active_inactive_waveform_painter.dart';
-import 'package:flutter_audio_waveforms/src/waveforms/squiggly_waveform/active_inactive_waveform_painter.dart';
 
 /// [CurvedPolygonWaveform] paints a squiggly waveform.
 /// The painter for this waveform is of the type [ActiveInActiveWaveformPainter]
