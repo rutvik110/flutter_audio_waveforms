@@ -30,6 +30,7 @@ class CurvedPolygonWaveform extends AudioWaveform {
     this.activeColor = Colors.red,
     this.inactiveColor = Colors.blue,
     this.strokeWidth = 1.0,
+    this.style = PaintingStyle.stroke,
     bool showActiveWaveform = true,
     bool absolute = false,
     bool invert = false,
@@ -54,6 +55,9 @@ class CurvedPolygonWaveform extends AudioWaveform {
 
   /// The stroke width of the waveform.
   final double strokeWidth;
+
+  /// waveform style
+  final PaintingStyle style;
 
   @override
   AudioWaveformState<CurvedPolygonWaveform> createState() =>
@@ -84,6 +88,7 @@ class _SquigglyWaveformState extends AudioWaveformState<CurvedPolygonWaveform> {
           waveformAlignment: waveformAlignment,
           strokeWidth: widget.strokeWidth,
           sampleWidth: sampleWidth,
+          style: widget.style,
         ),
       ),
     );

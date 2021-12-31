@@ -16,6 +16,7 @@ class CurvedPolygonActiveInActiveWaveformPainter
     required Color inactiveColor,
     required Color activeColor,
     required double strokeWidth,
+    required PaintingStyle style,
   }) : super(
           samples: samples,
           waveformAlignment: waveformAlignment,
@@ -24,6 +25,7 @@ class CurvedPolygonActiveInActiveWaveformPainter
           activeRatio: activeRatio,
           inactiveColor: inactiveColor,
           strokeWidth: strokeWidth,
+          style: style,
         );
 
   @override
@@ -70,6 +72,7 @@ class CurvedPolygonActiveInActiveWaveformPainter
       final doNotDrawPath = i + 1 > bezierSamplesList.length - 1 ||
           i + 2 > bezierSamplesList.length - 1 ||
           i + 3 > bezierSamplesList.length - 1;
+
       if (!doNotDrawPath) {
         final x1 = updatedWidth * (i + 1);
         final y1 = bezierSamplesList[i + 1];
