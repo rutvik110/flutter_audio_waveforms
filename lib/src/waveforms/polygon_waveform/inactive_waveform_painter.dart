@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_audio_waveforms/src/waveforms/polygon_waveform/polygon_waveform.dart';
-import 'package:flutter_audio_waveforms/src/util/waveform_alignment.dart';
 import 'package:flutter_audio_waveforms/src/core/waveform_painters_ab.dart';
+import 'package:flutter_audio_waveforms/src/util/waveform_alignment.dart';
+import 'package:flutter_audio_waveforms/src/waveforms/polygon_waveform/polygon_waveform.dart';
 
 ///InActiveWaveformPainter for the [PolygonWaveform]
 class PolygonInActiveWaveformPainter extends InActiveWaveformPainter {
@@ -11,7 +11,7 @@ class PolygonInActiveWaveformPainter extends InActiveWaveformPainter {
     Gradient? gradient,
     required List<double> samples,
     required WaveformAlignment waveformAlignment,
-    required this.style,
+    required PaintingStyle style,
     required double sampleWidth,
   }) : super(
           samples: samples,
@@ -19,10 +19,10 @@ class PolygonInActiveWaveformPainter extends InActiveWaveformPainter {
           gradient: gradient,
           waveformAlignment: waveformAlignment,
           sampleWidth: sampleWidth,
+          style: style,
         );
 
   /// Style of the waveform
-  final PaintingStyle style;
 
   @override
   void paint(Canvas canvas, Size size) {

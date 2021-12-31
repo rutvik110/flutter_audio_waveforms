@@ -15,11 +15,14 @@ You can use the following available waveform types.
 * Polygon
 * Rectangle
 * Squiggly
+* Curved Polygon
 
 <p>
 <img src="https://github.com/rutvik110/flutter_audio_waveforms/blob/master/example/assets/images/inactive/polygon.png?raw=true" height="150" width="300">
 <img src="https://github.com/rutvik110/flutter_audio_waveforms/blob/master/example/assets/images/inactive/rectangle.png?raw=true" height="150" width="300">
 <img src="https://github.com/rutvik110/flutter_audio_waveforms/blob/master/example/assets/images/inactive/squiggly.png?raw=true" height="150" width="300">
+<img src="https://github.com/rutvik110/flutter_audio_waveforms/blob/master/example/assets/images/inactive/curved_polygon.png?raw=true" height="150" width="300">
+<!-- curved waveform image -->
 </p>
 
 <br>
@@ -38,6 +41,7 @@ Need to add some gradient to your waveform? Say no more! You get it along with o
 <img src="https://github.com/rutvik110/flutter_audio_waveforms/blob/master/example/assets/images/customizations/paf2.png?raw=true" height="150" width="300">
 <img src="https://github.com/rutvik110/flutter_audio_waveforms/blob/master/example/assets/images/customizations/pgf.png?raw=true" height="150" width="300">
 <img src="https://github.com/rutvik110/flutter_audio_waveforms/blob/master/example/assets/images/customizations/paf.png?raw=true" height="150" width="300">
+<img src="https://github.com/rutvik110/flutter_audio_waveforms/blob/master/example/assets/images/customizations/cpaf.png?raw=true" height="150" width="300">
 </p>
 <br>
 
@@ -47,6 +51,8 @@ You get that too!
 <img src="https://github.com/rutvik110/flutter_audio_waveforms/blob/master/example/assets/images/gifs/pa_gif.gif?raw=true" height="150" width="300">
 <img src="https://github.com/rutvik110/flutter_audio_waveforms/blob/master/example/assets/images/gifs/ra_gif.gif?raw=true" height="150" width="300">
 <img src="https://github.com/rutvik110/flutter_audio_waveforms/blob/master/example/assets/images/gifs/sa_gif.gif?raw=true" height="150" width="300">
+<img src="https://github.com/rutvik110/flutter_audio_waveforms/blob/master/example/assets/images/gifs/cpa_gif.gif?raw=true" height="150" width="300">
+<!-- curved waveform active gif -->
 </p>
 
 
@@ -86,26 +92,6 @@ Usage of all waveforms available is the same with only exception of having more/
    width: width, 
  )
  ```
-
-```dart
- RectangleWaveform(
-   maxDuration: maxDuration,
-   elapsedDuration: elapsedDuration,
-   samples: [],
-   height: height,
-   width: width,
- )
-```
-
-```dart
- SquigglyWaveform(
-   maxDuration: maxDuration,
-   elapsedDuration: elapsedDuration,
-   samples: [],
-   height: height,
-   width: width,
- )
-```
 
 > Find detailed [example here](https://github.com/rutvik110/flutter_audio_waveforms/blob/master/example/lib/main.dart).
 
@@ -173,7 +159,7 @@ Available only for `RectangleWaveform`.
 
 Waveform stroke width.
 
-Available only for `SquigglyWaveform`.
+Available only for `SquigglyWaveform`, `CurvedPolygonWaveform`.
 
 **inactiveBorderColor**:
 

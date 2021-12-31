@@ -179,6 +179,7 @@ abstract class ActiveInActiveWaveformPainter extends WaveformPainter {
         gradient != oldDelegate.gradient ||
         waveformAlignment != oldDelegate.waveformAlignment ||
         sampleWidth != oldDelegate.sampleWidth ||
-        strokeWidth != oldDelegate.strokeWidth;
+        strokeWidth != oldDelegate.strokeWidth ||
+        style != oldDelegate.style;
   }
 }
