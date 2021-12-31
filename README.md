@@ -55,7 +55,9 @@ You get that too!
 <!-- curved waveform active gif -->
 </p>
 
+<br>
 
+> Check out the short demo of what package offers [here](https://vimeo.com/660623448)
 
 # Getting started
 
