@@ -150,7 +150,7 @@ abstract class AudioWaveformState<T extends AudioWaveform> extends State<T> {
 
     final maxNum =
         _processedSamples.reduce((a, b) => math.max(a.abs(), b.abs()));
-    final multiplier = math.pow(maxNum, -1).toDouble();
+    final multiplier = maxNum == 0 ? 0 : math.pow(maxNum, -1).toDouble();
     final finaHeight = absolute ? widget.height : widget.height / 2;
 
     _processedSamples = _processedSamples
