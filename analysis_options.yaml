@@ -1,33 +1,33 @@
-include: package:very_good_analysis/analysis_options.yaml
+# include: package:very_good_analysis/analysis_options.yaml
 
-linter:
-  rules:
+# linter:
+#   rules:
 
-analyzer:
-  exclude:
-    - test/
-  plugins:
-    - dart_code_metrics
-  # errors:
+# analyzer:
+#   exclude:
+#     - test/
+#   plugins:
+#     - dart_code_metrics
+#   # errors:
 
 
 
-dart_code_metrics:
-  metrics:
-    cyclomatic-complexity: 20
-    number-of-arguments: 4
-    maximum-nesting-level: 5
-  metrics-exclude:
-    - test/**
-  rules:
-    - newline-before-return
-    - no-boolean-literal-compare
-    - prefer-trailing-comma
-    - prefer-conditional-expressions
-    - no-equal-then-else
-  anti-patterns:
-    - long-method
-    - long-parameter-list
+# dart_code_metrics:
+#   metrics:
+#     cyclomatic-complexity: 20
+#     number-of-arguments: 4
+#     maximum-nesting-level: 5
+#   metrics-exclude:
+#     - test/**
+#   rules:
+#     - newline-before-return
+#     - no-boolean-literal-compare
+#     - prefer-trailing-comma
+#     - prefer-conditional-expressions
+#     - no-equal-then-else
+#   anti-patterns:
+#     - long-method
+#     - long-parameter-list
 
 
   

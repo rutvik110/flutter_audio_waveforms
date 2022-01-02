@@ -37,6 +37,9 @@ dependencies:
   cupertino_icons: ^1.0.2
   audioplayers: ^0.20.1
   flutter_voice_processor: ^1.0.6
+  mic_stream:
+    git:
+     url: git://github.com/rutvik110/mic_stream.git
 
 
 dev_dependencies:
