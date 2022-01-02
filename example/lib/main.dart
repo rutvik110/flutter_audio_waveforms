@@ -42,7 +42,7 @@ class _HomeState extends State<Home> {
   ScrollController scrollController = ScrollController();
   int totalSamples = 38795;
 
-  int frameLength = 512;
+  int frameLength = 256;
   int sampleRate = 48000;
   late VoiceProcessor _voiceProcessor;
 
@@ -104,7 +104,7 @@ class _HomeState extends State<Home> {
     // audioPlayer = AudioCache(
     //   fixedPlayer: AudioPlayer(),
     // );
-    // samples = [];
+    samples = [];
     // maxDuration = const Duration(milliseconds: 1000);
 
     // elapsedDuration = const Duration();
@@ -133,14 +133,14 @@ class _HomeState extends State<Home> {
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            CurvedPolygonWaveform(
+            SquigglyWaveform(
               maxDuration: Duration(seconds: 1),
               elapsedDuration: Duration(),
               samples: samples,
               height: 100,
               width: MediaQuery.of(context).size.width,
               showActiveWaveform: false,
-              // style: PaintingStyle.fill,
+              //  style: PaintingStyle.fill,
               // activeGradient: LinearGradient(
               //   colors: [
               //     Colors.blue,
