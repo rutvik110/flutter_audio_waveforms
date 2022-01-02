@@ -1,4 +1,5 @@
 import 'dart:ffi';
+import 'dart:math';
 
 import 'package:audioplayers/audioplayers.dart';
 import 'package:example/load_audio_data.dart';
@@ -96,7 +97,14 @@ class _HomeState extends State<Home> {
         sample as int;
         return sample.toDouble();
       }).toList();
-      setState(() {});
+
+      if (samples.reduce(max) > 100) {
+        setState(() {});
+      } else {
+        setState(() {
+          samples = List.generate(256, (index) => 0);
+        });
+      }
     });
 
     // audioData = audioDataList[0];
@@ -133,22 +141,23 @@ class _HomeState extends State<Home> {
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SquigglyWaveform(
+            RectangleWaveform(
               maxDuration: Duration(seconds: 1),
               elapsedDuration: Duration(),
               samples: samples,
               height: 100,
+              borderWidth: 0,
               width: MediaQuery.of(context).size.width,
               showActiveWaveform: false,
-              //  style: PaintingStyle.fill,
-              // activeGradient: LinearGradient(
-              //   colors: [
-              //     Colors.blue,
-              //     Colors.orange,
-              //     Colors.yellow,
-              //   ],
-              //   stops: [0.3, 0.6, 0.9],
-              // ),
+              // style: PaintingStyle.fill,
+              inactiveGradient: LinearGradient(
+                colors: [
+                  Colors.blue,
+                  Colors.orange,
+                  Colors.yellow,
+                ],
+                stops: [0.3, 0.6, 0.9],
+              ),
             ),
 
             // Container(
