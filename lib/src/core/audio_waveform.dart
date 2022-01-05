@@ -150,16 +150,18 @@ abstract class AudioWaveformState<T extends AudioWaveform> extends State<T> {
 
     final maxNum =
         _processedSamples.reduce((a, b) => math.max(a.abs(), b.abs()));
-    final multiplier = math.pow(maxNum, -1).toDouble();
-    final finaHeight = absolute ? widget.height : widget.height / 2;
 
-    _processedSamples = _processedSamples
-        .map(
-          (e) => invert
-              ? -e * multiplier * finaHeight
-              : e * multiplier * finaHeight,
-        )
-        .toList();
+    if (maxNum > 0) {
+      final multiplier = math.pow(maxNum, -1).toDouble();
+      final finalHeight = absolute ? widget.height : widget.height / 2;
+      final finalMultiplier = multiplier * finalHeight;
+
+      _processedSamples = _processedSamples
+          .map(
+            (e) => invert ? -e * finalMultiplier : e * finalMultiplier,
+          )
+          .toList();
+    }
   }
 
   /// Calculates the width that each sample would take.
