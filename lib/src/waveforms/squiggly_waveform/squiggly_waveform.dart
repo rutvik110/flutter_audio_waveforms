@@ -72,14 +72,18 @@ class _SquigglyWaveformState extends AudioWaveformState<SquigglyWaveform> {
 
     final maxNum =
         processedSamples.reduce((a, b) => math.max(a.abs(), b.abs()));
-    final multiplier = maxNum == 0 ? 0 : math.pow(maxNum, -1).toDouble();
-    final finaHeight = absolute ? widget.height : widget.height / 2;
-    processedSamples = processedSamples
-        .map(
-          (e) => e * multiplier * finaHeight,
-        )
-        .toList();
 
+    if (maxNum > 0) {
+      final multiplier = math.pow(maxNum, -1).toDouble();
+      final finalHeight = absolute ? widget.height : widget.height / 2;
+      final finalMultiplier = multiplier * finalHeight;
+
+      processedSamples = processedSamples
+          .map(
+            (e) => e * finalMultiplier,
+          )
+          .toList();
+    }
     updateProcessedSamples(processedSamples);
   }
 
