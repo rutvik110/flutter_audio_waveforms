@@ -43,7 +43,7 @@ class _HomeState extends State<Home> {
   ScrollController scrollController = ScrollController();
   int totalSamples = 38795;
 
-  int frameLength = 256;
+  int frameLength = 100;
   int sampleRate = 48000;
   late VoiceProcessor _voiceProcessor;
 
@@ -90,20 +90,27 @@ class _HomeState extends State<Home> {
     // TODO: implement initState
     super.initState();
 
+    samples = List.generate(256, (index) => 0);
+
     _voiceProcessor = VoiceProcessor.getVoiceProcessor(frameLength, sampleRate);
     _voiceProcessor.addListener((buffer) {
       print("Listener received buffer of size ${buffer}!");
-      samples = List.from(buffer).map<double>((sample) {
+      final newsamples = List.from(buffer).map<double>((sample) {
         sample as int;
         return sample.toDouble();
       }).toList();
 
-      if (samples.reduce(max) > 100) {
-        setState(() {});
-      } else {
+      if (newsamples.reduce(max) > 250) {
         setState(() {
-          samples = List.generate(256, (index) => 0);
+          samples.addAll(newsamples);
         });
+      } else {
+        samples.add(0);
+        setState(() {});
+
+        // setState(() {
+        //   //   samples = List.generate(256, (index) => 0);
+        // });
       }
     });
 
@@ -112,7 +119,7 @@ class _HomeState extends State<Home> {
     // audioPlayer = AudioCache(
     //   fixedPlayer: AudioPlayer(),
     // );
-    samples = [];
+
     // maxDuration = const Duration(milliseconds: 1000);
 
     // elapsedDuration = const Duration();
@@ -141,23 +148,24 @@ class _HomeState extends State<Home> {
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            RectangleWaveform(
+            CurvedPolygonWaveform(
               maxDuration: Duration(seconds: 1),
               elapsedDuration: Duration(),
-              samples: samples,
+              samples:
+                  samples.sublist(samples.length - 100, samples.length - 1),
               height: 100,
-              borderWidth: 0,
+              //    borderWidth: 0,
               width: MediaQuery.of(context).size.width,
               showActiveWaveform: false,
               // style: PaintingStyle.fill,
-              inactiveGradient: LinearGradient(
-                colors: [
-                  Colors.blue,
-                  Colors.orange,
-                  Colors.yellow,
-                ],
-                stops: [0.3, 0.6, 0.9],
-              ),
+              // inactiveGradient: LinearGradient(
+              //   colors: [
+              //     Colors.blue,
+              //     Colors.orange,
+              //     Colors.yellow,
+              //   ],
+              //   stops: [0.3, 0.6, 0.9],
+              // ),
             ),
 
             // Container(
