@@ -2,12 +2,15 @@ PODS:
   - audioplayers (0.0.1):
     - FlutterMacOS
   - FlutterMacOS (1.0.0)
+  - mic_stream (0.5.2):
+    - FlutterMacOS
   - path_provider_macos (0.0.1):
     - FlutterMacOS
 
 DEPENDENCIES:
   - audioplayers (from `Flutter/ephemeral/.symlinks/plugins/audioplayers/macos`)
   - FlutterMacOS (from `Flutter/ephemeral`)
+  - mic_stream (from `Flutter/ephemeral/.symlinks/plugins/mic_stream/macos`)
   - path_provider_macos (from `Flutter/ephemeral/.symlinks/plugins/path_provider_macos/macos`)
 
 EXTERNAL SOURCES:
@@ -15,12 +18,15 @@ EXTERNAL SOURCES:
     :path: Flutter/ephemeral/.symlinks/plugins/audioplayers/macos
   FlutterMacOS:
     :path: Flutter/ephemeral
+  mic_stream:
+    :path: Flutter/ephemeral/.symlinks/plugins/mic_stream/macos
   path_provider_macos:
     :path: Flutter/ephemeral/.symlinks/plugins/path_provider_macos/macos
 
 SPEC CHECKSUMS:
   audioplayers: 8b48e22684b6e0d9df143b2d1bbd61dca9dab6b4
   FlutterMacOS: 57701585bf7de1b3fc2bb61f6378d73bbdea8424
+  mic_stream: c3bc8a10c5451a0f5ef75a54a75caf25a3d146c4
   path_provider_macos: 160cab0d5461f0c0e02995469a98f24bdb9a3f1f
 
 PODFILE CHECKSUM: 6eac6b3292e5142cfc23bdeb71848a40ec51c14c
