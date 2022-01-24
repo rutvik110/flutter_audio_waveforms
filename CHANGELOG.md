@@ -1,3 +1,6 @@
+## 1.1.1+3
+
+* Documentation update.
 ## 1.1.1+2
 
 * Minor bug fix related to processing samples internally.
