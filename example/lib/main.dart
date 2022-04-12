@@ -1,5 +1,6 @@
 import 'package:audioplayers/audioplayers.dart';
 import 'package:example/load_audio_data.dart';
+import 'package:example/waveforms_dashboard.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
@@ -16,7 +17,7 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       title: 'Flutter Audio Waveforms',
-      home: Home(),
+      home: WaveformsDashboard(),
     );
   }
 }
@@ -110,7 +111,7 @@ class _HomeState extends State<Home> {
       width: 30,
     );
     return Scaffold(
-      backgroundColor: Colors.black,
+      backgroundColor: Colors.white,
       appBar: AppBar(
         title: const Text('Flutter Audio Waveforms'),
       ),

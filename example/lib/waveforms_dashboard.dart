@@ -1,6 +1,7 @@
 // Dashboard showcasing all the available Waveform types and their customizations.
 
 import 'dart:math';
+
 import 'package:audioplayers/audioplayers.dart';
 import 'package:example/load_audio_data.dart';
 import 'package:flutter/foundation.dart';
@@ -69,6 +70,13 @@ class _WaveformsDashboardState extends State<WaveformsDashboard> {
       "totalSamples": totalSamples,
     };
     final samplesData = await compute(loadparseJson, audioDataMap);
+
+    setState(() {
+      samples = samplesData["samples"];
+    });
+  }
+
+  Future<void> playAudio() async {
     await audioPlayer.load(audioData[1]);
     await audioPlayer.play(audioData[1]);
     // maxDuration in milliseconds
@@ -78,9 +86,6 @@ class _WaveformsDashboardState extends State<WaveformsDashboard> {
         await audioPlayer.fixedPlayer!.getDuration();
 
     maxDuration = Duration(milliseconds: maxDurationInmilliseconds);
-    setState(() {
-      samples = samplesData["samples"];
-    });
   }
 
   @override
@@ -124,19 +129,19 @@ class _WaveformsDashboardState extends State<WaveformsDashboard> {
 
   @override
   Widget build(BuildContext context) {
-    var sizedBox = SizedBox(
+    var sizedBox = const SizedBox(
       height: 10,
       width: 10,
     );
     return Scaffold(
-        backgroundColor: Colors.black,
+        backgroundColor: const Color(0xFF141414),
         appBar: AppBar(
           title: const Text('Flutter Audio Waveforms'),
         ),
         body: ListView(
           //    mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
             Row(
@@ -149,14 +154,14 @@ class _WaveformsDashboardState extends State<WaveformsDashboard> {
                   ),
                   onPressed: () {
                     setState(() {
-                      totalSamples = 256;
+                      // totalSamples = 256;
                       waveformType = WaveformType.polygon;
                       parseData();
                     });
                   },
-                  child: Text("Polygon"),
+                  child: const Text("Polygon"),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 20,
                 ),
                 ElevatedButton(
@@ -173,9 +178,9 @@ class _WaveformsDashboardState extends State<WaveformsDashboard> {
                       parseData();
                     });
                   },
-                  child: Text("Rectangle"),
+                  child: const Text("Rectangle"),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 20,
                 ),
                 ElevatedButton(
@@ -191,9 +196,9 @@ class _WaveformsDashboardState extends State<WaveformsDashboard> {
                       parseData();
                     });
                   },
-                  child: Text("Squiggly"),
+                  child: const Text("Squiggly"),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 20,
                 ),
                 ElevatedButton(
@@ -209,11 +214,11 @@ class _WaveformsDashboardState extends State<WaveformsDashboard> {
                       parseData();
                     });
                   },
-                  child: Text("Curved Polygon"),
+                  child: const Text("Curved Polygon"),
                 ),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             if (waveformType == WaveformType.polygon)
@@ -256,7 +261,7 @@ class _WaveformsDashboardState extends State<WaveformsDashboard> {
                   waveformCustomizations: waveformCustomizations,
                 ),
               ),
-            SizedBox(
+            const SizedBox(
               height: 30,
             ),
             Slider(
@@ -265,7 +270,7 @@ class _WaveformsDashboardState extends State<WaveformsDashboard> {
               activeColor: Colors.red,
               max: 1,
               onChangeEnd: (double value) async {
-                await audioPlayer.fixedPlayer!.resume();
+                // await audioPlayer.fixedPlayer!.resume();
               },
               onChangeStart: (double value) async {
                 await audioPlayer.fixedPlayer!.pause();
@@ -297,9 +302,9 @@ class _WaveformsDashboardState extends State<WaveformsDashboard> {
             ),
             Text(
               "Samples : $totalSamples",
-              style: TextStyle(color: Colors.white),
+              style: const TextStyle(color: Colors.white),
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Row(
@@ -309,79 +314,90 @@ class _WaveformsDashboardState extends State<WaveformsDashboard> {
                   onPressed: () {
                     audioPlayer.fixedPlayer!.pause();
                   },
-                  child: Icon(
+                  child: const Icon(
                     Icons.pause,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 20,
                 ),
                 ElevatedButton(
-                  onPressed: () {
-                    audioPlayer.fixedPlayer!.resume();
+                  onPressed: () async {
+                    if (audioPlayer.fixedPlayer!.state == PlayerState.PAUSED) {
+                      audioPlayer.fixedPlayer!.resume();
+                    } else {
+                      await playAudio();
+                    }
                   },
-                  child: Icon(Icons.play_arrow),
+                  child: const Icon(Icons.play_arrow),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 20,
                 ),
                 ElevatedButton(
                   onPressed: () {
                     setState(() {
                       sliderValue = 0;
-                      audioPlayer.fixedPlayer!.seek(Duration(milliseconds: 0));
+                      audioPlayer.fixedPlayer!
+                          .seek(const Duration(milliseconds: 0));
                     });
                   },
-                  child: Icon(Icons.replay_outlined),
+                  child: const Icon(Icons.replay_outlined),
                 ),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Row(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
                     setState(() {
                       audioData = audioDataList[0];
-                      parseData();
                     });
+
+                    await parseData();
+                    playAudio();
                   },
-                  child: Icon(
+                  child: const Icon(
                     Icons.music_note,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 20,
                 ),
                 ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
                     setState(() {
                       audioData = audioDataList[1];
-                      parseData();
                     });
+
+                    await parseData();
+                    playAudio();
                   },
-                  child: Icon(
+                  child: const Icon(
                     Icons.music_note,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   width: 20,
                 ),
                 ElevatedButton(
-                  onPressed: () {
+                  onPressed: () async {
                     setState(() {
                       audioData = audioDataList[2];
-                      parseData();
                     });
+
+                    await parseData();
+                    playAudio();
                   },
-                  child: Icon(
+                  child: const Icon(
                     Icons.music_note,
                   ),
                 ),
-                SizedBox(
+                const SizedBox(
                   height: 20,
                 ),
               ],
@@ -389,7 +405,7 @@ class _WaveformsDashboardState extends State<WaveformsDashboard> {
             sizedBox,
             Wrap(
               children: [
-                Text(
+                const Text(
                   "Height",
                   style: TextStyle(color: Colors.white),
                 ),
@@ -405,7 +421,7 @@ class _WaveformsDashboardState extends State<WaveformsDashboard> {
                   },
                 ),
                 sizedBox,
-                Text(
+                const Text(
                   "Width",
                   style: TextStyle(color: Colors.white),
                 ),
@@ -432,8 +448,8 @@ class _WaveformsDashboardState extends State<WaveformsDashboard> {
                           1);
                     });
                   },
-                  label: Text("Change IA-Color"),
-                  icon: Icon(
+                  label: const Text("Change IA-Color"),
+                  icon: const Icon(
                     Icons.color_lens,
                   ),
                 ),
@@ -449,57 +465,62 @@ class _WaveformsDashboardState extends State<WaveformsDashboard> {
                           1);
                     });
                   },
-                  label: Text("Change A-Color"),
-                  icon: Icon(
+                  label: const Text("Change A-Color"),
+                  icon: const Icon(
                     Icons.color_lens,
                   ),
                 ),
                 sizedBox,
-                ElevatedButton.icon(
-                  onPressed: () {
-                    setState(() {
-                      waveformCustomizations.inactiveGradient =
-                          LinearGradient(colors: [
-                        Color.fromRGBO(Random().nextInt(255),
-                            Random().nextInt(255), Random().nextInt(255), 1),
-                        Color.fromRGBO(Random().nextInt(255),
-                            Random().nextInt(255), Random().nextInt(255), 1),
-                      ], stops: [
-                        0.4,
-                        0.6
-                      ]);
-                    });
-                  },
-                  label: Text("Change IA-Gradient"),
-                  icon: Icon(
-                    Icons.color_lens,
+                if (waveformType == WaveformType.polygon ||
+                    waveformType == WaveformType.rectangle)
+                  ElevatedButton.icon(
+                    onPressed: () {
+                      setState(() {
+                        waveformCustomizations.inactiveGradient =
+                            LinearGradient(colors: [
+                          Color.fromRGBO(Random().nextInt(255),
+                              Random().nextInt(255), Random().nextInt(255), 1),
+                          Color.fromRGBO(Random().nextInt(255),
+                              Random().nextInt(255), Random().nextInt(255), 1),
+                        ], stops: const [
+                          0.4,
+                          0.6
+                        ]);
+                      });
+                    },
+                    label: const Text("Change IA-Gradient"),
+                    icon: const Icon(
+                      Icons.color_lens,
+                    ),
                   ),
-                ),
                 sizedBox,
-                ElevatedButton.icon(
-                  onPressed: () {
-                    setState(() {
-                      waveformCustomizations.activeGradient =
-                          LinearGradient(colors: [
-                        Color.fromRGBO(Random().nextInt(255),
-                            Random().nextInt(255), Random().nextInt(255), 1),
-                        Color.fromRGBO(Random().nextInt(255),
-                            Random().nextInt(255), Random().nextInt(255), 1),
-                      ], stops: [
-                        0.4,
-                        0.6
-                      ]);
-                    });
-                  },
-                  label: Text("Change A-Gradient"),
-                  icon: Icon(
-                    Icons.color_lens,
+                if (waveformType == WaveformType.polygon ||
+                    waveformType == WaveformType.rectangle)
+                  ElevatedButton.icon(
+                    onPressed: () {
+                      setState(() {
+                        waveformCustomizations.activeGradient =
+                            LinearGradient(colors: [
+                          Color.fromRGBO(Random().nextInt(255),
+                              Random().nextInt(255), Random().nextInt(255), 1),
+                          Color.fromRGBO(Random().nextInt(255),
+                              Random().nextInt(255), Random().nextInt(255), 1),
+                        ], stops: const [
+                          0.4,
+                          0.6
+                        ]);
+                      });
+                    },
+                    label: const Text("Change A-Gradient"),
+                    icon: const Icon(
+                      Icons.color_lens,
+                    ),
                   ),
-                ),
                 sizedBox,
                 Column(
                   children: [
-                    Text("Absolute ", style: TextStyle(color: Colors.white)),
+                    const Text("Absolute ",
+                        style: TextStyle(color: Colors.white)),
                     Switch(
                       inactiveTrackColor: Colors.grey[300],
                       value: waveformCustomizations.absolute,
@@ -513,7 +534,8 @@ class _WaveformsDashboardState extends State<WaveformsDashboard> {
                 ),
                 Column(
                   children: [
-                    Text("Invert ", style: TextStyle(color: Colors.white)),
+                    const Text("Invert ",
+                        style: TextStyle(color: Colors.white)),
                     Switch(
                       inactiveTrackColor: Colors.grey[300],
                       value: waveformCustomizations.invert,
@@ -527,7 +549,7 @@ class _WaveformsDashboardState extends State<WaveformsDashboard> {
                 ),
                 Column(
                   children: [
-                    Text("Hide Active Waveform",
+                    const Text("Hide Active Waveform",
                         style: TextStyle(color: Colors.white)),
                     Switch(
                       inactiveTrackColor: Colors.grey[300],
@@ -542,15 +564,15 @@ class _WaveformsDashboardState extends State<WaveformsDashboard> {
                 ),
               ],
             ),
-            SizedBox(
+            const SizedBox(
               height: 20,
             ),
-            Text("Specific Waveform Customizations",
+            const Text("Specific Waveform Customizations",
                 style: TextStyle(
                   color: Colors.blue,
                   fontWeight: FontWeight.bold,
                 )),
-            SizedBox(
+            const SizedBox(
               height: 10,
             ),
             Wrap(
@@ -562,15 +584,16 @@ class _WaveformsDashboardState extends State<WaveformsDashboard> {
                   Row(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      Text("Style : ", style: TextStyle(color: Colors.white)),
+                      const Text("Style : ",
+                          style: TextStyle(color: Colors.white)),
                       DropdownButton<PaintingStyle>(
                         value: waveformCustomizations.style,
-                        style: TextStyle(
+                        style: const TextStyle(
                           color: Colors.white,
                         ),
                         dropdownColor: Colors.black,
                         iconDisabledColor: Colors.white,
-                        items: [
+                        items: const [
                           DropdownMenuItem(
                             child: Text("Stroke"),
                             value: PaintingStyle.stroke,
@@ -591,7 +614,7 @@ class _WaveformsDashboardState extends State<WaveformsDashboard> {
                 else if (waveformType == WaveformType.rectangle)
                   Wrap(
                     children: [
-                      Text("BorderWidth : ",
+                      const Text("BorderWidth : ",
                           style: TextStyle(color: Colors.white)),
                       Slider(
                           value: waveformCustomizations.borderWidth,
@@ -613,8 +636,8 @@ class _WaveformsDashboardState extends State<WaveformsDashboard> {
                                     1);
                           });
                         },
-                        label: Text("Change IA-BorderColor"),
-                        icon: Icon(
+                        label: const Text("Change IA-BorderColor"),
+                        icon: const Icon(
                           Icons.color_lens,
                         ),
                       ),
@@ -630,8 +653,8 @@ class _WaveformsDashboardState extends State<WaveformsDashboard> {
                                     1);
                           });
                         },
-                        label: Text("Change A-BorderColor"),
-                        icon: Icon(
+                        label: const Text("Change A-BorderColor"),
+                        icon: const Icon(
                           Icons.color_lens,
                         ),
                       ),
@@ -639,7 +662,7 @@ class _WaveformsDashboardState extends State<WaveformsDashboard> {
                   )
                 else
                   Row(mainAxisSize: MainAxisSize.min, children: [
-                    Text("Stroke Width : ",
+                    const Text("Stroke Width : ",
                         style: TextStyle(color: Colors.white)),
                     Slider(
                         value: waveformCustomizations.borderWidth,

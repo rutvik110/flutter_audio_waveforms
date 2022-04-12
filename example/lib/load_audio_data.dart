@@ -1,5 +1,4 @@
 import 'dart:convert';
-
 import 'dart:math' as math;
 
 Map<String, dynamic> loadparseJson(Map<String, dynamic> audioDataMap) {
@@ -27,7 +26,7 @@ Map<String, dynamic> loadparseJson(Map<String, dynamic> audioDataMap) {
         .round() // take the average of the block and add it to the filtered data
         .toInt()); // divide the sum by the block size to get the average
   }
-  final maxNum = filteredData.reduce(math.max);
+  final maxNum = filteredData.reduce((a, b) => math.max(a.abs(), b.abs()));
 
   final double multiplier = math.pow(maxNum, -1).toDouble();
 
