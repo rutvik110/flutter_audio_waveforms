@@ -1,6 +1,6 @@
 name: flutter_audio_waveforms
 description: A UI library for easily adding audio waveforms to your apps, with several customization options.
-version: 1.1.1+3
+version: 1.1.1+4
 homepage: https://github.com/rutvik110/flutter_audio_waveforms
 
 environment:
