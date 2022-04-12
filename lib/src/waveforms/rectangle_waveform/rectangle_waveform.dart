@@ -26,8 +26,8 @@ class RectangleWaveform extends AudioWaveform {
     required List<double> samples,
     required double height,
     required double width,
-    required Duration maxDuration,
-    required Duration elapsedDuration,
+    Duration? maxDuration,
+    Duration? elapsedDuration,
     this.activeColor = Colors.red,
     this.inactiveColor = Colors.blue,
     this.activeGradient,
@@ -40,7 +40,7 @@ class RectangleWaveform extends AudioWaveform {
     bool invert = false,
   })  : assert(
           borderWidth >= 0 && borderWidth <= 1.0,
-          "BorderWidth must be between 0 and 1",
+          'BorderWidth must be between 0 and 1',
         ),
         super(
           key: key,
