@@ -76,9 +76,8 @@ abstract class ActiveWaveformPainter extends WaveformPainter {
   /// Stroke/Border Width
   final Color borderColor;
 
-  /// Whether the waveform should be rePainted or not.
-  @override
-  bool shouldRepaint(covariant ActiveWaveformPainter oldDelegate) {
+  /// Get shoudlRepaintValue
+  bool getShouldRepaintValue(covariant ActiveWaveformPainter oldDelegate) {
     return !checkforSamplesEquality(activeSamples, oldDelegate.activeSamples) ||
         color != oldDelegate.color ||
         gradient != oldDelegate.gradient ||
@@ -87,6 +86,12 @@ abstract class ActiveWaveformPainter extends WaveformPainter {
         style != oldDelegate.style ||
         borderWidth != oldDelegate.borderWidth ||
         borderColor != oldDelegate.borderColor;
+  }
+
+  /// Whether the waveform should be rePainted or not.
+  @override
+  bool shouldRepaint(covariant ActiveWaveformPainter oldDelegate) {
+    return getShouldRepaintValue(oldDelegate);
   }
 }
 
@@ -119,9 +124,8 @@ abstract class InActiveWaveformPainter extends WaveformPainter {
   /// Stroke/Border Width
   final Color borderColor;
 
-  /// Whether the waveform should be rePainted or not.
-  @override
-  bool shouldRepaint(covariant InActiveWaveformPainter oldDelegate) {
+  /// Get shoudlRepaintValue
+  bool getShouldRepaintValue(covariant InActiveWaveformPainter oldDelegate) {
     return !checkforSamplesEquality(samples, oldDelegate.samples) ||
         color != oldDelegate.color ||
         gradient != oldDelegate.gradient ||
@@ -130,6 +134,12 @@ abstract class InActiveWaveformPainter extends WaveformPainter {
         style != oldDelegate.style ||
         borderWidth != oldDelegate.borderWidth ||
         borderColor != oldDelegate.borderColor;
+  }
+
+  /// Whether the waveform should be rePainted or not.
+  @override
+  bool shouldRepaint(covariant InActiveWaveformPainter oldDelegate) {
+    return getShouldRepaintValue(oldDelegate);
   }
 }
 
@@ -168,9 +178,10 @@ abstract class ActiveInActiveWaveformPainter extends WaveformPainter {
   /// Stroke Width
   final double strokeWidth;
 
-  /// Whether the waveform should be rePainted or not.
-  @override
-  bool shouldRepaint(covariant ActiveInActiveWaveformPainter oldDelegate) {
+  /// Get shoudlRepaintValue
+  bool getShouldRepaintValue(
+    covariant ActiveInActiveWaveformPainter oldDelegate,
+  ) {
     return activeRatio != oldDelegate.activeRatio ||
         activeColor != oldDelegate.activeColor ||
         inactiveColor != oldDelegate.inactiveColor ||
@@ -181,5 +192,11 @@ abstract class ActiveInActiveWaveformPainter extends WaveformPainter {
         sampleWidth != oldDelegate.sampleWidth ||
         strokeWidth != oldDelegate.strokeWidth ||
         style != oldDelegate.style;
+  }
+
+  /// Whether the waveform should be rePainted or not.
+  @override
+  bool shouldRepaint(covariant ActiveInActiveWaveformPainter oldDelegate) {
+    return getShouldRepaintValue(oldDelegate);
   }
 }
