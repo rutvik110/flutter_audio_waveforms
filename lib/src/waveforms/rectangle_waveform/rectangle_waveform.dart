@@ -80,7 +80,10 @@ class RectangleWaveform extends AudioWaveform {
   /// If true then rounded rectangles are drawn instead of regular rectangles.
   final bool isRoundedRectangle;
 
-  /// If true then rounded rectangles are drawn instead of regular rectangles.
+  /// If true then rectangles are centered along the Y-axis with respect to
+  /// their center along their height.
+  ///
+  /// If [absolute] is true then this would've no effect.
   final bool isCentered;
 
   @override
