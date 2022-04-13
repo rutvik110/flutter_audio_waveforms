@@ -100,45 +100,42 @@ class _RectangleWaveformState extends AudioWaveformState<RectangleWaveform> {
     final waveformAlignment = this.waveformAlignment;
     final sampleWidth = this.sampleWidth;
 
-    return Container(
-      color: Colors.white38,
-      child: Stack(
-        children: [
-          RepaintBoundary(
-            child: CustomPaint(
-              size: Size(widget.width, widget.height),
-              isComplex: true,
-              painter: RectangleInActiveWaveformPainter(
-                samples: processedSamples,
-                color: widget.inactiveColor,
-                gradient: widget.inactiveGradient,
-                waveformAlignment: waveformAlignment,
-                borderColor: widget.inactiveBorderColor,
-                borderWidth: widget.borderWidth,
-                sampleWidth: sampleWidth,
-                isRoundedRectangle: widget.isRoundedRectangle,
-                isCentered: widget.isCentered,
-              ),
+    return Stack(
+      children: [
+        RepaintBoundary(
+          child: CustomPaint(
+            size: Size(widget.width, widget.height),
+            isComplex: true,
+            painter: RectangleInActiveWaveformPainter(
+              samples: processedSamples,
+              color: widget.inactiveColor,
+              gradient: widget.inactiveGradient,
+              waveformAlignment: waveformAlignment,
+              borderColor: widget.inactiveBorderColor,
+              borderWidth: widget.borderWidth,
+              sampleWidth: sampleWidth,
+              isRoundedRectangle: widget.isRoundedRectangle,
+              isCentered: widget.isCentered,
             ),
           ),
-          if (showActiveWaveform)
-            CustomPaint(
-              size: Size(widget.width, widget.height),
-              isComplex: true,
-              painter: RectangleActiveWaveformPainter(
-                color: widget.activeColor,
-                activeSamples: activeSamples,
-                gradient: widget.activeGradient,
-                waveformAlignment: waveformAlignment,
-                borderColor: widget.activeBorderColor,
-                borderWidth: widget.borderWidth,
-                sampleWidth: sampleWidth,
-                isRoundedRectangle: widget.isRoundedRectangle,
-                isCentered: widget.isCentered,
-              ),
+        ),
+        if (showActiveWaveform)
+          CustomPaint(
+            size: Size(widget.width, widget.height),
+            isComplex: true,
+            painter: RectangleActiveWaveformPainter(
+              color: widget.activeColor,
+              activeSamples: activeSamples,
+              gradient: widget.activeGradient,
+              waveformAlignment: waveformAlignment,
+              borderColor: widget.activeBorderColor,
+              borderWidth: widget.borderWidth,
+              sampleWidth: sampleWidth,
+              isRoundedRectangle: widget.isRoundedRectangle,
+              isCentered: widget.isCentered,
             ),
-        ],
-      ),
+          ),
+      ],
     );
   }
 }
