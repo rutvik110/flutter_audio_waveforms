@@ -74,20 +74,18 @@ class _SquigglyWaveformState extends AudioWaveformState<CurvedPolygonWaveform> {
     final activeRatio = this.activeRatio;
     final waveformAlignment = this.waveformAlignment;
 
-    return RepaintBoundary(
-      child: CustomPaint(
-        size: Size(widget.width, widget.height),
-        isComplex: true,
-        painter: CurvedPolygonActiveInActiveWaveformPainter(
-          samples: processedSamples,
-          activeColor: widget.activeColor,
-          inactiveColor: widget.inactiveColor,
-          activeRatio: activeRatio,
-          waveformAlignment: waveformAlignment,
-          strokeWidth: widget.strokeWidth,
-          sampleWidth: sampleWidth,
-          style: widget.style,
-        ),
+    return CustomPaint(
+      size: Size(widget.width, widget.height),
+      isComplex: true,
+      painter: CurvedPolygonActiveInActiveWaveformPainter(
+        samples: processedSamples,
+        activeColor: widget.activeColor,
+        inactiveColor: widget.inactiveColor,
+        activeRatio: activeRatio,
+        waveformAlignment: waveformAlignment,
+        strokeWidth: widget.strokeWidth,
+        sampleWidth: sampleWidth,
+        style: widget.style,
       ),
     );
   }

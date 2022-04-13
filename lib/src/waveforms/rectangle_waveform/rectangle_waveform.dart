@@ -114,20 +114,18 @@ class _RectangleWaveformState extends AudioWaveformState<RectangleWaveform> {
           ),
         ),
         if (showActiveWaveform)
-          RepaintBoundary(
-            child: CustomPaint(
-              size: Size(widget.width, widget.height),
-              isComplex: true,
-              painter: RectangleActiveWaveformPainter(
-                color: widget.activeColor,
-                activeSamples: activeSamples,
-                gradient: widget.activeGradient,
-                waveformAlignment: waveformAlignment,
-                borderColor: widget.activeBorderColor,
-                borderWidth: widget.borderWidth,
-                sampleWidth: sampleWidth,
-                isRoundedRectangle: widget.isRoundedRectangle,
-              ),
+          CustomPaint(
+            size: Size(widget.width, widget.height),
+            isComplex: true,
+            painter: RectangleActiveWaveformPainter(
+              color: widget.activeColor,
+              activeSamples: activeSamples,
+              gradient: widget.activeGradient,
+              waveformAlignment: waveformAlignment,
+              borderColor: widget.activeBorderColor,
+              borderWidth: widget.borderWidth,
+              sampleWidth: sampleWidth,
+              isRoundedRectangle: widget.isRoundedRectangle,
             ),
           ),
       ],

@@ -96,21 +96,19 @@ class _SquigglyWaveformState extends AudioWaveformState<SquigglyWaveform> {
     final activeRatio = this.activeRatio;
     final waveformAlignment = this.waveformAlignment;
 
-    return RepaintBoundary(
-      child: CustomPaint(
-        size: Size(widget.width, widget.height),
-        isComplex: true,
-        painter: SquigglyWaveformPainter(
-          samples: processedSamples,
-          activeColor: widget.activeColor,
-          inactiveColor: widget.inactiveColor,
-          activeRatio: activeRatio,
-          waveformAlignment: waveformAlignment,
-          absolute: widget.absolute,
-          invert: widget.invert,
-          strokeWidth: widget.strokeWidth,
-          sampleWidth: sampleWidth,
-        ),
+    return CustomPaint(
+      size: Size(widget.width, widget.height),
+      isComplex: true,
+      painter: SquigglyWaveformPainter(
+        samples: processedSamples,
+        activeColor: widget.activeColor,
+        inactiveColor: widget.inactiveColor,
+        activeRatio: activeRatio,
+        waveformAlignment: waveformAlignment,
+        absolute: widget.absolute,
+        invert: widget.invert,
+        strokeWidth: widget.strokeWidth,
+        sampleWidth: sampleWidth,
       ),
     );
   }
