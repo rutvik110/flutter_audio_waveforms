@@ -39,6 +39,7 @@ class RectangleWaveform extends AudioWaveform {
     bool absolute = false,
     bool invert = false,
     this.isRoundedRectangle = false,
+    this.isCentered = false,
   })  : assert(
           borderWidth >= 0 && borderWidth <= 1.0,
           'BorderWidth must be between 0 and 1',
@@ -79,6 +80,9 @@ class RectangleWaveform extends AudioWaveform {
   /// If true then rounded rectangles are drawn instead of regular rectangles.
   final bool isRoundedRectangle;
 
+  /// If true then rounded rectangles are drawn instead of regular rectangles.
+  final bool isCentered;
+
   @override
   AudioWaveformState<RectangleWaveform> createState() =>
       _RectangleWaveformState();
@@ -96,40 +100,45 @@ class _RectangleWaveformState extends AudioWaveformState<RectangleWaveform> {
     final waveformAlignment = this.waveformAlignment;
     final sampleWidth = this.sampleWidth;
 
-    return Stack(
-      children: [
-        RepaintBoundary(
-          child: CustomPaint(
-            size: Size(widget.width, widget.height),
-            isComplex: true,
-            painter: RectangleInActiveWaveformPainter(
-              samples: processedSamples,
-              color: widget.inactiveColor,
-              gradient: widget.inactiveGradient,
-              waveformAlignment: waveformAlignment,
-              borderColor: widget.inactiveBorderColor,
-              borderWidth: widget.borderWidth,
-              sampleWidth: sampleWidth,
-              isRoundedRectangle: widget.isRoundedRectangle,
+    return Container(
+      color: Colors.white38,
+      child: Stack(
+        children: [
+          RepaintBoundary(
+            child: CustomPaint(
+              size: Size(widget.width, widget.height),
+              isComplex: true,
+              painter: RectangleInActiveWaveformPainter(
+                samples: processedSamples,
+                color: widget.inactiveColor,
+                gradient: widget.inactiveGradient,
+                waveformAlignment: waveformAlignment,
+                borderColor: widget.inactiveBorderColor,
+                borderWidth: widget.borderWidth,
+                sampleWidth: sampleWidth,
+                isRoundedRectangle: widget.isRoundedRectangle,
+                isCentered: widget.isCentered,
+              ),
             ),
           ),
-        ),
-        if (showActiveWaveform)
-          CustomPaint(
-            size: Size(widget.width, widget.height),
-            isComplex: true,
-            painter: RectangleActiveWaveformPainter(
-              color: widget.activeColor,
-              activeSamples: activeSamples,
-              gradient: widget.activeGradient,
-              waveformAlignment: waveformAlignment,
-              borderColor: widget.activeBorderColor,
-              borderWidth: widget.borderWidth,
-              sampleWidth: sampleWidth,
-              isRoundedRectangle: widget.isRoundedRectangle,
+          if (showActiveWaveform)
+            CustomPaint(
+              size: Size(widget.width, widget.height),
+              isComplex: true,
+              painter: RectangleActiveWaveformPainter(
+                color: widget.activeColor,
+                activeSamples: activeSamples,
+                gradient: widget.activeGradient,
+                waveformAlignment: waveformAlignment,
+                borderColor: widget.activeBorderColor,
+                borderWidth: widget.borderWidth,
+                sampleWidth: sampleWidth,
+                isRoundedRectangle: widget.isRoundedRectangle,
+                isCentered: widget.isCentered,
+              ),
             ),
-          ),
-      ],
+        ],
+      ),
     );
   }
 }
