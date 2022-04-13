@@ -76,6 +76,7 @@ class RectangleWaveform extends AudioWaveform {
   /// The color of the inactive waveform border.
   final Color inactiveBorderColor;
 
+  /// If true then rounded rectangles are drawn instead of regular rectangles.
   final bool isRoundedRectangle;
 
   @override

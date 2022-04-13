@@ -99,7 +99,7 @@ class RectangleActiveWaveformPainter extends ActiveWaveformPainter {
           ..drawRRect(
             RRect.fromRectAndRadius(
               Rect.fromLTWH(x, alignPosition - y, sampleWidth, y * 2),
-              const Radius.circular(100),
+              Radius.circular(x),
             ),
             paint,
           )
@@ -107,7 +107,7 @@ class RectangleActiveWaveformPainter extends ActiveWaveformPainter {
           ..drawRRect(
             RRect.fromRectAndRadius(
               Rect.fromLTWH(x, alignPosition - y, sampleWidth, y * 2),
-              const Radius.circular(100),
+              Radius.circular(x),
             ),
             borderPaint,
           );
