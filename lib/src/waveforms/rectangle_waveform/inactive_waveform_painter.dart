@@ -46,6 +46,7 @@ class RectangleInActiveWaveformPainter extends InActiveWaveformPainter {
       ..strokeWidth = borderWidth;
     //Gets the [alignPosition] depending on [waveformAlignment]
     final alignPosition = waveformAlignment.getAlignPosition(size.height);
+    final isAbsolute = waveformAlignment != WaveformAlignment.center;
 
     if (isRoundedRectangle) {
       drawRoundedRectangles(
@@ -55,6 +56,7 @@ class RectangleInActiveWaveformPainter extends InActiveWaveformPainter {
         borderPaint,
         waveformAlignment,
         isCentered,
+        isAbsolute,
       );
     } else {
       drawRegularRectangles(
@@ -64,6 +66,7 @@ class RectangleInActiveWaveformPainter extends InActiveWaveformPainter {
         borderPaint,
         waveformAlignment,
         isCentered,
+        isAbsolute,
       );
     }
   }
@@ -76,22 +79,25 @@ class RectangleInActiveWaveformPainter extends InActiveWaveformPainter {
     Paint borderPaint,
     WaveformAlignment waveformAlignment,
     bool isCentered,
+    bool isAbsolute,
   ) {
+    final isCenteredAndNotAbsolute = isCentered && !isAbsolute;
     for (var i = 0; i < samples.length; i++) {
       final x = sampleWidth * i;
-      final isAbsolute = waveformAlignment != WaveformAlignment.center;
-      final y = isCentered && !isAbsolute ? samples[i] * 2 : samples[i];
+      final y = isCenteredAndNotAbsolute ? samples[i] * 2 : samples[i];
       final positionFromTop =
-          isCentered && !isAbsolute ? alignPosition - y / 2 : alignPosition;
+          isCenteredAndNotAbsolute ? alignPosition - y / 2 : alignPosition;
+      final rectangle = Rect.fromLTWH(x, positionFromTop, sampleWidth, y);
+
       //Draws the filled rectangles of the waveform.
       canvas
         ..drawRect(
-          Rect.fromLTWH(x, positionFromTop, sampleWidth, y),
+          rectangle,
           paint,
         )
         //Draws the border for the rectangles of the waveform.
         ..drawRect(
-          Rect.fromLTWH(x, positionFromTop, sampleWidth, y),
+          rectangle,
           borderPaint,
         );
     }
@@ -105,35 +111,31 @@ class RectangleInActiveWaveformPainter extends InActiveWaveformPainter {
     Paint borderPaint,
     WaveformAlignment waveformAlignment,
     bool isCentered,
+    bool isAbsolute,
   ) {
+    final radius = Radius.circular(sampleWidth);
+    final isAbsoluteAndNotCentered = isAbsolute || !isCentered;
     for (var i = 0; i < samples.length; i++) {
       if (i.isEven) {
         final x = sampleWidth * i;
-        final isAbsolute = waveformAlignment != WaveformAlignment.center;
-        final y = isAbsolute
-            ? samples[i]
-            : !isCentered
-                ? samples[i]
-                : samples[i] * 2;
-        final positionFromTop = isAbsolute
-            ? alignPosition
-            : !isCentered
-                ? alignPosition
-                : alignPosition - y / 2;
+        final y = isAbsoluteAndNotCentered ? samples[i] : samples[i] * 2;
+        final positionFromTop =
+            isAbsoluteAndNotCentered ? alignPosition : alignPosition - y / 2;
+        final rectangle = Rect.fromLTWH(x, positionFromTop, sampleWidth, y);
         //Draws the filled rectangles of the waveform.
         canvas
           ..drawRRect(
             RRect.fromRectAndRadius(
-              Rect.fromLTWH(x, positionFromTop, sampleWidth, y),
-              Radius.circular(x),
+              rectangle,
+              radius,
             ),
             paint,
           )
           //Draws the border for the rectangles of the waveform.
           ..drawRRect(
             RRect.fromRectAndRadius(
-              Rect.fromLTWH(x, positionFromTop, sampleWidth, y),
-              Radius.circular(x),
+              rectangle,
+              radius,
             ),
             borderPaint,
           );
