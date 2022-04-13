@@ -658,6 +658,23 @@ class _WaveformsDashboardState extends State<WaveformsDashboard> {
                           Icons.color_lens,
                         ),
                       ),
+                      sizedBox,
+                      Column(
+                        children: [
+                          const Text("isRounedRectangle",
+                              style: TextStyle(color: Colors.white)),
+                          Switch(
+                            inactiveTrackColor: Colors.grey[300],
+                            value: waveformCustomizations.isRoundedRectangle,
+                            onChanged: (value) {
+                              setState(() {
+                                waveformCustomizations.isRoundedRectangle =
+                                    value;
+                              });
+                            },
+                          ),
+                        ],
+                      ),
                     ],
                   )
                 else
@@ -778,6 +795,7 @@ class RectangleWaveformExample extends StatelessWidget {
       borderWidth: waveformCustomizations.borderWidth,
       activeBorderColor: waveformCustomizations.activeBorderColor,
       inactiveBorderColor: waveformCustomizations.inactiveBorderColor,
+      isRoundedRectangle: waveformCustomizations.isRoundedRectangle,
     );
   }
 }
@@ -838,6 +856,7 @@ class WaveformCustomizations {
     this.borderWidth = 1.0,
     this.activeBorderColor = Colors.white,
     this.inactiveBorderColor = Colors.white,
+    this.isRoundedRectangle = false,
   });
 
   double height;
@@ -853,4 +872,5 @@ class WaveformCustomizations {
   double borderWidth;
   Color activeBorderColor;
   Color inactiveBorderColor;
+  bool isRoundedRectangle;
 }
