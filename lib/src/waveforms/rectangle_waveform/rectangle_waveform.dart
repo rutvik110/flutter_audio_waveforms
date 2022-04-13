@@ -38,6 +38,7 @@ class RectangleWaveform extends AudioWaveform {
     bool showActiveWaveform = true,
     bool absolute = false,
     bool invert = false,
+    this.isRoundedRectangle = false,
   })  : assert(
           borderWidth >= 0 && borderWidth <= 1.0,
           'BorderWidth must be between 0 and 1',
@@ -75,6 +76,8 @@ class RectangleWaveform extends AudioWaveform {
   /// The color of the inactive waveform border.
   final Color inactiveBorderColor;
 
+  final bool isRoundedRectangle;
+
   @override
   AudioWaveformState<RectangleWaveform> createState() =>
       _RectangleWaveformState();
@@ -106,6 +109,7 @@ class _RectangleWaveformState extends AudioWaveformState<RectangleWaveform> {
               borderColor: widget.inactiveBorderColor,
               borderWidth: widget.borderWidth,
               sampleWidth: sampleWidth,
+              isRoundedRectangle: widget.isRoundedRectangle,
             ),
           ),
         ),
@@ -122,6 +126,7 @@ class _RectangleWaveformState extends AudioWaveformState<RectangleWaveform> {
                 borderColor: widget.activeBorderColor,
                 borderWidth: widget.borderWidth,
                 sampleWidth: sampleWidth,
+                isRoundedRectangle: widget.isRoundedRectangle,
               ),
             ),
           ),

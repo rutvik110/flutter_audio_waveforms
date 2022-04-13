@@ -13,6 +13,7 @@ class RectangleActiveWaveformPainter extends ActiveWaveformPainter {
     required double sampleWidth,
     required Color borderColor,
     required double borderWidth,
+    required this.isRoundedRectangle,
     Gradient? gradient,
   }) : super(
           color: color,
@@ -24,6 +25,7 @@ class RectangleActiveWaveformPainter extends ActiveWaveformPainter {
           borderWidth: borderWidth,
           style: PaintingStyle.fill,
         );
+  final bool isRoundedRectangle;
 
   @override
   void paint(Canvas canvas, Size size) {
@@ -42,15 +44,37 @@ class RectangleActiveWaveformPainter extends ActiveWaveformPainter {
     //Gets the [alignPosition] depending on [waveformAlignment]
     final alignPosition = waveformAlignment.getAlignPosition(size.height);
 
+    if (isRoundedRectangle) {
+      drawRoundedRectangles(
+        canvas,
+        alignPosition,
+        activeTrackPaint,
+        borderPaint,
+      );
+    } else {
+      drawRegularRectangles(
+        canvas,
+        alignPosition,
+        activeTrackPaint,
+        borderPaint,
+      );
+    }
+  }
+
+  void drawRegularRectangles(
+    Canvas canvas,
+    double alignPosition,
+    Paint paint,
+    Paint borderPaint,
+  ) {
     for (var i = 0; i < activeSamples.length; i++) {
       final x = sampleWidth * i;
       final y = activeSamples[i];
-
       //Draws the filled rectangles of the waveform.
       canvas
         ..drawRect(
           Rect.fromLTWH(x, alignPosition, sampleWidth, y),
-          activeTrackPaint,
+          paint,
         )
         //Draws the border for the rectangles of the waveform.
         ..drawRect(
@@ -58,5 +82,43 @@ class RectangleActiveWaveformPainter extends ActiveWaveformPainter {
           borderPaint,
         );
     }
+  }
+
+  void drawRoundedRectangles(
+    Canvas canvas,
+    double alignPosition,
+    Paint paint,
+    Paint borderPaint,
+  ) {
+    for (var i = 0; i < activeSamples.length; i++) {
+      if (i.isEven) {
+        final x = sampleWidth * i;
+        final y = activeSamples[i];
+        //Draws the filled rectangles of the waveform.
+        canvas
+          ..drawRRect(
+            RRect.fromRectAndRadius(
+              Rect.fromLTWH(x, alignPosition - y, sampleWidth, y * 2),
+              const Radius.circular(100),
+            ),
+            paint,
+          )
+          //Draws the border for the rectangles of the waveform.
+          ..drawRRect(
+            RRect.fromRectAndRadius(
+              Rect.fromLTWH(x, alignPosition - y, sampleWidth, y * 2),
+              const Radius.circular(100),
+            ),
+            borderPaint,
+          );
+      }
+    }
+  }
+
+  @override
+  bool shouldRepaint(covariant RectangleActiveWaveformPainter oldDelegate) {
+    // TODO: implement shouldRepaint
+    return getShouldRepaintValue(oldDelegate) ||
+        isRoundedRectangle != oldDelegate.isRoundedRectangle;
   }
 }
