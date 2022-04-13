@@ -675,6 +675,22 @@ class _WaveformsDashboardState extends State<WaveformsDashboard> {
                           ),
                         ],
                       ),
+                      sizedBox,
+                      Column(
+                        children: [
+                          const Text("isCentered",
+                              style: TextStyle(color: Colors.white)),
+                          Switch(
+                            inactiveTrackColor: Colors.grey[300],
+                            value: waveformCustomizations.isCentered,
+                            onChanged: (value) {
+                              setState(() {
+                                waveformCustomizations.isCentered = value;
+                              });
+                            },
+                          ),
+                        ],
+                      ),
                     ],
                   )
                 else
@@ -796,6 +812,7 @@ class RectangleWaveformExample extends StatelessWidget {
       activeBorderColor: waveformCustomizations.activeBorderColor,
       inactiveBorderColor: waveformCustomizations.inactiveBorderColor,
       isRoundedRectangle: waveformCustomizations.isRoundedRectangle,
+      isCentered: waveformCustomizations.isCentered,
     );
   }
 }
@@ -857,6 +874,7 @@ class WaveformCustomizations {
     this.activeBorderColor = Colors.white,
     this.inactiveBorderColor = Colors.white,
     this.isRoundedRectangle = false,
+    this.isCentered = false,
   });
 
   double height;
@@ -873,4 +891,5 @@ class WaveformCustomizations {
   Color activeBorderColor;
   Color inactiveBorderColor;
   bool isRoundedRectangle;
+  bool isCentered;
 }
