@@ -8,6 +8,8 @@
 
 A UI library for easily adding audio waveforms to your apps, with several customization options.
 
+Web Demo - [Flutter Audio Waveforms Web Demo](https://rutvik110.github.io/Flutter-Audio-Waveforms-Demo/#/)
+
 # Features
 
 You can use the following available waveform types.
