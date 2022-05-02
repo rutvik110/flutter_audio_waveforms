@@ -11,6 +11,8 @@ dependencies:
   collection: ^1.15.0
   flutter:
     sdk: flutter
+  scidart: ^0.0.2-dev.9
+  
     
 
 dev_dependencies:

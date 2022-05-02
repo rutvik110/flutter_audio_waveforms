@@ -93,7 +93,7 @@ packages:
   flutter_audio_waveforms:
     dependency: "direct main"
     description:
-      path: "/Users/rutviktak/flutter_projects/flutter_plugins/flutter_audio_visualizer/"
+      path: "/Users/rutviktak/flutter_projects/flutter_plugins/flutter_audio_waveforms/"
       relative: false
     source: path
     version: "1.1.1+2"
@@ -263,6 +263,13 @@ packages:
       url: "https://pub.dartlang.org"
     source: hosted
     version: "4.2.4"
+  scidart:
+    dependency: "direct main"
+    description:
+      name: scidart
+      url: "https://pub.dartlang.org"
+    source: hosted
+    version: "0.0.2-dev.9"
   sky_engine:
     dependency: transitive
     description: flutter
