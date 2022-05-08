@@ -1,3 +1,6 @@
+## 1.2.1+5
+
+* Documentation update. Included web demo link and info about new customization options added in previous update.
 ## 1.2.1+4
 
 * Added customization options `isRoundedRectangle` and `isCentered` to RectangleWaveform. Setting `isRoundedRectangle` to true draws rounded rectangles instead of regular ones. Setting `isCentered` to true would align each rectangle in the center along Y axis with respect to it's center along it's height. `isCentered` won't have any effect if `absolute` is set to true.
