@@ -1,3 +1,12 @@
+## 1.2.1+4
+
+* Added customization options `isRoundedRectangle` and `isCentered` to RectangleWaveform. Setting `isRoundedRectangle` to true draws rounded rectangles instead of regular ones. Setting `isCentered` to true would align each rectangle in the center along Y axis with respect to it's center along it's height. `isCentered` won't have any effect if `absolute` is set to true.
+## 1.1.1+4
+
+* Updates in Api for declaring waveforms. `maxDuration` and `elapsedDuration` are now made optional when you're declaring a waveform. Avoids having to provide them when not needed like in case when you need a static waveform without any active waveform track.
+## 1.1.1+3
+
+* Documentation update.
 ## 1.1.1+2
 
 * Minor bug fix related to processing samples internally.

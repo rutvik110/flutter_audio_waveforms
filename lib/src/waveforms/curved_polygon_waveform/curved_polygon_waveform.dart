@@ -25,8 +25,8 @@ class CurvedPolygonWaveform extends AudioWaveform {
     required List<double> samples,
     required double height,
     required double width,
-    required Duration maxDuration,
-    required Duration elapsedDuration,
+    Duration? maxDuration,
+    Duration? elapsedDuration,
     this.activeColor = Colors.red,
     this.inactiveColor = Colors.blue,
     this.strokeWidth = 1.0,
@@ -71,25 +71,21 @@ class _SquigglyWaveformState extends AudioWaveformState<CurvedPolygonWaveform> {
       return const SizedBox.shrink();
     }
     final processedSamples = this.processedSamples;
-    final activeRatio = showActiveWaveform
-        ? elapsedDuration.inMilliseconds / maxDuration.inMilliseconds
-        : 0.0;
+    final activeRatio = this.activeRatio;
     final waveformAlignment = this.waveformAlignment;
 
-    return RepaintBoundary(
-      child: CustomPaint(
-        size: Size(widget.width, widget.height),
-        isComplex: true,
-        painter: CurvedPolygonActiveInActiveWaveformPainter(
-          samples: processedSamples,
-          activeColor: widget.activeColor,
-          inactiveColor: widget.inactiveColor,
-          activeRatio: activeRatio,
-          waveformAlignment: waveformAlignment,
-          strokeWidth: widget.strokeWidth,
-          sampleWidth: sampleWidth,
-          style: widget.style,
-        ),
+    return CustomPaint(
+      size: Size(widget.width, widget.height),
+      isComplex: true,
+      painter: CurvedPolygonActiveInActiveWaveformPainter(
+        samples: processedSamples,
+        activeColor: widget.activeColor,
+        inactiveColor: widget.inactiveColor,
+        activeRatio: activeRatio,
+        waveformAlignment: waveformAlignment,
+        strokeWidth: widget.strokeWidth,
+        sampleWidth: sampleWidth,
+        style: widget.style,
       ),
     );
   }

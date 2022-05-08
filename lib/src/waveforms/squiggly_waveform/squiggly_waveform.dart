@@ -1,8 +1,8 @@
 import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_waveforms/src/core/audio_waveform.dart';
 import 'package:flutter_audio_waveforms/src/core/waveform_painters_ab.dart';
-import 'package:flutter_audio_waveforms/src/util/waveform_alignment.dart';
 import 'package:flutter_audio_waveforms/src/waveforms/squiggly_waveform/active_inactive_waveform_painter.dart';
 
 /// [SquigglyWaveform] paints a squiggly waveform.
@@ -27,8 +27,8 @@ class SquigglyWaveform extends AudioWaveform {
     required List<double> samples,
     required double height,
     required double width,
-    required Duration maxDuration,
-    required Duration elapsedDuration,
+    Duration? maxDuration,
+    Duration? elapsedDuration,
     this.activeColor = Colors.red,
     this.inactiveColor = Colors.blue,
     this.strokeWidth = 1.0,
@@ -93,26 +93,22 @@ class _SquigglyWaveformState extends AudioWaveformState<SquigglyWaveform> {
       return const SizedBox.shrink();
     }
     final processedSamples = this.processedSamples;
-    final activeRatio = showActiveWaveform
-        ? elapsedDuration.inMilliseconds / maxDuration.inMilliseconds
-        : 0.0;
+    final activeRatio = this.activeRatio;
     final waveformAlignment = this.waveformAlignment;
 
-    return RepaintBoundary(
-      child: CustomPaint(
-        size: Size(widget.width, widget.height),
-        isComplex: true,
-        painter: SquigglyWaveformPainter(
-          samples: processedSamples,
-          activeColor: widget.activeColor,
-          inactiveColor: widget.inactiveColor,
-          activeRatio: activeRatio,
-          waveformAlignment: waveformAlignment,
-          absolute: widget.absolute,
-          invert: widget.invert,
-          strokeWidth: widget.strokeWidth,
-          sampleWidth: sampleWidth,
-        ),
+    return CustomPaint(
+      size: Size(widget.width, widget.height),
+      isComplex: true,
+      painter: SquigglyWaveformPainter(
+        samples: processedSamples,
+        activeColor: widget.activeColor,
+        inactiveColor: widget.inactiveColor,
+        activeRatio: activeRatio,
+        waveformAlignment: waveformAlignment,
+        absolute: widget.absolute,
+        invert: widget.invert,
+        strokeWidth: widget.strokeWidth,
+        sampleWidth: sampleWidth,
       ),
     );
   }

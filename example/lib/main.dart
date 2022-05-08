@@ -106,14 +106,12 @@ class _HomeState extends State<Home> {
   void initState() {
     // TODO: implement initState
     super.initState();
-
+    samples = [];
     audioPlayer = AudioCache(
       fixedPlayer: AudioPlayer(),
     );
-    audioData = audioDataList[0];
+    audioData = audioDataList[2];
 
-    samples = List.generate(256, (index) => 0);
-    parseData();
     // _voiceProcessor = VoiceProcessor.getVoiceProcessor(frameLength, sampleRate);
     // _voiceProcessor.addListener((buffer) {
     //   final newsamples = List.from(buffer).map<double>((sample) {
@@ -147,22 +145,22 @@ class _HomeState extends State<Home> {
     //   }
     // });
 
-    // maxDuration = const Duration(milliseconds: 1000);
+    maxDuration = const Duration(milliseconds: 1000);
 
-    // elapsedDuration = const Duration();
-    // parseData();
-    // audioPlayer.fixedPlayer!.onPlayerCompletion.listen((_) {
-    //   setState(() {
-    //     elapsedDuration = maxDuration;
-    //   });
-    // });
-    // audioPlayer.fixedPlayer!.onAudioPositionChanged.listen((Duration p) {
-    //   setState(() {
-    //     elapsedDuration = p;
-    //     //     scrollController.jumpTo(scrollController.position.maxScrollExtent *
-    //     //          (elapsedDuration.inMilliseconds / maxDuration.inMilliseconds));
-    //   });
-    // });
+    elapsedDuration = const Duration();
+    parseData();
+    audioPlayer.fixedPlayer!.onPlayerCompletion.listen((_) {
+      setState(() {
+        elapsedDuration = maxDuration;
+      });
+    });
+    audioPlayer.fixedPlayer!.onAudioPositionChanged.listen((Duration p) {
+      setState(() {
+        elapsedDuration = p;
+        //     scrollController.jumpTo(scrollController.position.maxScrollExtent *
+        //          (elapsedDuration.inMilliseconds / maxDuration.inMilliseconds));
+      });
+    });
   }
 
   @override
@@ -175,26 +173,30 @@ class _HomeState extends State<Home> {
         body: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            CustomPaint(
-                painter: FrequencyDistributionPainter(frequencies: frequencies),
-                size: Size(MediaQuery.of(context).size.width, 500)),
-            CurvedPolygonWaveform(
-              samples:
-                  samples.sublist(samples.length - 100, samples.length - 1),
-              height: 100,
-              //    borderWidth: 0,
+            FrequencyDistribution(
+              samples: samples,
+              height: 500,
               width: MediaQuery.of(context).size.width,
-              showActiveWaveform: false,
-              // style: PaintingStyle.fill,
-              // inactiveGradient: LinearGradient(
-              //   colors: [
-              //     Colors.blue,
-              //     Colors.orange,
-              //     Colors.yellow,
-              //   ],
-              //   stops: [0.3, 0.6, 0.9],
-              // ),
+              maxDuration: maxDuration,
+              elapsedDuration: elapsedDuration,
             ),
+            // CurvedPolygonWaveform(
+            //   samples:
+            //       samples.sublist(samples.length - 100, samples.length - 1),
+            //   height: 100,
+            //   //    borderWidth: 0,
+            //   width: MediaQuery.of(context).size.width,
+            //   showActiveWaveform: false,
+            //   // style: PaintingStyle.fill,
+            //   // inactiveGradient: LinearGradient(
+            //   //   colors: [
+            //   //     Colors.blue,
+            //   //     Colors.orange,
+            //   //     Colors.yellow,
+            //   //   ],
+            //   //   stops: [0.3, 0.6, 0.9],
+            //   // ),
+            // ),
 
             // Container(
             //   height: 100,
@@ -320,27 +322,5 @@ class _HomeState extends State<Home> {
             )
           ],
         ));
-  }
-}
-
-class FrequencyDistributionPainter extends CustomPainter {
-  FrequencyDistributionPainter({required this.frequencies});
-  numdart.ArrayComplex frequencies;
-  @override
-  void paint(Canvas canvas, Size size) {
-    final paint = Paint()
-      ..style = PaintingStyle.fill
-      ..color = Colors.blue;
-    for (var i = 0; i < frequencies.length; i++) {
-      canvas.drawRect(
-          Rect.fromLTWH((50 * i).toDouble(), size.height / 2, 50,
-              -frequencies[i].real * 1000),
-          paint);
-    }
-  }
-
-  @override
-  bool shouldRepaint(covariant CustomPainter oldDelegate) {
-    return true;
   }
 }

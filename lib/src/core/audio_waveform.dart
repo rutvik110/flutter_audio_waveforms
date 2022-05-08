@@ -15,6 +15,16 @@ import 'package:flutter_audio_waveforms/src/util/waveform_alignment.dart';
 /// Anything that can be shared and used across all waveforms should
 /// be handled by this class.
 ///
+
+bool debugMaxandElapsedDuration(
+  Duration? maxDuration,
+  Duration? elapsedDuration,
+) {
+  return maxDuration != null || elapsedDuration != null
+      ? elapsedDuration != null && maxDuration != null
+      : true;
+}
+
 abstract class AudioWaveform extends StatefulWidget {
   /// Constructor for [AudioWaveform]
   AudioWaveform({
@@ -22,18 +32,31 @@ abstract class AudioWaveform extends StatefulWidget {
     required this.samples,
     required this.height,
     required this.width,
-    required this.maxDuration,
-    required this.elapsedDuration,
+    this.maxDuration,
+    this.elapsedDuration,
     required this.showActiveWaveform,
     this.absolute = false,
     this.invert = false,
   })  : assert(
-          elapsedDuration.inMilliseconds <= maxDuration.inMilliseconds,
-          'elapsedDuration must be less than or equal to maxDuration',
+          debugMaxandElapsedDuration(
+            maxDuration,
+            elapsedDuration,
+          ),
+          'Both maxDuration and elapsedDuration must be provided.',
         ),
         assert(
-          maxDuration.inMilliseconds > 0,
+          maxDuration == null ? true : maxDuration.inMilliseconds > 0,
           'maxDuration must be greater than 0',
+        ),
+        assert(
+          elapsedDuration == null ? true : elapsedDuration.inMilliseconds >= 0,
+          'maxDuration must be greater than 0',
+        ),
+        assert(
+          elapsedDuration == null || maxDuration == null
+              ? true
+              : elapsedDuration.inMilliseconds <= maxDuration.inMilliseconds,
+          'elapsedDuration must be less than or equal to maxDuration',
         ),
         waveformAlignment = absolute
             ? invert
@@ -53,10 +76,10 @@ abstract class AudioWaveform extends StatefulWidget {
   final double width;
 
   /// Maximum duration of the audio.
-  final Duration maxDuration;
+  final Duration? maxDuration;
 
   /// Elapsed duration of the audio.
-  final Duration elapsedDuration;
+  final Duration? elapsedDuration;
 
   /// Makes the waveform absolute.
   /// Draws the waveform along the positive y-axis.
@@ -110,6 +133,7 @@ abstract class AudioWaveformState<T extends AudioWaveform> extends State<T> {
   /// final elapsedTimeRatio = elapsedDuration.inMilliseconds / maxDuration.inMilliseconds;
   /// _activeIndex = (widget.samples.length * elapsedTimeRatio).round();
   late int _activeIndex;
+  int get activeIndex => _activeIndex;
 
   /// Active samples that are used to draw the ActiveWaveform.
   /// This are calculated using [_activeIndex] and are subList of the
@@ -120,10 +144,10 @@ abstract class AudioWaveformState<T extends AudioWaveform> extends State<T> {
   List<double> get activeSamples => _activeSamples;
 
   ///Getter for maxDuration
-  Duration get maxDuration => widget.maxDuration;
+  Duration? get maxDuration => widget.maxDuration;
 
   ///getter for elapsedDuration
-  Duration get elapsedDuration => widget.elapsedDuration;
+  Duration? get elapsedDuration => widget.elapsedDuration;
 
   ///Whether to show active waveform or not
   bool get showActiveWaveform => widget.showActiveWaveform;
@@ -179,16 +203,34 @@ abstract class AudioWaveformState<T extends AudioWaveform> extends State<T> {
 
     //   return;
     // }
-    final elapsedTimeRatio =
-        elapsedDuration.inMilliseconds / maxDuration.inMilliseconds;
+    if (maxDuration != null && elapsedDuration != null) {
+      final elapsedTimeRatio =
+          elapsedDuration!.inMilliseconds / maxDuration!.inMilliseconds;
 
-    _activeIndex = (widget.samples.length * elapsedTimeRatio).round();
+      _activeIndex = (widget.samples.length * elapsedTimeRatio).round();
+    }
   }
 
   /// Updates [_activeSamples] based on the [_activeIndex].
   @protected
   void _updateActiveSamples() {
     _activeSamples = _processedSamples.sublist(0, _activeIndex);
+  }
+
+  /// Gets the ratio of elapsedDuration to maxDuration.
+  /// Used by waveforms that show active track with help of stops in gradient while painting.
+  /// eg. CurvedPolygonWaveform, SquigglyWaveform
+
+  double get activeRatio => _calculateActiveRatio();
+
+  double _calculateActiveRatio() {
+    if (maxDuration != null && elapsedDuration != null) {
+      return showActiveWaveform
+          ? elapsedDuration!.inMilliseconds / maxDuration!.inMilliseconds
+          : 0.0;
+    }
+
+    return 0;
   }
 
   @override

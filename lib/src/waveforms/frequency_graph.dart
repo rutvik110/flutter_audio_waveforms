@@ -1,3 +1,5 @@
+import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_waveforms/src/core/audio_waveform.dart';
 import 'package:flutter_audio_waveforms/src/core/waveform_painters_ab.dart';
@@ -72,7 +74,7 @@ class _SquigglyWaveformState extends AudioWaveformState<FrequencyDistribution> {
     if (widget.samples.isEmpty) {
       return const SizedBox.shrink();
     }
-    final processedSamples = this.activeSamples;
+    final processedSamples = widget.samples.sublist(this.activeIndex);
     final numdart.ArrayComplex arrayComplex =
         numdart.ArrayComplex(processedSamples
             .map<numdart.Complex>((e) => numdart.Complex(
@@ -82,12 +84,29 @@ class _SquigglyWaveformState extends AudioWaveformState<FrequencyDistribution> {
     final frquenceyList = scidart.fft(
       arrayComplex,
       n: 256,
+      normalization: true,
     );
+    final double maxNum = frquenceyList.reduce(
+      (previousValue, element) {
+        return previousValue.real > element.real ? previousValue : element;
+      },
+    ).real;
 
-    frquenceyList.removeWhere(
-      (element) => element.real < 0,
-    );
-    numdart.ArrayComplex frequencies = frquenceyList;
+    final double multiplier = math.pow(maxNum, -1).toDouble();
+
+    final samples = frquenceyList
+        .map(
+          (e) => numdart.Complex(
+            real: e.real * multiplier * 100,
+            imaginary: e.imaginary,
+          ),
+        )
+        .toList();
+
+    // samples.removeWhere(
+    //   (element) => element.real < 0,
+    // );
+    numdart.ArrayComplex frequencies = numdart.ArrayComplex(samples);
     return CustomPaint(
       size: Size(widget.width, widget.height),
       isComplex: true,
@@ -107,10 +126,18 @@ class FrequencyDistributionPainter extends CustomPainter {
       ..style = PaintingStyle.fill
       ..color = Colors.blue;
     for (var i = 0; i < frequencies.length; i++) {
-      canvas.drawRect(
-          Rect.fromLTWH((50 * i).toDouble(), size.height / 2, 50,
-              -frequencies[i].real * 1000),
-          paint);
+      if (frequencies[i].real.isNegative) {
+      } else {
+        canvas.drawRect(
+          Rect.fromLTWH(
+            (5 * i).toDouble(),
+            size.height / 2,
+            2,
+            -frequencies[i].real,
+          ),
+          paint,
+        );
+      }
     }
   }
 

@@ -26,8 +26,8 @@ class RectangleWaveform extends AudioWaveform {
     required List<double> samples,
     required double height,
     required double width,
-    required Duration maxDuration,
-    required Duration elapsedDuration,
+    Duration? maxDuration,
+    Duration? elapsedDuration,
     this.activeColor = Colors.red,
     this.inactiveColor = Colors.blue,
     this.activeGradient,
@@ -38,9 +38,11 @@ class RectangleWaveform extends AudioWaveform {
     bool showActiveWaveform = true,
     bool absolute = false,
     bool invert = false,
+    this.isRoundedRectangle = false,
+    this.isCentered = false,
   })  : assert(
           borderWidth >= 0 && borderWidth <= 1.0,
-          "BorderWidth must be between 0 and 1",
+          'BorderWidth must be between 0 and 1',
         ),
         super(
           key: key,
@@ -75,6 +77,15 @@ class RectangleWaveform extends AudioWaveform {
   /// The color of the inactive waveform border.
   final Color inactiveBorderColor;
 
+  /// If true then rounded rectangles are drawn instead of regular rectangles.
+  final bool isRoundedRectangle;
+
+  /// If true then rectangles are centered along the Y-axis with respect to
+  /// their center along their height.
+  ///
+  /// If [absolute] is true then this would've no effect.
+  final bool isCentered;
+
   @override
   AudioWaveformState<RectangleWaveform> createState() =>
       _RectangleWaveformState();
@@ -106,23 +117,25 @@ class _RectangleWaveformState extends AudioWaveformState<RectangleWaveform> {
               borderColor: widget.inactiveBorderColor,
               borderWidth: widget.borderWidth,
               sampleWidth: sampleWidth,
+              isRoundedRectangle: widget.isRoundedRectangle,
+              isCentered: widget.isCentered,
             ),
           ),
         ),
         if (showActiveWaveform)
-          RepaintBoundary(
-            child: CustomPaint(
-              size: Size(widget.width, widget.height),
-              isComplex: true,
-              painter: RectangleActiveWaveformPainter(
-                color: widget.activeColor,
-                activeSamples: activeSamples,
-                gradient: widget.activeGradient,
-                waveformAlignment: waveformAlignment,
-                borderColor: widget.activeBorderColor,
-                borderWidth: widget.borderWidth,
-                sampleWidth: sampleWidth,
-              ),
+          CustomPaint(
+            size: Size(widget.width, widget.height),
+            isComplex: true,
+            painter: RectangleActiveWaveformPainter(
+              color: widget.activeColor,
+              activeSamples: activeSamples,
+              gradient: widget.activeGradient,
+              waveformAlignment: waveformAlignment,
+              borderColor: widget.activeBorderColor,
+              borderWidth: widget.borderWidth,
+              sampleWidth: sampleWidth,
+              isRoundedRectangle: widget.isRoundedRectangle,
+              isCentered: widget.isCentered,
             ),
           ),
       ],

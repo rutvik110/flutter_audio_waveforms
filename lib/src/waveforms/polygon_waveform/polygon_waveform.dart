@@ -26,8 +26,8 @@ class PolygonWaveform extends AudioWaveform {
     required List<double> samples,
     required double height,
     required double width,
-    required Duration maxDuration,
-    required Duration elapsedDuration,
+    Duration? maxDuration,
+    Duration? elapsedDuration,
     this.activeColor = Colors.red,
     this.inactiveColor = Colors.blue,
     this.activeGradient,
@@ -96,18 +96,16 @@ class _PolygonWaveformState extends AudioWaveformState<PolygonWaveform> {
           ),
         ),
         if (showActiveWaveform)
-          RepaintBoundary(
-            child: CustomPaint(
-              isComplex: true,
-              size: Size(widget.width, widget.height),
-              painter: PolygonActiveWaveformPainter(
-                style: widget.style,
-                color: widget.activeColor,
-                activeSamples: activeSamples,
-                gradient: widget.activeGradient,
-                waveformAlignment: waveformAlignment,
-                sampleWidth: sampleWidth,
-              ),
+          CustomPaint(
+            isComplex: true,
+            size: Size(widget.width, widget.height),
+            painter: PolygonActiveWaveformPainter(
+              style: widget.style,
+              color: widget.activeColor,
+              activeSamples: activeSamples,
+              gradient: widget.activeGradient,
+              waveformAlignment: waveformAlignment,
+              sampleWidth: sampleWidth,
             ),
           ),
       ],
