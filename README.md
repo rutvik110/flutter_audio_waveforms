@@ -8,6 +8,8 @@
 
 A UI library for easily adding audio waveforms to your apps, with several customization options.
 
+Web Demo - [Flutter Audio Waveforms Web Demo](https://rutvik110.github.io/Flutter-Audio-Waveforms-Demo/#/)
+
 # Features
 
 You can use the following available waveform types.
@@ -87,12 +89,20 @@ Usage of all waveforms available is the same with only exception of having more/
 
 
 ```dart
+ // For a regular waveform
  PolygonWaveform( 
-   maxDuration: maxDuration,
-   elapsedDuration: elapsedDuration,
    samples: [],
    height: height,
    width: width, 
+ )
+
+ // If you want active track for playing audio, pass [maxDuration] and [elapsedDuration]
+ PolygonWaveform( 
+   samples: [],
+   height: height,
+   width: width,
+   maxDuration: maxDuration,
+   elapsedDuration: elapsedDuration, 
  )
  ```
 
@@ -158,6 +168,19 @@ Width of the border around waveform.
 
 Available only for `RectangleWaveform`.
 
+**isRoundedRectangle** : 
+
+If true then rounded rectangles are drawn instead of regular rectangles. 
+
+Available only for `RectangleWaveform`.
+
+**isCentered** : 
+
+If true then rectangles are centered along the Y-axis with respect to their center along their height.<br>
+If [absolute] is true then this would've no effect. 
+
+Available only for `RectangleWaveform`.
+
 **strokeWidth** :
 
 Waveform stroke width.
@@ -199,6 +222,6 @@ What started as a challenge out of curiosity, is now a package that I hope will 
 
 Learned some good stuff while working on it and I hope to make it much more going forward.
 
-If this package helped you then I would appreciate a like here which would be enough for me to keep continue working on it and if it really really helped you then feel free to drop by and [say hi](https://twitter.com/TakRutvik).
+If this package helped you then I would appreciate if you ⭐️ the repo which would be enough for me to keep continue working on it 🤓 and feel free to drop by and [say hi](https://twitter.com/TakRutvik) anytime.
 
 
