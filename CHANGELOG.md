@@ -1,3 +1,8 @@
+## 1.2.1+6
+
+* Migration to Flutter 3.0
+  * Updated min dart sdk version to 2.17.0
+  * Using super parameters
 ## 1.2.1+5
 
 * Documentation update. Included web demo link and info about new customization options added in previous update.
