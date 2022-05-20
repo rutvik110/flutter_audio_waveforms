@@ -110,5 +110,13 @@ class _PolygonWaveformState extends AudioWaveformState<PolygonWaveform> {
           ),
       ],
     );
+
+    // if (maxDuration != null && elapsedDuration != null && showActiveWaveform) {
+    //   return WaveformDraggableGestureDetector(
+    //     maxDuration: maxDuration!,
+    //     width: widget.width,
+    //     waveform: waveform,
+    //   );
+    // }
   }
 }

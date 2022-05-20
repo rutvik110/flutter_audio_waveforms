@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_audio_waveforms/flutter_audio_waveforms.dart';
 
 class WaveformDraggableGestureDetector extends StatefulWidget {
   const WaveformDraggableGestureDetector({
@@ -6,8 +7,8 @@ class WaveformDraggableGestureDetector extends StatefulWidget {
     this.onDragUpdate,
     this.onDragStart,
     this.onDragEnd,
-    required this.maxDuration,
-    required this.width,
+    // required this.maxDuration,
+    // required this.width,
     Key? key,
   }) : super(
           key: key,
@@ -16,9 +17,7 @@ class WaveformDraggableGestureDetector extends StatefulWidget {
   final ValueChanged<Duration>? onDragUpdate;
   final ValueChanged<Duration>? onDragStart;
   final ValueChanged<Duration>? onDragEnd;
-  final Widget waveform;
-  final Duration maxDuration;
-  final double width;
+  final AudioWaveform waveform;
 
   @override
   State<WaveformDraggableGestureDetector> createState() =>
@@ -32,7 +31,16 @@ class _WaveformDraggableGestureDetectorState
   bool isRenderBoxInitialized = false;
 
   @override
+  void initState() {
+    // TODO: implement initState
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
+    final width = widget.waveform.width;
+    final maxDuration = widget.waveform.maxDuration;
+
     return GestureDetector(
       key: containerKey,
       onHorizontalDragStart: (details) {
@@ -44,10 +52,10 @@ class _WaveformDraggableGestureDetectorState
       },
       onHorizontalDragUpdate: (details) {
         final position = renderBox.globalToLocal(details.globalPosition).dx;
-        final visualPosition = position / widget.width;
+        final visualPosition = position / width;
         if (visualPosition >= 0.0 && visualPosition <= 1.0) {
           final draggedTime =
-              visualPosition * (widget.maxDuration.inMilliseconds);
+              visualPosition * (maxDuration?.inMilliseconds ?? 0);
           widget.onDragUpdate!(Duration(milliseconds: draggedTime.toInt()));
         } else if (visualPosition < 0.0) {
           widget.onDragUpdate!(
@@ -55,7 +63,9 @@ class _WaveformDraggableGestureDetectorState
           );
         } else {
           widget.onDragUpdate!(
-            Duration(milliseconds: widget.maxDuration.inMilliseconds),
+            Duration(
+              milliseconds: maxDuration?.inMilliseconds ?? 0,
+            ),
           );
         }
       },

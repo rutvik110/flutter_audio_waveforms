@@ -833,20 +833,23 @@ class PolygonWaveformExample extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PolygonWaveform(
-      maxDuration: maxDuration,
-      elapsedDuration: elapsedDuration,
-      samples: samples,
-      height: waveformCustomizations.height,
-      width: waveformCustomizations.width,
-      inactiveColor: waveformCustomizations.inactiveColor,
-      inactiveGradient: waveformCustomizations.inactiveGradient,
-      invert: waveformCustomizations.invert,
-      absolute: waveformCustomizations.absolute,
-      activeColor: waveformCustomizations.activeColor,
-      activeGradient: waveformCustomizations.activeGradient,
-      showActiveWaveform: waveformCustomizations.showActiveWaveform,
-      style: waveformCustomizations.style,
+    return WaveformDraggableGestureDetector(
+      onDragUpdate: (duration) {},
+      waveform: PolygonWaveform(
+        maxDuration: maxDuration,
+        elapsedDuration: elapsedDuration,
+        samples: samples,
+        height: waveformCustomizations.height,
+        width: waveformCustomizations.width,
+        inactiveColor: waveformCustomizations.inactiveColor,
+        inactiveGradient: waveformCustomizations.inactiveGradient,
+        invert: waveformCustomizations.invert,
+        absolute: waveformCustomizations.absolute,
+        activeColor: waveformCustomizations.activeColor,
+        activeGradient: waveformCustomizations.activeGradient,
+        showActiveWaveform: waveformCustomizations.showActiveWaveform,
+        style: waveformCustomizations.style,
+      ),
     );
   }
 }
