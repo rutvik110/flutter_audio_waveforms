@@ -22,31 +22,21 @@ import 'package:flutter_audio_waveforms/src/waveforms/polygon_waveform/inactive_
 class PolygonWaveform extends AudioWaveform {
   // ignore: public_member_api_docs
   PolygonWaveform({
-    Key? key,
-    required List<double> samples,
-    required double height,
-    required double width,
-    Duration? maxDuration,
-    Duration? elapsedDuration,
+    super.key,
+    required super.samples,
+    required super.height,
+    required super.width,
+    super.maxDuration,
+    super.elapsedDuration,
     this.activeColor = Colors.red,
     this.inactiveColor = Colors.blue,
     this.activeGradient,
     this.inactiveGradient,
     this.style = PaintingStyle.stroke,
-    bool showActiveWaveform = true,
-    bool absolute = false,
-    bool invert = false,
-  }) : super(
-          key: key,
-          samples: samples,
-          height: height,
-          width: width,
-          maxDuration: maxDuration,
-          elapsedDuration: elapsedDuration,
-          showActiveWaveform: showActiveWaveform,
-          absolute: absolute,
-          invert: invert,
-        );
+    super.showActiveWaveform = true,
+    super.absolute = false,
+    super.invert = false,
+  });
 
   /// active waveform color
   final Color activeColor;

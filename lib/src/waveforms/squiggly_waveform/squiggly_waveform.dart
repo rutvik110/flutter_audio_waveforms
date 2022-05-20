@@ -23,30 +23,19 @@ import 'package:flutter_audio_waveforms/src/waveforms/squiggly_waveform/active_i
 class SquigglyWaveform extends AudioWaveform {
   // ignore: public_member_api_docs
   SquigglyWaveform({
-    Key? key,
-    required List<double> samples,
-    required double height,
-    required double width,
-    Duration? maxDuration,
-    Duration? elapsedDuration,
+    super.key,
+    required super.samples,
+    required super.height,
+    required super.width,
+    super.maxDuration,
+    super.elapsedDuration,
     this.activeColor = Colors.red,
     this.inactiveColor = Colors.blue,
     this.strokeWidth = 1.0,
-    bool showActiveWaveform = true,
-    bool absolute = false,
-    bool invert = false,
-  })  : assert(strokeWidth >= 0, "strokeWidth can't be negative."),
-        super(
-          key: key,
-          samples: samples,
-          height: height,
-          width: width,
-          maxDuration: maxDuration,
-          elapsedDuration: elapsedDuration,
-          absolute: absolute,
-          invert: invert,
-          showActiveWaveform: showActiveWaveform,
-        );
+    super.showActiveWaveform = true,
+    super.absolute = false,
+    super.invert = false,
+  }) : assert(strokeWidth >= 0, "strokeWidth can't be negative.");
 
   /// The color of the active portion of the waveform.
   final Color activeColor;

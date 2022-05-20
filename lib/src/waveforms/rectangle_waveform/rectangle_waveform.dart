@@ -22,12 +22,12 @@ import 'package:flutter_audio_waveforms/src/waveforms/rectangle_waveform/inactiv
 class RectangleWaveform extends AudioWaveform {
   // ignore: public_member_api_docs
   RectangleWaveform({
-    Key? key,
-    required List<double> samples,
-    required double height,
-    required double width,
-    Duration? maxDuration,
-    Duration? elapsedDuration,
+    super.key,
+    required super.samples,
+    required super.height,
+    required super.width,
+    super.maxDuration,
+    super.elapsedDuration,
     this.activeColor = Colors.red,
     this.inactiveColor = Colors.blue,
     this.activeGradient,
@@ -35,25 +35,14 @@ class RectangleWaveform extends AudioWaveform {
     this.borderWidth = 1.0,
     this.activeBorderColor = Colors.white,
     this.inactiveBorderColor = Colors.white,
-    bool showActiveWaveform = true,
-    bool absolute = false,
-    bool invert = false,
+    super.showActiveWaveform = true,
+    super.absolute = false,
+    super.invert = false,
     this.isRoundedRectangle = false,
     this.isCentered = false,
-  })  : assert(
+  }) : assert(
           borderWidth >= 0 && borderWidth <= 1.0,
           'BorderWidth must be between 0 and 1',
-        ),
-        super(
-          key: key,
-          samples: samples,
-          height: height,
-          width: width,
-          maxDuration: maxDuration,
-          elapsedDuration: elapsedDuration,
-          showActiveWaveform: showActiveWaveform,
-          absolute: absolute,
-          invert: invert,
         );
 
   /// The color of the active waveform.

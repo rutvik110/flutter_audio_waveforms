@@ -1,7 +1,8 @@
 import 'dart:math' as math;
+
 import 'package:flutter/material.dart';
-import 'package:flutter_audio_waveforms/src/util/waveform_alignment.dart';
 import 'package:flutter_audio_waveforms/src/core/waveform_painters_ab.dart';
+import 'package:flutter_audio_waveforms/src/util/waveform_alignment.dart';
 import 'package:flutter_audio_waveforms/src/waveforms/squiggly_waveform/squiggly_waveform.dart';
 
 ///Painter for the [SquigglyWaveform]
@@ -9,24 +10,16 @@ import 'package:flutter_audio_waveforms/src/waveforms/squiggly_waveform/squiggly
 class SquigglyWaveformPainter extends ActiveInActiveWaveformPainter {
   // ignore: public_member_api_docs
   SquigglyWaveformPainter({
-    required Color activeColor,
-    required List<double> samples,
-    required Color inactiveColor,
-    required double activeRatio,
-    required WaveformAlignment waveformAlignment,
-    required double sampleWidth,
-    required double strokeWidth,
+    required super.activeColor,
+    required super.samples,
+    required super.inactiveColor,
+    required super.activeRatio,
+    required super.waveformAlignment,
+    required super.sampleWidth,
+    required super.strokeWidth,
     required this.absolute,
     required this.invert,
-  }) : super(
-          samples: samples,
-          activeColor: activeColor,
-          inactiveColor: inactiveColor,
-          activeRatio: activeRatio,
-          waveformAlignment: waveformAlignment,
-          sampleWidth: sampleWidth,
-          strokeWidth: strokeWidth,
-        );
+  });
 
   ///Whether to draw the absolute waveform or not
   final bool absolute;

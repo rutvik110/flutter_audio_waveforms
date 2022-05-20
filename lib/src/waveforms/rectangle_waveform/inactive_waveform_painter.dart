@@ -9,25 +9,17 @@ import 'package:flutter_audio_waveforms/src/waveforms/rectangle_waveform/rectang
 class RectangleInActiveWaveformPainter extends InActiveWaveformPainter {
   // ignore: public_member_api_docs
   RectangleInActiveWaveformPainter({
-    Color color = Colors.white,
-    Gradient? gradient,
-    required List<double> samples,
-    required WaveformAlignment waveformAlignment,
-    required double sampleWidth,
-    required Color borderColor,
-    required double borderWidth,
+    super.color = Colors.white,
+    super.gradient,
+    required super.samples,
+    required super.waveformAlignment,
+    required super.sampleWidth,
+    required super.borderColor,
+    required super.borderWidth,
     required this.isRoundedRectangle,
     required this.isCentered,
-  }) : super(
-          samples: samples,
-          color: color,
-          gradient: gradient,
-          waveformAlignment: waveformAlignment,
-          sampleWidth: sampleWidth,
-          borderColor: borderColor,
-          borderWidth: borderWidth,
-          style: PaintingStyle.fill,
-        );
+    super.style = PaintingStyle.fill,
+  });
 
   final bool isRoundedRectangle;
   final bool isCentered;

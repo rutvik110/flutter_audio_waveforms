@@ -1,4 +1,3 @@
-import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:flutter_audio_waveforms/src/core/waveform_painters_ab.dart';
 import 'package:flutter_audio_waveforms/src/util/waveform_alignment.dart';
@@ -9,24 +8,15 @@ class CurvedPolygonActiveInActiveWaveformPainter
     extends ActiveInActiveWaveformPainter {
   // ignore: public_member_api_docs
   CurvedPolygonActiveInActiveWaveformPainter({
-    required List<double> samples,
-    required WaveformAlignment waveformAlignment,
-    required double sampleWidth,
-    required double activeRatio,
-    required Color inactiveColor,
-    required Color activeColor,
-    required double strokeWidth,
-    required PaintingStyle style,
-  }) : super(
-          samples: samples,
-          waveformAlignment: waveformAlignment,
-          sampleWidth: sampleWidth,
-          activeColor: activeColor,
-          activeRatio: activeRatio,
-          inactiveColor: inactiveColor,
-          strokeWidth: strokeWidth,
-          style: style,
-        );
+    required super.samples,
+    required super.waveformAlignment,
+    required super.sampleWidth,
+    required super.activeRatio,
+    required super.inactiveColor,
+    required super.activeColor,
+    required super.strokeWidth,
+    required super.style,
+  });
 
   @override
   // ignore: long-method

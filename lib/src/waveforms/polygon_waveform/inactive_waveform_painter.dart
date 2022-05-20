@@ -7,20 +7,13 @@ import 'package:flutter_audio_waveforms/src/waveforms/polygon_waveform/polygon_w
 class PolygonInActiveWaveformPainter extends InActiveWaveformPainter {
   // ignore: public_member_api_docs
   PolygonInActiveWaveformPainter({
-    Color color = Colors.white,
-    Gradient? gradient,
-    required List<double> samples,
-    required WaveformAlignment waveformAlignment,
-    required PaintingStyle style,
-    required double sampleWidth,
-  }) : super(
-          samples: samples,
-          color: color,
-          gradient: gradient,
-          waveformAlignment: waveformAlignment,
-          sampleWidth: sampleWidth,
-          style: style,
-        );
+    super.color = Colors.white,
+    super.gradient,
+    required super.samples,
+    required super.waveformAlignment,
+    required super.style,
+    required super.sampleWidth,
+  });
 
   /// Style of the waveform
 

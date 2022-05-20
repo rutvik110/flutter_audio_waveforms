@@ -1,28 +1,19 @@
-import 'dart:developer';
-
 import 'package:flutter/material.dart';
-import 'package:flutter_audio_waveforms/src/util/waveform_alignment.dart';
 import 'package:flutter_audio_waveforms/src/core/waveform_painters_ab.dart';
+import 'package:flutter_audio_waveforms/src/util/waveform_alignment.dart';
 import 'package:flutter_audio_waveforms/src/waveforms/polygon_waveform/polygon_waveform.dart';
 
 ///ActiveWaveformPainter for the [PolygonWaveform]
 class PolygonActiveWaveformPainter extends ActiveWaveformPainter {
   // ignore: public_member_api_docs
   PolygonActiveWaveformPainter({
-    required Color color,
-    Gradient? gradient,
-    required List<double> activeSamples,
-    required WaveformAlignment waveformAlignment,
-    required PaintingStyle style,
-    required double sampleWidth,
-  }) : super(
-          color: color,
-          gradient: gradient,
-          activeSamples: activeSamples,
-          waveformAlignment: waveformAlignment,
-          sampleWidth: sampleWidth,
-          style: style,
-        );
+    required super.color,
+    super.gradient,
+    required super.activeSamples,
+    required super.waveformAlignment,
+    required super.style,
+    required super.sampleWidth,
+  });
 
   @override
   void paint(Canvas canvas, Size size) {
