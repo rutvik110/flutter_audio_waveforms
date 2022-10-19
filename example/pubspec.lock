@@ -96,7 +96,7 @@ packages:
       path: "/Users/rutviktak/flutter_projects/flutter_plugins/flutter_audio_waveforms/"
       relative: false
     source: path
-    version: "1.2.1+6"
+    version: "1.2.1+7"
   flutter_lints:
     dependency: "direct dev"
     description:

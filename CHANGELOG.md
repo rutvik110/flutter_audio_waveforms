@@ -1,3 +1,6 @@
+## 1.2.1+7
+
+* Documentation update.
 ## 1.2.1+6
 
 * Migration to Flutter 3.0
