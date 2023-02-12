@@ -21,6 +21,7 @@ import 'package:flutter_audio_waveforms/src/waveforms/curved_polygon_waveform/ac
 class CurvedPolygonWaveform extends AudioWaveform {
   // ignore: public_member_api_docs
   CurvedPolygonWaveform({
+    super.key,
     required super.samples,
     required super.height,
     required super.width,
