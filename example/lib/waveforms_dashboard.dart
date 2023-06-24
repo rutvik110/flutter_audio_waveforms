@@ -3,7 +3,7 @@
 import 'dart:math';
 
 import 'package:audioplayers/audioplayers.dart';
-import 'package:example/load_audio_data.dart';
+import 'load_audio_data.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
