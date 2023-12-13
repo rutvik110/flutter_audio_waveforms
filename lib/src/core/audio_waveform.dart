@@ -44,20 +44,6 @@ abstract class AudioWaveform extends StatefulWidget {
           ),
           'Both maxDuration and elapsedDuration must be provided.',
         ),
-        assert(
-          maxDuration == null ? true : maxDuration.inMilliseconds > 0,
-          'maxDuration must be greater than 0',
-        ),
-        assert(
-          elapsedDuration == null ? true : elapsedDuration.inMilliseconds >= 0,
-          'maxDuration must be greater than 0',
-        ),
-        assert(
-          elapsedDuration == null || maxDuration == null
-              ? true
-              : elapsedDuration.inMilliseconds <= maxDuration.inMilliseconds,
-          'elapsedDuration must be less than or equal to maxDuration',
-        ),
         waveformAlignment = absolute
             ? invert
                 ? WaveformAlignment.top
