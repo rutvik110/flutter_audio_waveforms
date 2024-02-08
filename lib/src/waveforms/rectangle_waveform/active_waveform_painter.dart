@@ -100,6 +100,7 @@ class RectangleActiveWaveformPainter extends ActiveWaveformPainter {
     WaveformAlignment waveformAlignment,
     bool isCentered,
   ) {
+    final radius = Radius.circular(sampleWidth);
     for (var i = 0; i < activeSamples.length; i++) {
       if (i.isEven) {
         final x = sampleWidth * i;
@@ -114,21 +115,22 @@ class RectangleActiveWaveformPainter extends ActiveWaveformPainter {
             : !isCentered
                 ? alignPosition
                 : alignPosition - y / 2;
+        final rectangle = Rect.fromLTWH(x, positionFromTop, sampleWidth, y);
 
         //Draws the filled rectangles of the waveform.
         canvas
           ..drawRRect(
             RRect.fromRectAndRadius(
-              Rect.fromLTWH(x, positionFromTop, sampleWidth, y),
-              Radius.circular(x),
+              rectangle,
+              radius,
             ),
             paint,
           )
           //Draws the border for the rectangles of the waveform.
           ..drawRRect(
             RRect.fromRectAndRadius(
-              Rect.fromLTWH(x, positionFromTop, sampleWidth, y),
-              Radius.circular(x),
+              rectangle,
+              radius,
             ),
             borderPaint,
           );
